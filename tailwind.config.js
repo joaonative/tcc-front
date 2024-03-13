@@ -6,6 +6,8 @@ export default {
     extend: {
       backgroundImage: {
         line: "url('/image.png')",
+        ilustration: "url('/ilustration.svg')",
+        ilustrationLight: "url('ilustrationLight.svg')",
         showcase: "url('/showcase.png')",
         showcaseLigt: "url('/showcaseLight.png')",
         showcaseMobile: "url('/showcaseMobile.jpg')",

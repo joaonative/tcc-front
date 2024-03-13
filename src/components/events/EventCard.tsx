@@ -44,11 +44,11 @@ const EventCard = ({
         </a>
         <span className="flex items-center gap-3">
           <CalendarClock size={24} className="text-purple dark:text-green" />
-          <h4 className="text-base">{date}</h4>
+          <h4 className="text-base dark:text-white font-prompt">{date}</h4>
         </span>
         <span className="flex items-center gap-3">
           <Users size={24} className="text-purple dark:text-green" />
-          <h4 className="text-base">
+          <h4 className="text-base dark:text-white font-prompt">
             {participantCount}/{participantLimit}
           </h4>
         </span>

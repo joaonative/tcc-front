@@ -37,9 +37,9 @@ const EventSingle = ({ id }: { id: string }) => {
         <LoadingSingleEvent />
       ) : (
         event && (
-          <div className="flex flex-col gap-4 dark:text-white md:px-32">
-            <div className="bg-lightGray dark:bg-dark rounded-2xl flex flex-col p-5 lg:p-6 gap-2">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-6">
+          <div className="flex flex-col gap-4 dark:text-white">
+            <div className="bg-lightGray dark:bg-dark rounded-2xl flex flex-col p-5 lg:p-8 gap-2">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8">
                 <div className="flex flex-col gap-2 w-full lg:w-1/2">
                   <span className="w-full flex items-center gap-2">
                     <Bookmark
