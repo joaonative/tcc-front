@@ -13,6 +13,7 @@ import {
 import { getSingleEvent } from "../../api/events";
 import Event from "../../interfaces/event";
 import LoadingSingleEvent from "./LoadingSingleEvent";
+import Button from "../Button";
 
 const EventSingle = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -110,15 +111,10 @@ const EventSingle = ({ id }: { id: string }) => {
               <div className="scrollbar scrollbar-thumb-purple dark:scrollbar-thumb-green scrollbar-track-white dark:scrollbar-track-gray  w-full flex gap-32 overflow-x-scroll"></div>
             </div>
             <div className="flex items-center justify-end gap-2">
-              <a
-                href="/Eventos"
-                className="px-3 py-1 text-white dark:text-black bg-purple dark:bg-green text-base font-poppins font-medium uppercase rounded-lg"
-              >
-                Voltar
-              </a>
-              <button className="px-3 py-1 text-white dark:text-black bg-purple dark:bg-green text-base font-poppins font-medium uppercase rounded-lg">
-                Participar
-              </button>
+              <Button variant="outline">
+                <a href="/eventos">Voltar</a>
+              </Button>
+              <Button variant="primary">Participar</Button>
             </div>
           </div>
         )

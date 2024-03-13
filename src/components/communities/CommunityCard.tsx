@@ -1,5 +1,6 @@
 import Community from "../../interfaces/community";
 import { Users, Info } from "lucide-react";
+import Button from "../Button";
 
 const CommunityCard = ({
   id,
@@ -33,12 +34,9 @@ const CommunityCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <a
-          href={`/Eventos/${id}`}
-          className="rounded-lg px-3 py-1 font-poppins font-medium uppercase text-base bg-purple dark:bg-green dark:text-black text-white"
-        >
-          Ver Mais
-        </a>
+        <Button variant="primary">
+          <a href={`/comunidade/${id}`}>Ver mais</a>
+        </Button>
         <span className="flex items-center gap-3">
           <Info size={24} className="text-purple dark:text-green" />
           <h4 className="text-base">{age}</h4>

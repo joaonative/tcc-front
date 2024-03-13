@@ -1,6 +1,7 @@
 import { CalendarClock, Users } from "lucide-react";
 
 import Event from "../../interfaces/event";
+import Button from "../Button";
 
 const EventCard = ({
   id,
@@ -36,12 +37,9 @@ const EventCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <a
-          href={`/evento/${id}`}
-          className="rounded-lg px-3 py-1 font-poppins font-medium uppercase text-base bg-purple dark:bg-green dark:text-black text-white"
-        >
-          Ver Mais
-        </a>
+        <Button variant="primary">
+          <a href={`/evento/${id}`}>Ver mais</a>
+        </Button>
         <span className="flex items-center gap-3">
           <CalendarClock size={24} className="text-purple dark:text-green" />
           <h4 className="text-base dark:text-white font-prompt">{date}</h4>
