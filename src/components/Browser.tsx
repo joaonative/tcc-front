@@ -4,26 +4,21 @@ import EventCard from "./events/EventCard";
 
 const Browser = () => {
   return (
-    <div className="lg:flex flex-col gap-5 lg:gap-3 bg-lightGray dark:bg-dark p-3 rounded-xl select-none pointer-events-none">
+    <div className="lg:flex flex-col gap-5 lg:gap-3 border-4 border-lightGray dark:border-dark bg-white dark:bg-darkBg p-2 lg:p-3 rounded-xl select-none pointer-events-none">
       <div className="flex justify-between items-center">
-        <div className="flex justify-center gap-[2px] lg:gap-2 w-8 lg:w-16">
+        <div className="flex justify-center gap-[4px] lg:gap-2 w-8 lg:w-16">
           {/* Browser Dots */}
-          <div className="rounded-full h-1 w-1 lg:w-3 lg:h-3 bg-[red]" />
-          <div className="rounded-full h-1 w-1 lg:w-3 lg:h-3 bg-[orange]" />
-          <div className="rounded-full h-1 w-1 lg:w-3 lg:h-3 bg-[green]" />
+          <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[red]" />
+          <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[orange]" />
+          <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[green]" />
         </div>
-        <div className="bg-white dark:bg-gray flex items-center gap-5 lg:gap-32 py-1 px-5 rounded-md">
+        <div className="bg-lightGray dark:bg-dark flex items-center gap-3 lg:gap-5 py-1 px-3 lg:px-12 rounded-md">
           {/* Secure Icon */}
           <LockIcon size={16} className="text-black/50 dark:text-white/50" />
           {/* Search Bar */}
           <h2 className="font-poppins text-sm text-black/50 dark:text-white/50">
-            iparque.com
+            iparque.com/eventos
           </h2>
-          {/* Reload Icon */}
-          <RefreshCcwIcon
-            size={16}
-            className="text-black/50 dark:text-white/50"
-          />
         </div>
         <div className="w-8 lg:w-16 flex justify-end">
           {/* Broser Icon */}
@@ -31,12 +26,10 @@ const Browser = () => {
         </div>
       </div>
       <div className="flex flex-col items-start mt-2 lg:mt-0 mb-4">
-        <div className="ml-4">
-          <h2 className="font-prompt text-xl lg:text-2xl dark:text-white">
-            Eventos Ativos
-          </h2>
-        </div>
-        <div className="flex flex-col lg:flex-row justify-center">
+        <h2 className="ml-2 py-2 font-prompt text-xl lg:text-2xl dark:text-white">
+          Eventos Ativos
+        </h2>
+        <div className="flex flex-col lg:flex-row justify-center gap-3">
           <EventCard
             id=""
             title="Batalha da Pista"

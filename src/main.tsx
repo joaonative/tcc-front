@@ -15,7 +15,7 @@ import { ThemeProvider } from "./contexts/ThemeContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <div className="lg:px-12 md:px-8 px-5 bg-line bg-fixed lg:bg-cover selection:bg-purple selection:text-white dark:selection:bg-green dark:selection:text-black pb-16 lg:pb-24">
+      <div className="lg:px-12 md:px-8 px-4 bg-line bg-fixed lg:bg-cover selection:bg-purple selection:text-white dark:selection:bg-green dark:selection:text-black pb-16 lg:pb-24">
         <Header />
         <main>
           <BrowserRouter>
