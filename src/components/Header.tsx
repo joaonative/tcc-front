@@ -1,5 +1,6 @@
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,25 +8,7 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem("theme");
-    return savedMode
-      ? savedMode === "dark"
-      : document.body.classList.contains("dark");
-  });
-
-  useEffect(() => {
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
-    if (darkMode) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
-    }
-  }, [darkMode]);
-
-  const handleTheme = () => {
-    setDarkMode(!darkMode);
-  };
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
     <>
@@ -50,7 +33,7 @@ const Header = () => {
           <div className="flex items-center gap-5">
             <button
               className="text-purple dark:text-green"
-              onClick={handleTheme}
+              onClick={toggleTheme}
             >
               {darkMode ? <Sun /> : <Moon />}
             </button>
