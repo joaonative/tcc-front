@@ -83,30 +83,30 @@ const EventSingle = ({ id }: { id: string }) => {
                         <h2>{event.age}</h2>
                       </span>
                       <span className="flex items-center gap-2">
-                        {(event.category === "Artes" && (
+                        {event.category === "Artes" && (
                           <PaintBucket
                             size={24}
                             className="text-purple dark:text-green"
                           />
-                        )) ||
-                          (event.category === "Festa" && (
-                            <PartyPopper
-                              size={24}
-                              className="text-purple dark:text-green"
-                            />
-                          )) ||
-                          (event.category === "Música" && (
-                            <Music2
-                              size={24}
-                              className="text-purple dark:text-green"
-                            />
-                          )) ||
-                          (event.category === "Natureza" && (
-                            <Leaf
-                              size={24}
-                              className="text-purple dark:text-green"
-                            />
-                          ))}
+                        )}
+                        {event.category === "Festa" && (
+                          <PartyPopper
+                            size={24}
+                            className="text-purple dark:text-green"
+                          />
+                        )}
+                        {event.category === "Música" && (
+                          <Music2
+                            size={24}
+                            className="text-purple dark:text-green"
+                          />
+                        )}
+                        {event.category === "Natureza" && (
+                          <Leaf
+                            size={24}
+                            className="text-purple dark:text-green"
+                          />
+                        )}
                         <h2>{event.category}</h2>
                       </span>
                     </div>

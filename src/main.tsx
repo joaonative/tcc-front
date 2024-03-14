@@ -15,23 +15,21 @@ import { ThemeProvider } from "./contexts/ThemeContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <div className="lg:px-12 md:px-8 px-4 bg-line bg-fixed lg:bg-cover selection:bg-purple selection:text-white dark:selection:bg-green dark:selection:text-black pb-16 lg:pb-24">
-        <BrowserRouter>
-          <Header />
-          <main>
-            <Routes>
-              <Route element={<App />} path="/" />
-              <Route element={<EventsPage />} path="/eventos" />
-              <Route element={<EventSinglePage />} path={`/evento/:id`} />
-              <Route element={<CommunitiesPage />} path="/comunidades" />
-              <Route element={<App />} path="/sobre" />
-              <Route element={<App />} path="/login" />
-              <Route element={<NotFound />} path="/*" />
-            </Routes>
-          </main>
-          <Footer />
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Header />
+        <main className="pb-16 lg:pb-24 lg:px-12 md:px-8 px-4">
+          <Routes>
+            <Route element={<App />} path="/" />
+            <Route element={<EventsPage />} path="/eventos" />
+            <Route element={<EventSinglePage />} path={`/evento/:id`} />
+            <Route element={<CommunitiesPage />} path="/comunidades" />
+            <Route element={<App />} path="/sobre" />
+            <Route element={<App />} path="/login" />
+            <Route element={<NotFound />} path="/*" />
+          </Routes>
+        </main>
+      </BrowserRouter>
+      <Footer />
     </ThemeProvider>
   </React.StrictMode>
 );

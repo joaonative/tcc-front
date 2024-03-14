@@ -6,15 +6,22 @@ const Browser = () => {
   return (
     <div className="lg:flex flex-col gap-5 lg:gap-3 border-4 border-lightGray dark:border-dark bg-white dark:bg-darkBg p-2 lg:p-3 rounded-xl select-none pointer-events-none">
       <div className="flex justify-between items-center">
-        <div className="flex justify-center gap-[4px] lg:gap-2 w-8 lg:w-16">
+        <span
+          className="flex justify-center gap-[4px] lg:gap-2 w-8 lg:w-16"
+          aria-label="ícones de abrir, minimizar e fechar, sugerindo botões de uma janela de programa de computador"
+        >
           {/* Browser Dots */}
           <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[red]" />
           <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[orange]" />
           <div className="rounded-full h-2 w-2 lg:w-3 lg:h-3 bg-[green]" />
-        </div>
+        </span>
         <div className="bg-lightGray dark:bg-dark flex items-center gap-3 lg:gap-5 py-1 px-3 lg:px-12 rounded-md">
           {/* Secure Icon */}
-          <LockIcon size={16} className="text-black dark:text-white/50" />
+          <LockIcon
+            size={16}
+            className="text-black dark:text-white/50"
+            aria-label="ícone de cadeado, sugerindo segurança"
+          />
           {/* Search Bar */}
           <h2 className="font-poppins text-sm text-black dark:text-white/50">
             iparque.com/eventos
@@ -22,7 +29,12 @@ const Browser = () => {
         </div>
         <div className="w-8 lg:w-16 flex justify-end">
           {/* Broser Icon */}
-          <PlusCircle size={16} className="text-black dark:text-white/50" />
+          <PlusCircle
+            size={16}
+            className="text-black dark:text-white/50"
+            aria-label="ícone de adicionar, sugerindo um botão para abrir uma nova página
+"
+          />
         </div>
       </div>
       <div className="flex flex-col items-start mt-2 lg:mt-0 mb-4">
@@ -37,7 +49,7 @@ const Browser = () => {
             date="13/03"
             category="Música"
             age="18"
-            imageUrl="https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2023/05/10/batalha-da-aldeia,-em-barueri-(sp)-e-uma-das-principais-do-brasil-foto_-danilo-tamashiro-1iextrft6o4s6.jpg"
+            imageUrl="eventExample1.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
             owner="iParque Administradores"
             participantCount={68}
@@ -51,7 +63,7 @@ const Browser = () => {
             date="14/03"
             category="Natureza"
             age="Livre"
-            imageUrl="https://jundiai.sp.gov.br/noticias/wp-content/uploads/sites/32/2019/02/parque-do-engordadouro_c_-2.jpg"
+            imageUrl="eventExample2.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Chácara Areal, Indaiatuba - SP"
             owner="iParque Administradores"
             participantCount={9}
@@ -65,7 +77,7 @@ const Browser = () => {
             date="17/03"
             category="Festa"
             age="18"
-            imageUrl="https://static.dw.com/image/16922429_605.jpg"
+            imageUrl="eventExample3.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
             owner="iParque"
             participantCount={15}

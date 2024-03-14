@@ -20,7 +20,7 @@ const Header = () => {
   const { darkMode, toggleTheme } = useTheme();
   return (
     <>
-      <header className="flex items-center justify-between py-5">
+      <header className="flex items-center justify-between py-5 lg:px-12 md:px-8 px-4">
         <div className="lg:w-52 ">
           <a href="/">
             <img src={"/logo.svg"} alt="iParque logo" width={36} height={36} />
@@ -85,7 +85,7 @@ const Header = () => {
         </div>
       </header>
       {isOpen && (
-        <ul className="w-full flex lg:hidden flex-col gap-2 pb-5 font-prompt text-2xl text-black dark:text-white">
+        <ul className="w-full flex lg:hidden flex-col gap-2 pb-5 font-prompt text-2xl text-black dark:text-white lg:px-12 md:px-8 px-4">
           <li>
             <a href="/eventos">Eventos</a>
           </li>

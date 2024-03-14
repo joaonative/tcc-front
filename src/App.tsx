@@ -18,17 +18,21 @@ export default function Home() {
             Descubra, Participe e Crie!
           </h1>
         </span>
-        <h4 className="text-base lg:text-center text-black dark:text-white font-poppins font-medium">
+        <h2 className="text-base lg:text-center text-black dark:text-white font-poppins font-medium">
           Com o iParque, você tem o poder de explorar eventos locais ou mesmo
           criar o seu próprio, tudo isso em um ambiente amigável e acolhedor.
-        </h4>
+        </h2>
         <div className="flex justify-center">
           <Browser />
         </div>
       </section>
       <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white">
-        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
-          <Calendar size={58} className="text-purple dark:text-green" />
+        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+          <Calendar
+            size={58}
+            className="text-purple dark:text-green"
+            aria-label="ícone de calendário, sugerindo eventos participativos"
+          />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Eventos
           </h2>
@@ -38,8 +42,12 @@ export default function Home() {
             personalizados. Celebre a vida ao ar livre conosco!
           </p>
         </div>
-        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
-          <Users size={58} className="text-purple dark:text-green" />
+        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+          <Users
+            size={58}
+            className="text-purple dark:text-green"
+            aria-label="ícone de duas pessoas, sugerindo comunidade"
+          />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Comunidades
           </h2>
@@ -49,8 +57,12 @@ export default function Home() {
             compartilhe suas paixões conosco!
           </p>
         </div>
-        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
-          <Lock size={58} className="text-purple dark:text-green" />
+        <div className="flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+          <Lock
+            size={58}
+            className="text-purple dark:text-green"
+            aria-label="ícone de cadeado, sugerindo segurança"
+          />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Segurança e Privacidade
           </h2>
