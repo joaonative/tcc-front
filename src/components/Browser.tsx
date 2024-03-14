@@ -1,4 +1,4 @@
-import { LockIcon, PlusCircle, RefreshCcwIcon } from "lucide-react";
+import { LockIcon, PlusCircle } from "lucide-react";
 
 import EventCard from "./events/EventCard";
 
@@ -14,15 +14,15 @@ const Browser = () => {
         </div>
         <div className="bg-lightGray dark:bg-dark flex items-center gap-3 lg:gap-5 py-1 px-3 lg:px-12 rounded-md">
           {/* Secure Icon */}
-          <LockIcon size={16} className="text-black/50 dark:text-white/50" />
+          <LockIcon size={16} className="text-black dark:text-white/50" />
           {/* Search Bar */}
-          <h2 className="font-poppins text-sm text-black/50 dark:text-white/50">
+          <h2 className="font-poppins text-sm text-black dark:text-white/50">
             iparque.com/eventos
           </h2>
         </div>
         <div className="w-8 lg:w-16 flex justify-end">
           {/* Broser Icon */}
-          <PlusCircle size={16} className="text-black/50 dark:text-white/50" />
+          <PlusCircle size={16} className="text-black dark:text-white/50" />
         </div>
       </div>
       <div className="flex flex-col items-start mt-2 lg:mt-0 mb-4">

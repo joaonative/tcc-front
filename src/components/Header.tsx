@@ -1,5 +1,6 @@
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "../contexts/ThemeContext";
 import Button from "./Button";
@@ -8,6 +9,12 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const navigate = useNavigate();
+
+  const handleClick = (path: string) => () => {
+    navigate(`/${path}`);
   };
 
   const { darkMode, toggleTheme } = useTheme();
@@ -41,6 +48,9 @@ const Header = () => {
             <button
               className="text-purple dark:text-green"
               onClick={toggleTheme}
+              aria-label={`Alterar tema para modo ${
+                darkMode ? "claro" : "escuro"
+              }`}
             >
               {darkMode ? <Sun /> : <Moon />}
             </button>
@@ -54,13 +64,20 @@ const Header = () => {
             </a>
             */}
 
-            <Button variant="primary" classes="hidden lg:block">
-              <a href="/entre">Iniciar Sessão</a>
+            <Button
+              variant="primary"
+              classes="hidden lg:block"
+              onClick={handleClick("entre")}
+            >
+              Iniciar Sessão
             </Button>
 
             <button
               className="lg:hidden text-purple dark:text-green"
               onClick={handleMenu}
+              aria-label={`Alterar estado do menu para modo ${
+                isOpen ? "fechado" : "aberto"
+              }`}
             >
               {isOpen ? <X /> : <Menu />}
             </button>

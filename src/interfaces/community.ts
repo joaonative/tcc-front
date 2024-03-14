@@ -1,3 +1,5 @@
+import { Categories } from "./categories";
+
 export default interface Community {
   id: string;
   title: string;
@@ -6,7 +8,7 @@ export default interface Community {
   participantCount: number;
   imageUrl: string;
   owner: string;
-  category: "Música" | "Festa" | "Natureza" | "Artes" | "";
+  category: Categories;
   age: string;
   location: string;
 }

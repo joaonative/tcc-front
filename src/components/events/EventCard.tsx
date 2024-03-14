@@ -2,6 +2,7 @@ import { CalendarClock, Users } from "lucide-react";
 
 import Event from "../../interfaces/event";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({
   id,
@@ -17,6 +18,22 @@ const EventCard = ({
   location,
   time,
 }: Event) => {
+  const navigate = useNavigate();
+
+  const handleClick = (path: string) => () => {
+    navigate(`/${path}`);
+  };
+
+  console.log(
+    participantCount,
+    participantLimit,
+    owner,
+    location,
+    Users,
+    category,
+    age,
+    time
+  );
   return (
     <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark">
       <img
@@ -37,18 +54,22 @@ const EventCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button variant="primary">
-          <a href={`/evento/${id}`}>Ver mais</a>
+        <Button
+          variant="primary"
+          classes="hidden lg:block"
+          onClick={handleClick(`evento/${id}`)}
+        >
+          Ver Mais
         </Button>
         <span className="flex items-center gap-3">
           <CalendarClock size={24} className="text-purple dark:text-green" />
-          <h4 className="text-base dark:text-white font-prompt">{date}</h4>
+          <h3 className="text-base dark:text-white font-prompt">{date}</h3>
         </span>
         <span className="flex items-center gap-3">
           <Users size={24} className="text-purple dark:text-green" />
-          <h4 className="text-base dark:text-white font-prompt">
+          <h3 className="text-base dark:text-white font-prompt">
             {participantCount}/{participantLimit}
-          </h4>
+          </h3>
         </span>
       </div>
     </div>

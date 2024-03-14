@@ -8,9 +8,7 @@ export default function Home() {
     <>
       <section className="flex flex-col gap-5">
         <div className="flex justify-center">
-          <Button variant="primary">
-            <a href="/">Bem vindo ao iParque</a>
-          </Button>
+          <Button variant="primary">Bem vindo ao iParque</Button>
         </div>
         <span className="font-prompt text-5xl lg:text-6xl lg:space-y-4 lg:text-center">
           <h1 className="text-black dark:text-white">

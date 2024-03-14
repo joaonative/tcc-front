@@ -1,6 +1,14 @@
 import Community from "../../interfaces/community";
-import { Users, Info } from "lucide-react";
+import {
+  Users,
+  Info,
+  PaintBucket,
+  PartyPopper,
+  Music2,
+  Leaf,
+} from "lucide-react";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 const CommunityCard = ({
   id,
@@ -14,6 +22,13 @@ const CommunityCard = ({
   age,
   location,
 }: Community) => {
+  const navigate = useNavigate();
+
+  const handleClick = (path: string) => () => {
+    navigate(`/${path}`);
+  };
+
+  console.log(participantCount, participantLimit, owner, location, Users);
   return (
     <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark">
       <img
@@ -34,15 +49,31 @@ const CommunityCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button variant="primary">
-          <a href={`/comunidade/${id}`}>Ver mais</a>
+        <Button
+          variant="primary"
+          classes="hidden lg:block"
+          onClick={handleClick(`comunidade/${id}`)}
+        >
+          Ver Mais
         </Button>
         <span className="flex items-center gap-3">
           <Info size={24} className="text-purple dark:text-green" />
           <h4 className="text-base">{age}</h4>
         </span>
         <span className="flex items-center gap-3">
-          <Users size={24} className="text-purple dark:text-green" />
+          {(category === "Artes" && (
+            <PaintBucket size={24} className="text-purple dark:text-green" />
+          )) ||
+            (category === "Festa" && (
+              <PartyPopper size={24} className="text-purple dark:text-green" />
+            )) ||
+            (category === "Música" && (
+              <Music2 size={24} className="text-purple dark:text-green" />
+            )) ||
+            (category === "Natureza" && (
+              <Leaf size={24} className="text-purple dark:text-green" />
+            ))}
+
           <h4 className="text-base">{category}</h4>
         </span>
       </div>

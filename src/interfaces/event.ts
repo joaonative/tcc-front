@@ -1,3 +1,5 @@
+import { Categories } from "./categories";
+
 export default interface Event {
   id: string;
   title: string;
@@ -7,7 +9,7 @@ export default interface Event {
   participantCount: number;
   imageUrl: string;
   owner: string;
-  category: "Música" | "Festa" | "Natureza" | "Artes" | "";
+  category: Categories;
   age: string;
   location: string;
   time: string;

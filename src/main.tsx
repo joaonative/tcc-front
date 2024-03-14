@@ -16,9 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
       <div className="lg:px-12 md:px-8 px-4 bg-line bg-fixed lg:bg-cover selection:bg-purple selection:text-white dark:selection:bg-green dark:selection:text-black pb-16 lg:pb-24">
-        <Header />
-        <main>
-          <BrowserRouter>
+        <BrowserRouter>
+          <Header />
+          <main>
             <Routes>
               <Route element={<App />} path="/" />
               <Route element={<EventsPage />} path="/eventos" />
@@ -28,10 +28,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route element={<App />} path="/login" />
               <Route element={<NotFound />} path="/*" />
             </Routes>
-          </BrowserRouter>
-        </main>
+          </main>
+          <Footer />
+        </BrowserRouter>
       </div>
-      <Footer />
     </ThemeProvider>
   </React.StrictMode>
 );

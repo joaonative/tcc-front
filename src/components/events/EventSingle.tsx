@@ -6,7 +6,11 @@ import {
   CalendarClock,
   Crown,
   Info,
+  Leaf,
   MapPin,
+  Music2,
+  PaintBucket,
+  PartyPopper,
   Users,
 } from "lucide-react";
 
@@ -14,10 +18,16 @@ import { getSingleEvent } from "../../api/events";
 import Event from "../../interfaces/event";
 import LoadingSingleEvent from "./LoadingSingleEvent";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
 
 const EventSingle = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [event, setEvent] = useState<Event>();
+
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate("/eventos");
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -73,10 +83,30 @@ const EventSingle = ({ id }: { id: string }) => {
                         <h2>{event.age}</h2>
                       </span>
                       <span className="flex items-center gap-2">
-                        <Crown
-                          size={24}
-                          className="text-purple dark:text-green"
-                        />
+                        {(event.category === "Artes" && (
+                          <PaintBucket
+                            size={24}
+                            className="text-purple dark:text-green"
+                          />
+                        )) ||
+                          (event.category === "Festa" && (
+                            <PartyPopper
+                              size={24}
+                              className="text-purple dark:text-green"
+                            />
+                          )) ||
+                          (event.category === "Música" && (
+                            <Music2
+                              size={24}
+                              className="text-purple dark:text-green"
+                            />
+                          )) ||
+                          (event.category === "Natureza" && (
+                            <Leaf
+                              size={24}
+                              className="text-purple dark:text-green"
+                            />
+                          ))}
                         <h2>{event.category}</h2>
                       </span>
                     </div>
@@ -111,8 +141,8 @@ const EventSingle = ({ id }: { id: string }) => {
               <div className="scrollbar scrollbar-thumb-purple dark:scrollbar-thumb-green scrollbar-track-white dark:scrollbar-track-gray  w-full flex gap-32 overflow-x-scroll"></div>
             </div>
             <div className="flex items-center justify-end gap-2">
-              <Button variant="outline">
-                <a href="/eventos">Voltar</a>
+              <Button variant="outline" onClick={handleBack}>
+                Voltar
               </Button>
               <Button variant="primary">Participar</Button>
             </div>
