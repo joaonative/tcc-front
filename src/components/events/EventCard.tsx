@@ -22,11 +22,12 @@ const EventCard = ({
   return (
     <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark">
       <img
+        crossOrigin="anonymous"
         src={imageUrl}
         alt={`Foto do evento: ${title}`}
         width={400}
         height={222}
-        className="object-cover w-full rounded-2xl"
+        className="object-cover w-full h-[222px] rounded-2xl"
         loading="lazy"
       />
       <div className="flex flex-col gap-0">
@@ -40,11 +41,7 @@ const EventCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button
-          variant="primary"
-          classes="hidden lg:block"
-          onClick={handleClick(`evento/${id}`)}
-        >
+        <Button variant="primary" onClick={handleClick(`evento/${id}`)}>
           Ver Mais
         </Button>
         <span className="flex items-center gap-3">

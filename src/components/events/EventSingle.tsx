@@ -60,6 +60,7 @@ const EventSingle = ({ id }: { id: string }) => {
                     <h1 className="text-base font-prompt">{event.title}</h1>
                   </span>
                   <img
+                    crossOrigin="anonymous"
                     src={event.imageUrl}
                     alt={`Foto do evento: ${event.title}`}
                     width={1024}
@@ -118,6 +119,7 @@ const EventSingle = ({ id }: { id: string }) => {
                     <h2 className="w-full">{event.location}</h2>
                   </span>
                   <iframe
+                    title={`localização do evento ${event.title} em ${event.location}`}
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14679.942943620432!2d-47.2478068128418!3d-23.097617999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8b34b7fce5ac3%3A0x34bb4bcb22fc5f49!2sFIEC%20-%20Funda%C3%A7%C3%A3o%20Indaiatubana%20de%20Educa%C3%A7%C3%A3o%20e%20Cultura!5e0!3m2!1spt-BR!2sbr!4v1710267006435!5m2!1spt-BR!2sbr"
                     className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
                   />
@@ -127,7 +129,7 @@ const EventSingle = ({ id }: { id: string }) => {
                   </span>
                 </div>
               </div>
-              <blockquote className="text-base font-poppins font-medium text-black/50 dark:text-white/50">
+              <blockquote className="text-base font-poppins font-medium text-black/80 dark:text-white/80">
                 {event.description}
               </blockquote>
             </div>
