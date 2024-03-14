@@ -9,8 +9,8 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: "src/robots.tsx",
-          dest: "/dist",
+          src: "src/robots.txt",
+          dest: "",
         },
       ],
     }),
