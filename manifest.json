@@ -12,9 +12,14 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "/",
-  "display": "fullscreen",
+  "start_url": "/eventos",
+  "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#9A35FF",
-  "prefer_related_applications": true
+  "theme_color": "#121212",
+  "prefer_related_applications": true,
+  "splash_screen": {
+    "full_screen": true,
+    "hide_during_page_load": false,
+    "src": "/splash-screen.png"
+  }
 }
