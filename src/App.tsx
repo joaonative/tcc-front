@@ -1,5 +1,6 @@
 import { Lock, Calendar, Users } from "lucide-react";
 
+import { ariaLabel } from "./constants/accessibility";
 import Browser from "./components/Browser";
 import Button from "./components/Button";
 import Pwa from "./components/Pwa";
@@ -7,7 +8,7 @@ import Pwa from "./components/Pwa";
 export default function Home() {
   return (
     <>
-      <section className="flex flex-col gap-5">
+      <section className="flex flex-col gap-5 lg:mt-0 mt-24">
         <div className="flex justify-center">
           <div className="hidden lg:block">
             <Button variant="primary">Bem vindo ao iParque</Button>
@@ -30,12 +31,12 @@ export default function Home() {
           <Browser />
         </div>
       </section>
-      <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white">
+      <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
         <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
           <Calendar
             size={58}
             className="text-purple dark:text-green"
-            aria-label="ícone de calendário, sugerindo eventos participativos"
+            aria-label={ariaLabel.calendar}
           />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Eventos
@@ -50,7 +51,7 @@ export default function Home() {
           <Users
             size={58}
             className="text-purple dark:text-green"
-            aria-label="ícone de duas pessoas, sugerindo comunidade"
+            aria-label={ariaLabel.users}
           />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Comunidades
@@ -65,7 +66,7 @@ export default function Home() {
           <Lock
             size={58}
             className="text-purple dark:text-green"
-            aria-label="ícone de cadeado, sugerindo segurança"
+            aria-label={ariaLabel.lock}
           />
           <h2 className="font-prompt  text-xl lg:text-2xl text-purple dark:text-green">
             Segurança e Privacidade
