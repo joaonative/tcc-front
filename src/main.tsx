@@ -31,7 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <main className="pb-16 lg:pb-24 lg:px-12 md:px-8 px-4">
               <Routes>
                 <Route element={<App />} path="/" />
-                <Route
+                {/* 
+              <Route
                   element={
                     <SecureRoute redirectPath="/">
                       <EventsPage />
@@ -39,6 +40,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                   }
                   path="/eventos"
                 />
+              */}
+                <Route element={<EventsPage />} path="/eventos" />
                 <Route
                   element={
                     <SecureRoute redirectPath="/">
