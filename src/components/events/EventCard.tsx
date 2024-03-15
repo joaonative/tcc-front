@@ -45,11 +45,19 @@ const EventCard = ({
           Ver Mais
         </Button>
         <span className="flex items-center gap-3">
-          <CalendarClock size={24} className="text-purple dark:text-green" />
+          <CalendarClock
+            size={24}
+            className="text-purple dark:text-green"
+            aria-label="ícone de calendário com relógio, suregindo data"
+          />
           <h3 className="text-base dark:text-white font-prompt">{date}</h3>
         </span>
         <span className="flex items-center gap-3">
-          <Users size={24} className="text-purple dark:text-green" />
+          <Users
+            size={24}
+            className="text-purple dark:text-green"
+            aria-label="ícone de duas pessoas, sugerindo participantes do evento"
+          />
           <h3 className="text-base dark:text-white font-prompt">
             {participantCount}/{participantLimit}
           </h3>

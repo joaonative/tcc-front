@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "../contexts/ThemeContext";
 import Button from "./Button";
+import { useAuth } from "../contexts/AuthContext";
 
 const Header = () => {
+  const { isLoggedIn, userData } = useAuth();
+
   const [isOpen, setIsOpen] = useState(false);
   const handleMenu = () => {
     setIsOpen(!isOpen);
@@ -54,24 +57,23 @@ const Header = () => {
             >
               {darkMode ? <Sun /> : <Moon />}
             </button>
-
-            {/* 
-            <a
-              href="/entre"
-              className="hidden lg:block text-base font-poppins font-medium uppercase px-3 py-1 rounded-lg bg-purple dark:bg-green text-white dark:text-black"
-            >
-              Iniciar Sessão
-            </a>
-            */}
-
-            <Button
-              variant="primary"
-              classes="hidden lg:block"
-              onClick={handleClick("entre")}
-            >
-              Iniciar Sessão
-            </Button>
-
+            {isLoggedIn ? (
+              <a href="/perfil" className="h-9 w-9">
+                <img
+                  src={userData?.picture}
+                  alt={`Foto do usuário: ${userData?.given_name}`}
+                  className="object-cover border-2 border-purple dark:border-green rounded-full"
+                />
+              </a>
+            ) : (
+              <Button
+                variant="primary"
+                classes="hidden lg:block"
+                onClick={handleClick("entre")}
+              >
+                Iniciar Sessão
+              </Button>
+            )}
             <button
               className="lg:hidden text-purple dark:text-green"
               onClick={handleMenu}
@@ -95,9 +97,11 @@ const Header = () => {
           <li>
             <a href="/sobre">Sobre</a>
           </li>
-          <li>
-            <a href="/entre">Iniciar Sessão</a>
-          </li>
+          {!isLoggedIn && (
+            <li>
+              <a href="/entre">Iniciar Sessão</a>
+            </li>
+          )}
         </ul>
       )}
     </>

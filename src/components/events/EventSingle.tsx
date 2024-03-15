@@ -56,6 +56,7 @@ const EventSingle = ({ id }: { id: string }) => {
                     <Bookmark
                       size={24}
                       className="text-purple dark:text-green"
+                      aria-label="ícone de marca páginas, suregindo título do evento"
                     />
                     <h1 className="text-base font-prompt">{event.title}</h1>
                   </span>
@@ -72,6 +73,7 @@ const EventSingle = ({ id }: { id: string }) => {
                       <Crown
                         size={24}
                         className="text-purple dark:text-green"
+                        aria-label="ícone de coroa, sugerindo quem é o proprietário do evento"
                       />
                       <h2>{event.owner}</h2>
                     </span>
@@ -80,6 +82,7 @@ const EventSingle = ({ id }: { id: string }) => {
                         <Info
                           size={24}
                           className="text-purple dark:text-green"
+                          aria-label="ícone de informação, suregindo a faixa etária"
                         />
                         <h2>{event.age}</h2>
                       </span>
@@ -115,7 +118,10 @@ const EventSingle = ({ id }: { id: string }) => {
                 </div>
                 <div className="lg:w-1/2 w-full flex flex-col gap-2 font-prompt">
                   <span className="flex items-center gap-2">
-                    <MapPin className="text-purple dark:text-green" />
+                    <MapPin
+                      className="text-purple dark:text-green"
+                      aria-label="ícone de pino, suregindo localização"
+                    />
                     <h2 className="w-full">{event.location}</h2>
                   </span>
                   <iframe
@@ -124,7 +130,10 @@ const EventSingle = ({ id }: { id: string }) => {
                     className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
                   />
                   <span className="flex items-center gap-2 justify-start lg:h-20">
-                    <CalendarClock className="text-purple dark:text-green" />
+                    <CalendarClock
+                      className="text-purple dark:text-green"
+                      aria-label="ícone de calendário com relógio, sugerindo data do evento"
+                    />
                     <h2 className="w-full">{event.time}</h2>
                   </span>
                 </div>
@@ -135,7 +144,10 @@ const EventSingle = ({ id }: { id: string }) => {
             </div>
             <div className="flex flex-col p-6 gap-2 bg-lightGray dark:bg-dark rounded-2xl">
               <span className="flex gap-2 items-center font-prompt text-base">
-                <Users className="text-purple dark:text-green" />{" "}
+                <Users
+                  className="text-purple dark:text-green"
+                  aria-label="ícone de duas pessoas, suregindo participantes do evento"
+                />{" "}
                 <h1>
                   {event.participantCount}/{event.participantLimit}
                 </h1>
