@@ -1,7 +1,9 @@
-import Community from "../../interfaces/community";
-import { Info, PaintBucket, PartyPopper, Music2, Leaf } from "lucide-react";
-import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import { Info, PaintBucket, PartyPopper, Music2, Leaf } from "lucide-react";
+
+import { ariaLabel } from "../../constants/accessibility";
+import Community from "../../interfaces/community";
+import Button from "../Button";
 
 const CommunityCard = ({
   id,
@@ -44,7 +46,11 @@ const CommunityCard = ({
           Ver Mais
         </Button>
         <span className="flex items-center gap-3">
-          <Info size={24} className="text-purple dark:text-green" />
+          <Info
+            size={24}
+            className="text-purple dark:text-green"
+            aria-label={ariaLabel.info}
+          />
           <h4 className="text-base">{age}</h4>
         </span>
         <span className="flex items-center gap-3">
