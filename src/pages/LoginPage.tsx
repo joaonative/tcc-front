@@ -10,11 +10,12 @@ const LoginPage = () => {
       <Section title="">
         <div className="w-full h-full flex justify-center">
           <div className="flex flex-col justify-center">
-            <div className="flex flex-col">
-              <h1 className="text-5xl font-prompt text-purple dark:text-green">
+            <div className="flex flex-col gap-5">
+              <h1 className="text-4xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
                 Bem-vindo de volta!
               </h1>
               <Button
+                full
                 variant="google"
                 onClick={() => {
                   login();
@@ -24,13 +25,13 @@ const LoginPage = () => {
                 Continue com o google
               </Button>
               <Button
-                variant="google"
+                full
+                variant="outline"
                 onClick={() => {
                   logout();
                 }}
               >
-                <img src="google.svg" width={24} height={24}></img>
-                Continue com o google
+                Sair
               </Button>
             </div>
           </div>

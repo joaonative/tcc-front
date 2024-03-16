@@ -5,25 +5,26 @@ interface Props {
   children: ReactNode;
   onClick?: () => void;
   classes?: string;
+  full?: boolean;
 }
 
-const Button = ({ variant, children, onClick, classes }: Props) => {
+const Button = ({ variant, children, onClick, classes, full }: Props) => {
   const [className, setClassName] = useState("");
 
   useEffect(() => {
     switch (variant) {
       case "primary":
         setClassName(
-          "w-max text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-3 py-1 border lg:border-2 "
+          "text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-3 py-1 border lg:border-2 "
         );
         break;
       case "outline":
         setClassName(
-          "w-max text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-3 py-1 border lg:border-2 "
+          "text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-3 py-1 border lg:border-2 "
         );
         break;
       case "danger":
-        setClassName("w-max px-3 py-1 border lg:border-2 ");
+        setClassName("px-3 py-1 border lg:border-2 ");
         break;
       case "google":
         setClassName(
@@ -41,7 +42,9 @@ const Button = ({ variant, children, onClick, classes }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`text-base font-poppins font-medium uppercase rounded-lg transition-colors duration-100 ${className} ${classes}`}
+      className={`${
+        full ? "w-full" : "w-max"
+      } text-base font-poppins font-medium uppercase rounded-lg transition-colors duration-100 ${className} ${classes}`}
     >
       {children}
     </button>
