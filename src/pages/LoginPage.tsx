@@ -3,7 +3,7 @@ import Section from "../components/Section";
 import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
-  const { login, isLoggedIn, logout, userData } = useAuth();
+  const { login, logout } = useAuth();
 
   return (
     <>
@@ -18,6 +18,15 @@ const LoginPage = () => {
                 variant="google"
                 onClick={() => {
                   login();
+                }}
+              >
+                <img src="google.svg" width={24} height={24}></img>
+                Continue com o google
+              </Button>
+              <Button
+                variant="google"
+                onClick={() => {
+                  logout();
                 }}
               >
                 <img src="google.svg" width={24} height={24}></img>
