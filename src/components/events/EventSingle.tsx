@@ -11,7 +11,6 @@ import {
   Music2,
   PaintBucket,
   PartyPopper,
-  Users,
 } from "lucide-react";
 
 import { ariaLabel } from "../../constants/accessibility";
@@ -20,6 +19,7 @@ import Event from "../../interfaces/event";
 import LoadingSingleEvent from "./LoadingSingleEvent";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import UsersList from "../UsersList";
 
 const EventSingle = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -128,18 +128,28 @@ const EventSingle = ({ id }: { id: string }) => {
               </blockquote>
             </div>
 
-            <div className="flex flex-col p-6 gap-2 bg-lightGray dark:bg-dark rounded-2xl">
-              <span className="flex gap-2 items-center font-prompt text-base">
-                <Users
-                  className="text-purple dark:text-green"
-                  aria-label={ariaLabel.users}
-                />
-                <h1>
-                  {event.participantCount}/{event.participantLimit}
-                </h1>
-              </span>
-              <div className="scrollbar scrollbar-thumb-purple dark:scrollbar-thumb-green scrollbar-track-white dark:scrollbar-track-gray  w-full flex gap-32 overflow-x-scroll"></div>
-            </div>
+            <UsersList
+              count={event.participantCount}
+              limit={event.participantLimit}
+              usersImagesUrls={[
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+                "https://lh3.googleusercontent.com/a/AAcHTtdZwSCiaZ3QlmZmLx3RQT87IKuvMxihrZzWCYwNEnTueg=s192-c-mo",
+              ]}
+            />
+
             <div className="flex items-center justify-end gap-2">
               <Button variant="outline" onClick={handleBack}>
                 Voltar

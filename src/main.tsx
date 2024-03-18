@@ -17,6 +17,7 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 import SecureRoute from "./SecureRoute.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import CommunitySinglePage from "./pages/CommunitySinglePage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider
@@ -55,6 +56,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     </SecureRoute>
                   }
                   path="/comunidades"
+                />
+                <Route
+                  element={
+                    <SecureRoute>
+                      <CommunitySinglePage />
+                    </SecureRoute>
+                  }
+                  path="/comunidade/:id"
                 />
                 <Route
                   element={
