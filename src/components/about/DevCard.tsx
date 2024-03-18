@@ -10,7 +10,7 @@ interface Props {
 
 const DevCard = ({ name, work, gitHubLink, email, imgUrl }: Props) => {
   return (
-    <div className="rounded-2xl flex flex-col items-center py-5 px-2 gap-4 col-span-1 text-black dark:text-white bg-lightGray dark:bg-dark">
+    <div className="rounded-2xl flex flex-col items-center p-5 gap-4 col-span-1 text-black dark:text-white bg-lightGray dark:bg-dark lg:px-0">
       <img
         src={imgUrl}
         alt={`Foto de ${name}`}
@@ -18,7 +18,7 @@ const DevCard = ({ name, work, gitHubLink, email, imgUrl }: Props) => {
       />
       <div>
         <h2 className="font-poppins font-medium text-sm text-center">{work}</h2>
-        <h1 className="font-poppins font-medium md:text-xl text-center text-sm lg:w-64 w-max">
+        <h1 className="font-poppins font-medium md:text-xl text-center text-sm lg:w-64 w-44">
           {name}
         </h1>
       </div>
@@ -34,7 +34,7 @@ const DevCard = ({ name, work, gitHubLink, email, imgUrl }: Props) => {
           <Mail
             size={24}
             className="text-purple dark:text-green"
-            aria-label="envelope de e-mail"
+            aria-label="Envelope de e-mail"
           />
         </a>
       </div>

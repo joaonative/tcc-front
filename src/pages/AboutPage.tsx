@@ -5,38 +5,38 @@ const AboutPage = () => {
   return (
     <>
       <Section title="Equipe de Desenvolvimento">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 lg:gap-8 p-2">
+        <div className="lg:grid flex items-center lg:overflow-auto overflow-x-scroll lg:grid-cols-5 gap-2 lg:gap-8 p-2">
           <DevCard
             imgUrl=""
-            name="Carolina Cristina C."
+            name="Carolina Cristina"
             work="Backend"
             email=""
             gitHubLink=""
           />
           <DevCard
             imgUrl=""
-            name="Guilherme Oliveira F."
+            name="Guilherme Oliveira"
             work="Backend"
             email=""
             gitHubLink=""
           />
           <DevCard
             imgUrl="https://avatars.githubusercontent.com/u/147207558?v=4"
-            name="João V. de Matos"
+            name="João Victor Matos"
             work="Frontend / Designer"
             email="jestudos127@gmail.com"
             gitHubLink="https://github.com/joaonative"
           />
           <DevCard
             imgUrl=""
-            name="Júlia Orlandi de A."
+            name="Júlia Orlandi"
             work="Banco de Dados"
             email=""
             gitHubLink=""
           />
           <DevCard
             imgUrl=""
-            name="Nicolas Maisaishi Oi P."
+            name="Nicolas Maisaishi"
             work="Documentação"
             email=""
             gitHubLink=""
@@ -44,7 +44,7 @@ const AboutPage = () => {
         </div>
       </Section>
       <Section title="Tecnologias de Desenvolvimento - Frontend">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8">
           <div className="flex justify-center gap-2 lg:gap-5 items-center p-5 rounded-2xl bg-lightGray dark:bg-dark">
             <h1 className="font-poppins font-medium text-base lg:text-xl">
               React
@@ -96,7 +96,7 @@ const AboutPage = () => {
         </div>
       </Section>
       <Section title="Tecnologias de Desenvolvimento - Backend">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-5 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8">
           <div className="flex justify-center gap-2 lg:gap-5 items-center p-5 rounded-2xl bg-lightGray dark:bg-dark">
             <h1 className="font-poppins font-medium text-base lg:text-xl">
               Express
