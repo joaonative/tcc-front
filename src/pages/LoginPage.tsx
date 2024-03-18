@@ -2,7 +2,7 @@ import Button from "../components/Button";
 import Section from "../components/Section";
 import { useAuth } from "../contexts/AuthContext";
 
-const LoginPage = () => {
+export default function LoginPage() {
   const { login, logout } = useAuth();
 
   return (
@@ -39,6 +39,4 @@ const LoginPage = () => {
       </Section>
     </>
   );
-};
-
-export default LoginPage;
+}

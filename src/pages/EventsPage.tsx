@@ -3,7 +3,7 @@ import EventList from "../components/events/EventList";
 import Section from "../components/Section";
 import Event from "../interfaces/event";
 import { getEvents } from "../api/events";
-import EventLoadingList from "../components/events/EventLoadingList";
+import LoadingSkeleton from "../components/LoadingSkeleton";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -22,7 +22,7 @@ export default function EventsPage() {
 
   return (
     <Section title="Eventos Ativos">
-      {isLoading ? <EventLoadingList /> : <EventList events={events} />}
+      {isLoading ? <LoadingSkeleton /> : <EventList events={events} />}
     </Section>
   );
 }

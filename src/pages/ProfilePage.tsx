@@ -2,7 +2,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Section from "../components/Section";
 import Button from "../components/Button";
 
-const ProfilePage = () => {
+export default function ProfilePage() {
   const { userData, logout } = useAuth();
   return (
     <Section title="Perfil">
@@ -12,6 +12,4 @@ const ProfilePage = () => {
       </Button>
     </Section>
   );
-};
-
-export default ProfilePage;
+}

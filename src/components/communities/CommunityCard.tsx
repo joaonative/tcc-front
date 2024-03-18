@@ -1,16 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Bookmark,
-  CalendarClock,
-  Crown,
-  Info,
-  Leaf,
-  MapPin,
-  Music2,
-  PaintBucket,
-  PartyPopper,
-  Users,
-} from "lucide-react";
+import { Info, Leaf, Music2, PaintBucket, PartyPopper } from "lucide-react";
 
 import { ariaLabel } from "../../constants/accessibility";
 import Community from "../../interfaces/community";
