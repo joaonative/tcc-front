@@ -18,7 +18,7 @@ const DevCard = ({ name, work, gitHubLink, email, imgUrl }: Props) => {
       />
       <div>
         <h2 className="font-poppins font-medium text-sm text-center">{work}</h2>
-        <h1 className="font-poppins font-medium md:text-xl text-center text-base md:w-64 w-52">
+        <h1 className="font-poppins font-medium md:text-xl text-center text-sm lg:w-64 w-max">
           {name}
         </h1>
       </div>
