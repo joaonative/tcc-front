@@ -43,13 +43,20 @@ const EventSingle = ({ id }: { id: string }) => {
     fetch();
   }, []);
 
+  const categoryIconMap: { [key: string]: JSX.Element } = {
+    Artes: <PaintBucket size={24} className="text-purple dark:text-green" />,
+    Festa: <PartyPopper size={24} className="text-purple dark:text-green" />,
+    Música: <Music2 size={24} className="text-purple dark:text-green" />,
+    Natureza: <Leaf size={24} className="text-purple dark:text-green" />,
+  };
+
   return (
     <>
       {isLoading ? (
         <LoadingSingleEvent />
       ) : (
         event && (
-          <div className="flex flex-col gap-4 dark:text-white lg:mt-12 lg:pb-0 mt-24 pb-12">
+          <div className="flex flex-col gap-4 dark:text-white lg:mt-12 lg:pb-0 mt-24 pb-12 lg:px-24">
             <div className="bg-lightGray dark:bg-dark rounded-2xl flex flex-col p-5 lg:p-8 gap-2">
               <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8">
                 <div className="flex flex-col gap-2 w-full lg:w-1/2">
@@ -88,30 +95,7 @@ const EventSingle = ({ id }: { id: string }) => {
                         <h2>{event.age}</h2>
                       </span>
                       <span className="flex items-center gap-2">
-                        {event.category === "Artes" && (
-                          <PaintBucket
-                            size={24}
-                            className="text-purple dark:text-green"
-                          />
-                        )}
-                        {event.category === "Festa" && (
-                          <PartyPopper
-                            size={24}
-                            className="text-purple dark:text-green"
-                          />
-                        )}
-                        {event.category === "Música" && (
-                          <Music2
-                            size={24}
-                            className="text-purple dark:text-green"
-                          />
-                        )}
-                        {event.category === "Natureza" && (
-                          <Leaf
-                            size={24}
-                            className="text-purple dark:text-green"
-                          />
-                        )}
+                        {categoryIconMap[event.category]}
                         <h2>{event.category}</h2>
                       </span>
                     </div>
@@ -143,12 +127,13 @@ const EventSingle = ({ id }: { id: string }) => {
                 {event.description}
               </blockquote>
             </div>
+
             <div className="flex flex-col p-6 gap-2 bg-lightGray dark:bg-dark rounded-2xl">
               <span className="flex gap-2 items-center font-prompt text-base">
                 <Users
                   className="text-purple dark:text-green"
                   aria-label={ariaLabel.users}
-                />{" "}
+                />
                 <h1>
                   {event.participantCount}/{event.participantLimit}
                 </h1>
