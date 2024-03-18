@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import SecureRoute from "./SecureRoute.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider
@@ -33,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route element={<App />} path="/" />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <EventsPage />
                     </SecureRoute>
                   }
@@ -41,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <EventSinglePage />
                     </SecureRoute>
                   }
@@ -49,7 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <CommunitiesPage />
                     </SecureRoute>
                   }
@@ -57,13 +58,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <ProfilePage />
                     </SecureRoute>
                   }
                   path="/perfil"
                 />
-                <Route element={<App />} path="/sobre" />
+                <Route element={<AboutPage />} path="/sobre" />
                 <Route element={<LoginPage />} path="/entre" />
                 <Route element={<NotFound />} path="/*" />
               </Routes>
