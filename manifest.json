@@ -1,6 +1,7 @@
 {
   "short_name": "iParque",
-  "name": "iParque: Descubra, Participe e Crie Eventos em Parques ao Ar Livre.",
+  "name": "iParque: Descubra, Participe e Crie",
+  "description": "Com o iParque, você tem o poder de explorar eventos locais ou mesmo criar o seu próprio, tudo isso em um ambiente amigável e acolhedor.",
   "icons": [
     {
       "src": "/logo512.png",

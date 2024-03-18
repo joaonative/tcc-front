@@ -9,11 +9,6 @@ export default function Home() {
   return (
     <>
       <section className="flex flex-col gap-5 lg:mt-0 mt-24">
-        <div className="flex justify-center">
-          <div className="hidden lg:block">
-            <Button variant="primary">Bem vindo ao iParque</Button>
-          </div>
-        </div>
         <span className="font-prompt text-5xl lg:text-6xl lg:space-y-4 lg:text-center">
           <h1 className="text-black dark:text-white">
             Seu guia de eventos em parques:
@@ -22,6 +17,11 @@ export default function Home() {
             Descubra, Participe e Crie!
           </h1>
         </span>
+        <div className="flex lg:justify-center">
+          <Button variant="primary">
+            <a href="/eventos">Ver Eventos</a>
+          </Button>
+        </div>
         <Pwa />
         <h2 className="text-base lg:text-center text-black dark:text-white font-poppins font-medium">
           Com o iParque, você tem o poder de explorar eventos locais ou mesmo
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </section>
       <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
           <Calendar
             size={58}
             className="text-purple dark:text-green"
@@ -47,7 +47,7 @@ export default function Home() {
             personalizados. Celebre a vida ao ar livre conosco!
           </p>
         </div>
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
           <Users
             size={58}
             className="text-purple dark:text-green"
@@ -62,7 +62,7 @@ export default function Home() {
             compartilhe suas paixões conosco!
           </p>
         </div>
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-white dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
           <Lock
             size={58}
             className="text-purple dark:text-green"

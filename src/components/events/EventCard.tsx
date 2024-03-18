@@ -35,8 +35,8 @@ const EventCard = ({
         <h2 className="font-prompt text-xl text-black dark:text-white">
           {title}
         </h2>
-        <span className="w-full h-16">
-          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-3">
+        <span>
+          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-2">
             {description}
           </p>
         </span>
