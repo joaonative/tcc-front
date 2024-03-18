@@ -8,8 +8,8 @@ const Section = ({
   title: string;
 }) => {
   return (
-    <section className="dark:text-white font-prompt lg:mt-12 lg:pb-0 mt-24 pb-12">
-      <h1 className="text-2xl lg:text-3xl ml-2 pb-4">{title}</h1>
+    <section className="font-prompt lg:mt-6 pb-12 lg:pb-0">
+      <h1 className="text-2xl lg:text-3xl mb-4">{title}</h1>
       {children}
     </section>
   );

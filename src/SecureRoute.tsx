@@ -3,13 +3,12 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 interface Props {
-  redirectPath: string;
   children: ReactNode;
 }
 
-const SecureRoute = ({ redirectPath, children }: Props) => {
+const SecureRoute = ({ children }: Props) => {
   const { isLoggedIn } = useAuth();
-  return isLoggedIn ? children : <Navigate to={redirectPath} replace />;
+  return isLoggedIn ? children : <Navigate to="/entre" replace />;
 };
 
 export default SecureRoute;

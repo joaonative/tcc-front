@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import SecureRoute from "./SecureRoute.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider
@@ -28,12 +29,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ThemeProvider>
           <BrowserRouter>
             <Header />
-            <main className="pb-16 lg:pb-24 lg:px-12 md:px-8 px-4">
+            <main className="dark:text-white pb-16 lg:pb-24 lg:px-12 md:px-8 px-4 lg:mt-0 mt-24">
               <Routes>
                 <Route element={<App />} path="/" />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <EventsPage />
                     </SecureRoute>
                   }
@@ -41,7 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <EventSinglePage />
                     </SecureRoute>
                   }
@@ -49,7 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <CommunitiesPage />
                     </SecureRoute>
                   }
@@ -57,13 +58,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route
                   element={
-                    <SecureRoute redirectPath="/entre">
+                    <SecureRoute>
                       <ProfilePage />
                     </SecureRoute>
                   }
                   path="/perfil"
                 />
-                <Route element={<App />} path="/sobre" />
+                <Route element={<AboutPage />} path="/sobre" />
                 <Route element={<LoginPage />} path="/entre" />
                 <Route element={<NotFound />} path="/*" />
               </Routes>
