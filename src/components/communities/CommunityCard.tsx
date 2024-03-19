@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Info, PaintBucket, PartyPopper, Music2, Leaf } from "lucide-react";
+import { Info, Leaf, Music2, PaintBucket, PartyPopper } from "lucide-react";
 
 import { ariaLabel } from "../../constants/accessibility";
 import Community from "../../interfaces/community";
@@ -18,6 +18,14 @@ const CommunityCard = ({
   const handleClick = (path: string) => () => {
     navigate(`/${path}`);
   };
+
+  const categoryIconMap: { [key: string]: JSX.Element } = {
+    Artes: <PaintBucket size={24} className="text-purple dark:text-green" />,
+    Festa: <PartyPopper size={24} className="text-purple dark:text-green" />,
+    Música: <Music2 size={24} className="text-purple dark:text-green" />,
+    Natureza: <Leaf size={24} className="text-purple dark:text-green" />,
+  };
+
   return (
     <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark">
       <img
@@ -38,11 +46,7 @@ const CommunityCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button
-          variant="primary"
-          classes="hidden lg:block"
-          onClick={handleClick(`comunidade/${id}`)}
-        >
+        <Button variant="primary" onClick={handleClick(`comunidade/${id}`)}>
           Ver Mais
         </Button>
         <span className="flex items-center gap-3">
@@ -54,19 +58,7 @@ const CommunityCard = ({
           <h4 className="text-base">{age}</h4>
         </span>
         <span className="flex items-center gap-3">
-          {(category === "Artes" && (
-            <PaintBucket size={24} className="text-purple dark:text-green" />
-          )) ||
-            (category === "Festa" && (
-              <PartyPopper size={24} className="text-purple dark:text-green" />
-            )) ||
-            (category === "Música" && (
-              <Music2 size={24} className="text-purple dark:text-green" />
-            )) ||
-            (category === "Natureza" && (
-              <Leaf size={24} className="text-purple dark:text-green" />
-            ))}
-
+          {categoryIconMap[category]}
           <h4 className="text-base">{category}</h4>
         </span>
       </div>

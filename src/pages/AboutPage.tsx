@@ -14,11 +14,11 @@ const AboutPage = () => {
             gitHubLink=""
           />
           <DevCard
-            imgUrl=""
+            imgUrl="https://i.ibb.co/MPVmXSH/image.png"
             name="Guilherme Oliveira"
             work="Backend"
-            email=""
-            gitHubLink=""
+            email="gui.ferreira@gmail.com"
+            gitHubLink="https://github.com/"
           />
           <DevCard
             imgUrl="https://avatars.githubusercontent.com/u/147207558?v=4"
@@ -147,6 +147,12 @@ const AboutPage = () => {
           </div>
         </div>
       </Section>
+      <div className="flex items-center justify-between">
+        <img src="fiec-logo.webp" width={96} height={96} />
+        <h1 className="font-poppins font-medium text-xl">
+          Técnico informática para Internet FIEC @2024
+        </h1>
+      </div>
     </>
   );
 };

@@ -17,6 +17,8 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 import SecureRoute from "./SecureRoute.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
+import CommunitySinglePage from "./pages/CommunitySinglePage.tsx";
+import RegisterPage from "./pages/RegisterPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider
@@ -59,6 +61,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route
                   element={
                     <SecureRoute>
+                      <CommunitySinglePage />
+                    </SecureRoute>
+                  }
+                  path="/comunidade/:id"
+                />
+                <Route
+                  element={
+                    <SecureRoute>
                       <ProfilePage />
                     </SecureRoute>
                   }
@@ -66,6 +76,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 />
                 <Route element={<AboutPage />} path="/sobre" />
                 <Route element={<LoginPage />} path="/entre" />
+                <Route element={<RegisterPage />} path="/cadastro" />
                 <Route element={<NotFound />} path="/*" />
               </Routes>
             </main>

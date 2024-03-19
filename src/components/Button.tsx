@@ -6,9 +6,17 @@ interface Props {
   onClick?: () => void;
   classes?: string;
   full?: boolean;
+  submit?: boolean;
 }
 
-const Button = ({ variant, children, onClick, classes, full }: Props) => {
+const Button = ({
+  variant,
+  children,
+  onClick,
+  classes,
+  full,
+  submit,
+}: Props) => {
   const [className, setClassName] = useState("");
 
   useEffect(() => {
@@ -41,6 +49,7 @@ const Button = ({ variant, children, onClick, classes, full }: Props) => {
 
   return (
     <button
+      type={submit ? "submit" : "button"}
       onClick={onClick}
       className={`${
         full ? "w-full" : "w-max"

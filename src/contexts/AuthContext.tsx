@@ -71,6 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserData(response.data);
     localStorage.setItem("user-data", JSON.stringify(response.data));
     setIsLoggedIn(true);
+    window.location.href = "/eventos";
   };
 
   useEffect(() => {
