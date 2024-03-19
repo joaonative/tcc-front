@@ -47,3 +47,32 @@ body.dark .loading-description {
 .loading-title {
   height: 24px;
 }
+
+input {
+  border-bottom: #9a35ff 3px solid;
+  background: #35ff69;
+  background: none;
+  font-size: 20px;
+  font-family: "Prompt", sans-serif;
+  font-weight: 100;
+  padding: 8px 12px 8px 12px;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+body.dark input {
+  border-bottom: #35ff69 3px solid;
+}
+
+body.dark label {
+  color: rgba(255, 255, 255, 0.8);
+}

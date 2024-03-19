@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Navigate, redirect } from "react-router-dom";
 
 interface AuthContextType {
   userData: userData | undefined;
@@ -71,6 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserData(response.data);
     localStorage.setItem("user-data", JSON.stringify(response.data));
     setIsLoggedIn(true);
+    window.location.href = "/eventos";
   };
 
   useEffect(() => {
