@@ -7,7 +7,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Navigate, redirect } from "react-router-dom";
 
 interface AuthContextType {
   userData: userData | undefined;
