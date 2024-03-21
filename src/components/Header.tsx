@@ -88,8 +88,8 @@ const Header = () => {
               {isLoggedIn ? (
                 <a href="/perfil" className="h-8 w-8">
                   <img
-                    src={userData?.picture}
-                    alt={`Foto do usuário: ${userData?.given_name}`}
+                    src={userData?.id}
+                    alt={`Foto do usuário: ${userData?.name}`}
                     className="object-cover border-2 border-purple dark:border-green rounded-full"
                   />
                 </a>

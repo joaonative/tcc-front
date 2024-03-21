@@ -4,13 +4,14 @@ import Section from "../components/Section";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubit = async () => {
-    console.log(email, password);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    login(email, password);
   };
 
   return (
@@ -21,7 +22,7 @@ export default function LoginPage() {
             <h1 className="text-2xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
               Bem-vindo de volta!
             </h1>
-            <form onSubmit={handleSubit} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
                 <input
@@ -51,12 +52,11 @@ export default function LoginPage() {
             </form>
             <div className="flex flex-col gap-3">
               <Button
-                submit
+                onClick={() => {
+                  login(email, password);
+                }}
                 full
                 variant="primary"
-                onClick={() => {
-                  login();
-                }}
               >
                 Entrar
               </Button>
@@ -64,7 +64,7 @@ export default function LoginPage() {
                 full
                 variant="google"
                 onClick={() => {
-                  login();
+                  logout();
                 }}
               >
                 <img src="google.svg" width={24} height={24}></img>
@@ -73,6 +73,16 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
+        <Button
+          full
+          variant="google"
+          onClick={() => {
+            logout();
+          }}
+        >
+          <img src="google.svg" width={24} height={24}></img>
+          Sair
+        </Button>
       </Section>
     </>
   );
