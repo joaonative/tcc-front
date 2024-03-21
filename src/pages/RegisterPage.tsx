@@ -33,6 +33,18 @@ export default function RegisterPage() {
       return;
     }
 
+    if (
+      password.length < 8 ||
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
+        password
+      )
+    ) {
+      setClientError(
+        "a senha precisa de no mínimo 8 caracteres, uma letra minúscula, uma maiúscula, um número e um caractere especial (@$!%*?&)"
+      );
+      return;
+    }
+
     if (/\d/.test(name)) {
       setClientError("formato de nome inválido");
       return;
@@ -53,7 +65,7 @@ export default function RegisterPage() {
   return (
     <>
       <Section title="">
-        <div className="flex flex-col justify-center md:px-52 lg:px-96">
+        <div className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]">
           <div className="flex flex-col gap-6 bg-lightGray dark:bg-dark px-5 py-4 lg:py-5 lg:px-10 rounded-xl lg:rounded-3xl">
             <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
               Bem-vindo!
