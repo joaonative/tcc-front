@@ -1,16 +1,18 @@
 import axios from "axios";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 
 interface AuthContextType {
   userData: userData | undefined;
+  error: any | undefined;
   login: (email: string, password: string) => void;
   logout: () => void;
+  register: (
+    email: string,
+    password: string,
+    name: string,
+    phone: string,
+    age: number
+  ) => void;
   isLoggedIn: boolean;
 }
 
@@ -35,55 +37,90 @@ export const useAuth = (): AuthContextType => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<userData | undefined>(undefined);
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/users/auth", {
-          withCredentials: true,
-        });
-        setIsLoggedIn(response.status === 200);
-      } catch (error) {
-        setIsLoggedIn(false);
-      }
-    };
+  const [error, setError] = useState<string>("");
 
-    checkAuthentication();
-  }, []);
+  const [storedData] = useState(localStorage.getItem("userData") || null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    return !!storedData;
+  });
 
   const login = async (email: string, password: string) => {
-    console.log(isLoggedIn);
-    const response = await axios.post(
-      "http://localhost:8080/users/login",
-      {
-        email,
-        password,
-      },
-      { withCredentials: true }
-    );
-    const userData = response.data.userData;
-    if (userData) {
-      setUserData(userData);
-      setIsLoggedIn(true);
+    setIsLoading(true);
+    setError("");
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/users/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      const userData = response.data.userData;
+
+      if (userData) {
+        setUserData(userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setIsLoggedIn(true);
+      }
+    } catch (err: any) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Erro interno no servidor");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const logout = async () => {
+    setIsLoading(true);
     await axios.get("http://localhost:8080/users/logout", {
       withCredentials: true,
     });
     setUserData(undefined);
+    localStorage.removeItem("userData");
     setIsLoggedIn(false);
+    setIsLoading(false);
   };
 
-  if (isLoggedIn === null) {
+  const register = async (
+    email: string,
+    password: string,
+    name: string,
+    phone: string,
+    age: number
+  ) => {
+    setIsLoading(true);
+    const response = await axios.post(
+      "http://localhost:8080/users",
+      { email, password, name, age, phone },
+      {
+        withCredentials: true,
+      }
+    );
+    const userData = response.data.userData;
+    if (userData) {
+      setUserData(userData);
+      localStorage.setItem("userData", JSON.stringify(userData));
+      setUserData(userData);
+      setIsLoggedIn(true);
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
     return <div>carreando</div>;
   }
 
   return (
     <AuthContext.Provider
-      value={{ userData, login, logout, isLoggedIn: isLoggedIn || false }}
+      value={{ userData, login, logout, isLoggedIn, register, error }}
     >
       {children}
     </AuthContext.Provider>
