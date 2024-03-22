@@ -4,6 +4,7 @@
 
 body.dark {
   background-color: #121212;
+  color: white;
 }
 
 ::selection {
@@ -48,7 +49,7 @@ body.dark .loading-description {
   height: 24px;
 }
 
-input {
+input.form {
   border-bottom: #9a35ff 3px solid;
   background: #35ff69;
   background: none;
@@ -70,7 +71,7 @@ label {
   font-weight: 500;
 }
 
-body.dark input {
+body.dark input.form {
   border-bottom: #35ff69 3px solid;
 }
 
