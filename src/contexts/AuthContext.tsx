@@ -17,7 +17,8 @@ interface AuthContextType {
     password: string,
     name: string,
     phone: string,
-    age: number
+    age: number,
+    imageUrl: string
   ) => void;
   isLoggedIn: boolean;
 }
@@ -28,6 +29,7 @@ interface userData {
   age: number;
   email: string;
   phone: string;
+  imageUrl: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -113,22 +115,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: string,
     name: string,
     phone: string,
-    age: number
+    age: number,
+    imageUrl: string
   ) => {
-    setIsLoading(true);
-    const response = await axios.post(
-      "http://localhost:8080/users",
-      { email, password, name, age, phone },
-      {
-        withCredentials: true,
+    try {
+      setIsLoading(true);
+      const response = await axios.post(
+        "http://localhost:8080/users",
+        { email, password, name, age, phone, imageUrl },
+        {
+          withCredentials: true,
+        }
+      );
+      const userData = response.data.userData;
+      if (userData) {
+        setUserData(userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setUserData(userData);
+        setIsLoggedIn(true);
+        setIsLoading(false);
       }
-    );
-    const userData = response.data.userData;
-    if (userData) {
-      setUserData(userData);
-      localStorage.setItem("userData", JSON.stringify(userData));
-      setUserData(userData);
-      setIsLoggedIn(true);
+    } catch (err: any) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Erro interno no servidor");
+      }
+    } finally {
       setIsLoading(false);
     }
   };

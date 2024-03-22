@@ -27,9 +27,9 @@ export default function LoginPage() {
   return (
     <>
       <Section title="">
-        <div className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]">
+        <div className="flex flex-col justify-center md:px-52 lg:px-96">
           <div className="flex flex-col gap-6 bg-lightGray dark:bg-dark px-5 py-4 lg:py-5 lg:px-10 rounded-xl lg:rounded-3xl">
-            <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
+            <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green py-4">
               Bem-vindo de volta!
             </h1>
             {error && (

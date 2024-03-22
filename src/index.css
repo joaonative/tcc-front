@@ -35,7 +35,7 @@ body.dark .loading-card,
 body.dark .loading-image,
 body.dark .loading-title,
 body.dark .loading-description {
-  background: linear-gradient(110deg, #333333 8%, #2c2c2c 18%, #333333 33%);
+  background: linear-gradient(110deg, #333333 8%, #555555 18%, #333333 33%);
 }
 
 .loading-title,

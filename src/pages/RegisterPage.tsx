@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+
 import { useAuth } from "../contexts/AuthContext";
 import Section from "../components/Section";
 import Button from "../components/Button";
+import { imageDataBase } from "../iParqueConfig";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const { register, error } = useAuth();
@@ -16,12 +21,22 @@ export default function RegisterPage() {
   const [password, setPassword] = useState<string>("");
   const [passwordC, setPasswordC] = useState<string>("");
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file); // Armazenar temporariamente o arquivo selecionado
+    }
+  };
+
   const [clientError, setClientError] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    setClientError("");
 
     if (!email || !password || !name || !age || !phone || !passwordC) {
       setClientError("preencha todos os campos");
@@ -55,15 +70,51 @@ export default function RegisterPage() {
       return;
     }
 
-    register(email, password, name, phone, age);
+    if (selectedFile) {
+      setIsUploading(true);
+      const pfpRef = ref(imageDataBase, `images/${v4()}`);
+
+      if (selectedFile.size > 3 * 1024 * 1024) {
+        setClientError("grande");
+        setIsUploading(false);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = function () {
+        const image = new Image();
+        image.src = reader.result as string;
+        image.onload = function () {
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          if (context) {
+            canvas.width = 256;
+            canvas.height = 256;
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(
+              async (blob) => {
+                if (blob) {
+                  const data = await uploadBytes(pfpRef, blob);
+                  const downloadUrl = await getDownloadURL(data.ref);
+                  const imageUrl = downloadUrl;
+                  register(email, password, name, phone, age, imageUrl);
+                  navigate("/eventos");
+                }
+              },
+              "image/webp",
+              0.8
+            );
+          }
+        };
+      };
+    }
   };
+
   return (
     <>
       <Section title="">
-        <div
-          className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]"
-          autoComplete="off"
-        >
+        <div className="flex flex-col justify-center md:px-52 lg:px-96">
           <div className="flex flex-col gap-6 bg-lightGray dark:bg-dark px-5 py-4 lg:py-5 lg:px-10 rounded-xl lg:rounded-3xl">
             <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
               Bem-vindo!
@@ -160,6 +211,37 @@ export default function RegisterPage() {
                     }}
                   />
                 </div>
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="email">Foto de perfil</label>
+                {/* checking if the image is already uploaded so we show a preview, if not, show the input */}
+                {isUploading ? (
+                  <div className="animate-spin" />
+                ) : selectedFile ? (
+                  <div className="flex items-center justify-between">
+                    <p className="font-poppins font-medium text-base">
+                      {selectedFile.name}
+                    </p>
+                    <button
+                      type="button"
+                      className="text-red-500 uppercase"
+                      onClick={() => {
+                        setSelectedFile(null);
+                      }}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                ) : (
+                  <input
+                    autoComplete="off"
+                    type="file"
+                    name="pfp"
+                    onChange={(e) => {
+                      handleUpload(e);
+                    }}
+                  />
+                )}
               </div>
               <div className="flex flex-col gap-3">
                 <Button submit full variant="primary">
