@@ -45,6 +45,7 @@ export default function LoginPage() {
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
                 <input
+                  className="form"
                   autoComplete="off"
                   type="email"
                   name="email"
@@ -57,6 +58,7 @@ export default function LoginPage() {
               <div className="flex flex-col">
                 <label htmlFor="password">Senha</label>
                 <input
+                  className="form"
                   autoComplete="off"
                   name="password"
                   type="password"

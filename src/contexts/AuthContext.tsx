@@ -20,6 +20,7 @@ interface AuthContextType {
     age: number,
     imageUrl: string
   ) => void;
+  updateImageUrl: (id: string, imageUrl: string) => void;
   isLoggedIn: boolean;
 }
 
@@ -31,6 +32,8 @@ interface userData {
   phone: string;
   imageUrl: string;
 }
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -73,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError("");
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/login",
+        `${API_URL}/users/login`,
         {
           email,
           password,
@@ -101,7 +104,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     setIsLoading(true);
-    await axios.get("http://localhost:8080/users/logout", {
+    await axios.get(`${API_URL}/users/logout`, {
       withCredentials: true,
     });
     setUserData(undefined);
@@ -121,8 +124,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:8080/users",
+        `${API_URL}/users`,
         { email, password, name, age, phone, imageUrl },
+        {
+          withCredentials: true,
+        }
+      );
+      const userData = response.data.userData;
+      if (userData) {
+        setUserData(userData);
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setUserData(userData);
+        setIsLoggedIn(true);
+        setIsLoading(false);
+      }
+    } catch (err: any) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Erro interno no servidor");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const updateImageUrl = async (id: string, imageUrl: string) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.put(
+        `${API_URL}/users/${id}`,
+        { imageUrl },
         {
           withCredentials: true,
         }
@@ -152,7 +184,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ userData, login, logout, isLoggedIn, register, error }}
+      value={{
+        userData,
+        login,
+        logout,
+        isLoggedIn,
+        register,
+        error,
+        updateImageUrl,
+      }}
     >
       {children}
     </AuthContext.Provider>
