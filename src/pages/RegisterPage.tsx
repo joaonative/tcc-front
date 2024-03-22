@@ -33,14 +33,9 @@ export default function RegisterPage() {
       return;
     }
 
-    if (
-      password.length < 8 ||
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(
-        password
-      )
-    ) {
+    if (!/^(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
       setClientError(
-        "a senha precisa de no mínimo 8 caracteres, uma letra minúscula, uma maiúscula, um número e um caractere especial (@$!%*?&)"
+        "a senha precisa conter pelo menos uma letra maiúscula e um número"
       );
       return;
     }
@@ -65,7 +60,10 @@ export default function RegisterPage() {
   return (
     <>
       <Section title="">
-        <div className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]">
+        <div
+          className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]"
+          autoComplete="off"
+        >
           <div className="flex flex-col gap-6 bg-lightGray dark:bg-dark px-5 py-4 lg:py-5 lg:px-10 rounded-xl lg:rounded-3xl">
             <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
               Bem-vindo!
@@ -85,6 +83,7 @@ export default function RegisterPage() {
                 <div className="flex flex-col">
                   <label htmlFor="email">Nome</label>
                   <input
+                    autoComplete="off"
                     type="text"
                     name="name"
                     value={name}
@@ -96,6 +95,7 @@ export default function RegisterPage() {
                 <div className="flex flex-col">
                   <label htmlFor="email">Idade</label>
                   <input
+                    autoComplete="off"
                     type="number"
                     name="age"
                     value={age}
@@ -109,6 +109,7 @@ export default function RegisterPage() {
               <div className="flex flex-col">
                 <label htmlFor="email">Telefone</label>
                 <input
+                  autoComplete="off"
                   type="tel"
                   name="phone"
                   value={phone}
@@ -125,6 +126,7 @@ export default function RegisterPage() {
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
                 <input
+                  autoComplete="off"
                   type="email"
                   name="email"
                   value={email}
@@ -137,6 +139,7 @@ export default function RegisterPage() {
                 <div className="flex flex-col">
                   <label htmlFor="password">Senha</label>
                   <input
+                    autoComplete="off"
                     name="password"
                     type="password"
                     value={password}
@@ -148,6 +151,7 @@ export default function RegisterPage() {
                 <div className="flex flex-col">
                   <label htmlFor="email">Confirmar Senha</label>
                   <input
+                    autoComplete="off"
                     type="password"
                     name="passwordC"
                     value={passwordC}

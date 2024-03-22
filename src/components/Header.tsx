@@ -88,7 +88,10 @@ const Header = () => {
               {isLoggedIn ? (
                 <a href="/perfil" className="h-8 w-8">
                   <img
-                    src={userData?.id}
+                    src={`http://${userData?.id}`}
+                    onError={(e) => {
+                      e.target.src = "/default-user.webp";
+                    }}
                     alt={`Foto do usuário: ${userData?.name}`}
                     className="object-cover border-2 border-purple dark:border-green rounded-full"
                   />

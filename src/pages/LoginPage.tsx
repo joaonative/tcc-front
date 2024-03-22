@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../components/Button";
 import Section from "../components/Section";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
   const { login, error } = useAuth();
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -17,12 +21,13 @@ export default function LoginPage() {
     }
 
     login(email, password);
+    navigate("/eventos");
   };
 
   return (
     <>
       <Section title="">
-        <div className="flex flex-col justify-center md:px-52 lg:px-96">
+        <div className="flex flex-col justify-center md:px-52 lg:px-96 xl:px-[512px]">
           <div className="flex flex-col gap-6 bg-lightGray dark:bg-dark px-5 py-4 lg:py-5 lg:px-10 rounded-xl lg:rounded-3xl">
             <h1 className="text-3xl text-center lg:text-5xl font-prompt text-purple dark:text-green">
               Bem-vindo de volta!
@@ -32,10 +37,15 @@ export default function LoginPage() {
                 <p>{error}</p>
               </div>
             )}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6"
+              autoComplete="off"
+            >
               <div className="flex flex-col">
                 <label htmlFor="email">Email</label>
                 <input
+                  autoComplete="off"
                   type="email"
                   name="email"
                   value={email}
@@ -47,6 +57,7 @@ export default function LoginPage() {
               <div className="flex flex-col">
                 <label htmlFor="password">Senha</label>
                 <input
+                  autoComplete="off"
                   name="password"
                   type="password"
                   value={password}

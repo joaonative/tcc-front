@@ -1,5 +1,11 @@
 import axios from "axios";
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 interface AuthContextType {
   userData: userData | undefined;
@@ -41,11 +47,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [error, setError] = useState<string>("");
 
-  const [storedData] = useState(localStorage.getItem("userData") || null);
+  const [storedData] = useState<userData | null>(() => {
+    const data = localStorage.getItem("userData");
+    if (data) {
+      return JSON.parse(data) as userData;
+    } else {
+      return null;
+    }
+  });
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return !!storedData;
   });
+
+  useEffect(() => {
+    if (storedData) {
+      setUserData(storedData);
+    }
+  }, []);
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
