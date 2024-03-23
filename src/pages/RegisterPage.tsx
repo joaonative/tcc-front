@@ -84,7 +84,7 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               <div className="flex items-center justify-between gap-5">
                 <div className="flex flex-col">
-                  <label htmlFor="email">Nome</label>
+                  <label htmlFor="name">Nome</label>
                   <input
                     className="form"
                     autoComplete="off"
@@ -92,12 +92,13 @@ export default function RegisterPage() {
                     name="name"
                     value={name}
                     onChange={(e) => {
-                      setName(e.target.value);
+                      const value = e.target.value.replace(/\d/g, "");
+                      setName(value);
                     }}
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="email">Idade</label>
+                  <label htmlFor="age">Idade</label>
                   <input
                     className="form"
                     autoComplete="off"
@@ -112,7 +113,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="email">Telefone</label>
+                <label htmlFor="phone">Telefone</label>
                 <input
                   className="form"
                   autoComplete="off"
@@ -157,7 +158,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="email">Confirmar Senha</label>
+                  <label htmlFor="passwordC">Confirmar Senha</label>
                   <input
                     className="form"
                     autoComplete="off"

@@ -10,24 +10,27 @@ export default function Home() {
   return (
     <>
       <Section title="">
-        <span className="font-prompt text-5xl lg:text-6xl lg:space-y-4 lg:text-center">
-          <h1 className="text-black dark:text-white">
-            Seu guia de eventos em parques:
-          </h1>
-          <h1 className="text-purple dark:text-green">
-            Descubra, Participe e Crie!
-          </h1>
-        </span>
-        <div className="flex lg:justify-center">
-          <Button variant="primary">
-            <a href="/eventos">Ver Eventos</a>
-          </Button>
+        <div className="flex flex-col gap-5 pb-5">
+          <span className="font-prompt text-5xl lg:text-6xl lg:space-y-4 lg:text-center">
+            <h1 className="text-black dark:text-white">
+              Seu guia de eventos em parques:
+            </h1>
+            <h1 className="text-purple dark:text-green">
+              Descubra, Participe e Crie!
+            </h1>
+          </span>
+          <div className="flex lg:justify-center">
+            <Button variant="primary">
+              <a href="/eventos">Ver Eventos</a>
+            </Button>
+          </div>
+          <Pwa />
+          <h2 className="text-base lg:text-center text-black dark:text-white font-poppins font-medium">
+            Com o iParque, você tem o poder de explorar eventos locais ou mesmo
+            criar o seu próprio, tudo isso em um ambiente amigável e acolhedor.
+          </h2>
         </div>
-        <Pwa />
-        <h2 className="text-base lg:text-center text-black dark:text-white font-poppins font-medium">
-          Com o iParque, você tem o poder de explorar eventos locais ou mesmo
-          criar o seu próprio, tudo isso em um ambiente amigável e acolhedor.
-        </h2>
+
         <div className="flex justify-center">
           <Browser />
         </div>
