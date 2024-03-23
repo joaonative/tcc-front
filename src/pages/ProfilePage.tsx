@@ -1,13 +1,12 @@
 import { Pencil } from "lucide-react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import { useAuth } from "../contexts/AuthContext";
 import Section from "../components/Section";
 import Button from "../components/Button";
 import { useState } from "react";
-import { imageDataBase } from "../iParqueConfig";
 import Modal from "../components/Modal";
 import { ariaLabel } from "../constants/accessibility";
+import { uploadImage } from "../api/uploadImage";
 
 export default function ProfilePage() {
   const { userData, logout, updateImageUrl } = useAuth();
@@ -35,7 +34,6 @@ export default function ProfilePage() {
   const upload = () => {
     if (selectedFile) {
       setIsUploading(true);
-      const pfpRef = ref(imageDataBase, `images/${userData?.id}`);
 
       if (selectedFile.size > 3 * 1024 * 1024) {
         setClientError("grande");
@@ -43,33 +41,17 @@ export default function ProfilePage() {
         return;
       }
 
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);
-      reader.onload = function () {
-        const image = new Image();
-        image.src = reader.result as string;
-        image.onload = function () {
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-          if (context) {
-            canvas.width = 256;
-            canvas.height = 256;
-            context.drawImage(image, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(
-              async (blob) => {
-                if (blob) {
-                  const data = await uploadBytes(pfpRef, blob);
-                  const downloadUrl = await getDownloadURL(data.ref);
-                  const imageUrl = downloadUrl;
-                  userData && updateImageUrl(userData.id, imageUrl);
-                }
-              },
-              "image/webp",
-              0.8
-            );
-          }
-        };
-      };
+      if (!userData?.id) {
+        return;
+      }
+
+      uploadImage(selectedFile, 256, 256, userData.id)
+        .then((imageUrl) => {
+          userData && updateImageUrl(userData.id, imageUrl);
+        })
+        .catch((error) => {
+          setClientError(error);
+        });
     }
   };
 
@@ -95,7 +77,7 @@ export default function ProfilePage() {
                 height={128}
                 className={`${
                   !imageLoaded && "loading-image"
-                } object-cover rounded-full border-4 border-purple dark:border-green`}
+                } object-cover rounded-full border-4 h-32 w-32 border-purple dark:border-green`}
                 onLoad={() => setImageLoaded(true)}
               />
               <form onSubmit={upload} className="hidden">

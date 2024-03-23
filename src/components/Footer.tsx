@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="hidden mt-12 fixed bottom-0 w-full lg:flex flex-col gap-4 bg-lightGray dark:bg-dark dark:text-white px-20 py-2">
+    <footer className="hidden bottom-0 w-full lg:flex flex-col gap-4 bg-lightGray dark:bg-dark dark:text-white px-20 py-2">
       <div className="flex items-center justify-between text-sm font-poppins font-medium">
         <a href="/" target="blank" className="w-40 text-center">
           Contato
