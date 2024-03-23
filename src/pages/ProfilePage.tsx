@@ -6,6 +6,8 @@ import Section from "../components/Section";
 import Button from "../components/Button";
 import { useState } from "react";
 import { imageDataBase } from "../iParqueConfig";
+import Modal from "../components/Modal";
+import { ariaLabel } from "../constants/accessibility";
 
 export default function ProfilePage() {
   const { userData, logout, updateImageUrl } = useAuth();
@@ -114,7 +116,11 @@ export default function ProfilePage() {
                 {isUploading ? (
                   <span className="animate-spin" />
                 ) : (
-                  <Pencil size={20} className="text-purple dark:text-green" />
+                  <Pencil
+                    size={20}
+                    className="text-purple dark:text-green"
+                    aria-label={ariaLabel.pencil}
+                  />
                 )}
               </label>
             </div>
@@ -127,27 +133,22 @@ export default function ProfilePage() {
       </Section>
 
       {selectedFile && !isSelectionCancelled && (
-        <div className="absolute top-72 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-5 bg-lightGray dark:bg-dark rounded-2xl p-5">
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-xl font-prompt">Pré-visualização:</p>
-            {selectedFile.type.startsWith("image/") && (
-              <img
-                src={URL.createObjectURL(selectedFile)}
-                alt="Preview"
-                className="w-32 h-32 rounded-full"
-              />
-            )}
-            <p className="text-xl font-prompt">{selectedFile.name}</p>
-          </div>
-          <div className="flex items-center justify-center gap-8">
-            <Button variant="outline" onClick={handleCancel}>
-              Cancelar
-            </Button>
-            <Button variant="primary" onClick={upload}>
-              Atualizar
-            </Button>
-          </div>
-        </div>
+        <Modal
+          title="Pré-visualização"
+          handleConfirm={upload}
+          confirmMessage="Atualizar"
+          handleCancel={handleCancel}
+          cancelMessage="Cancelar"
+        >
+          {selectedFile.type.startsWith("image/") && (
+            <img
+              src={URL.createObjectURL(selectedFile)}
+              alt="Preview"
+              className="w-32 h-32 rounded-full"
+            />
+          )}
+          <p className="text-xl font-prompt">{selectedFile.name}</p>
+        </Modal>
       )}
     </>
   );
