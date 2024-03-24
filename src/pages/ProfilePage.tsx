@@ -129,7 +129,14 @@ export default function ProfilePage() {
               className="w-32 h-32 rounded-full"
             />
           )}
-          <p className="text-xl font-prompt">{selectedFile.name}</p>
+          <div className="flex items-center justify-between w-full">
+            <p className="text-xl font-prompt max-w-44 truncate overflow-ellipsis">
+              {selectedFile.name}
+            </p>
+            <label htmlFor="pfp" className="cursor-pointer font-prompt">
+              Alterar
+            </label>
+          </div>
         </Modal>
       )}
     </>

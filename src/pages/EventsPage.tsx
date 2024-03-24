@@ -93,7 +93,7 @@ export default function EventsPage() {
               ) : (
                 <label
                   htmlFor="image"
-                  className="p-8 flex flex-col items-center gap-5"
+                  className="p-8 flex h-56 flex-col items-center justify-center gap-2 cursor-pointer"
                 >
                   <Upload
                     size={24}
@@ -105,7 +105,14 @@ export default function EventsPage() {
               )}
             </div>
             {selectedFile && selectedFile.type.startsWith("image/") && (
-              <p className="text-xl font-prompt">{selectedFile.name}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-xl font-prompt max-w-52 truncate overflow-ellipsis">
+                  {selectedFile.name}
+                </p>
+                <label htmlFor="image" className="cursor-pointer">
+                  Alterar
+                </label>
+              </div>
             )}
             <div className="flex items-center gap-2">
               <div className="w-1/2 flex flex-col gap-2">
