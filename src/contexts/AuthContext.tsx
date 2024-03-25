@@ -20,7 +20,7 @@ interface AuthContextType {
     age: number,
     imageUrl: string
   ) => void;
-  updateImageUrl: (id: string, imageUrl: string) => void;
+  updateUserData: (userDataToUpdate: Partial<userData>) => void;
   isLoggedIn: boolean;
 }
 
@@ -31,6 +31,7 @@ interface userData {
   email: string;
   phone: string;
   imageUrl: string;
+  token: string;
 }
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -71,46 +72,47 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
-    setError("");
-    try {
-      const response = await axios.post(
-        `${API_URL}/users/login`,
-        {
+  const login = async (email: string, password: string): Promise<void> => {
+    return new Promise<void>(async (resolve, reject) => {
+      setIsLoading(true);
+      setError("");
+      try {
+        const response = await axios.post(`${API_URL}/users/login`, {
           email,
           password,
-        },
-        { withCredentials: true }
-      );
-
-      const userData = response.data.userData;
-
-      if (userData) {
-        setUserData(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setIsLoggedIn(true);
+        });
+        const userData = response.data.userData;
+        if (userData) {
+          setUserData(userData);
+          localStorage.setItem("userData", JSON.stringify(userData));
+          setIsLoggedIn(true);
+        }
+        resolve();
+      } catch (err: any) {
+        if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Erro interno no servidor");
+          setUserData(undefined);
+          localStorage.removeItem("userData");
+          setIsLoggedIn(false);
+        }
+        reject(err);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (err: any) {
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Erro interno no servidor");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
-  const logout = async () => {
-    setIsLoading(true);
-    await axios.get(`${API_URL}/users/logout`, {
-      withCredentials: true,
+  const logout = async (): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      setIsLoading(true);
+      setUserData(undefined);
+      localStorage.removeItem("userData");
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      resolve();
     });
-    setUserData(undefined);
-    localStorage.removeItem("userData");
-    setIsLoggedIn(false);
-    setIsLoading(false);
   };
 
   const register = async (
@@ -120,62 +122,77 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     phone: string,
     age: number,
     imageUrl: string
-  ) => {
-    try {
-      setIsLoading(true);
-      const response = await axios.post(
-        `${API_URL}/users`,
-        { email, password, name, age, phone, imageUrl },
-        {
-          withCredentials: true,
+  ): Promise<void> => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        setIsLoading(true);
+        const response = await axios.post(`${API_URL}/users`, {
+          email,
+          password,
+          name,
+          age,
+          phone,
+          imageUrl,
+        });
+
+        const userData = response.data.userData;
+        if (userData) {
+          setUserData(userData);
+          localStorage.setItem("userData", JSON.stringify(userData));
+          setIsLoggedIn(true);
         }
-      );
-      const userData = response.data.userData;
-      if (userData) {
-        setUserData(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUserData(userData);
-        setIsLoggedIn(true);
+        resolve();
+      } catch (err: any) {
+        if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Erro interno no servidor");
+          setUserData(undefined);
+          localStorage.removeItem("userData");
+          setIsLoggedIn(false);
+        }
+        reject(err);
+      } finally {
         setIsLoading(false);
       }
-    } catch (err: any) {
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Erro interno no servidor");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
-  const updateImageUrl = async (id: string, imageUrl: string) => {
-    try {
-      setIsLoading(true);
-      const response = await axios.put(
-        `${API_URL}/users/${id}`,
-        { imageUrl },
-        {
-          withCredentials: true,
+  const updateUserData = async (
+    userDataToUpdate: Partial<userData>
+  ): Promise<void> => {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        setIsLoading(true);
+        const response = await axios.patch(
+          `${API_URL}/users/update/${userData?.id}`,
+          { userDataToUpdate },
+          {
+            headers: {
+              Authorization: `Bearer ${userData?.token}`,
+            },
+          }
+        );
+        const responseUserData = response.data.userData;
+        if (responseUserData) {
+          setUserData(responseUserData);
+          localStorage.setItem("userData", JSON.stringify(responseUserData));
         }
-      );
-      const userData = response.data.userData;
-      if (userData) {
-        setUserData(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUserData(userData);
-        setIsLoggedIn(true);
+        resolve();
+      } catch (err: any) {
+        if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Erro interno no servidor");
+          setUserData(undefined);
+          localStorage.removeItem("userData");
+          setIsLoggedIn(false);
+        }
+        reject(err);
+      } finally {
         setIsLoading(false);
       }
-    } catch (err: any) {
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Erro interno no servidor");
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   if (isLoading) {
@@ -201,8 +218,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout,
         isLoggedIn,
         register,
+        updateUserData,
         error,
-        updateImageUrl,
       }}
     >
       {children}

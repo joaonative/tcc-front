@@ -1,17 +1,15 @@
 import { Pencil } from "lucide-react";
+import { useState } from "react";
 
 import { useAuth } from "../contexts/AuthContext";
 import Section from "../components/Section";
 import Button from "../components/Button";
-import { useState } from "react";
 import Modal from "../components/Modal";
 import { ariaLabel } from "../constants/accessibility";
 import { uploadImage } from "../api/uploadImage";
 
 export default function ProfilePage() {
-  const { userData, logout, updateImageUrl } = useAuth();
-
-  const [clientError, setClientError] = useState<string>("");
+  const { userData, logout, updateUserData } = useAuth();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSelectionCancelled, setIsSelectionCancelled] =
@@ -36,7 +34,6 @@ export default function ProfilePage() {
       setIsUploading(true);
 
       if (selectedFile.size > 3 * 1024 * 1024) {
-        setClientError("grande");
         setIsUploading(false);
         return;
       }
@@ -47,26 +44,18 @@ export default function ProfilePage() {
 
       uploadImage(selectedFile, 256, 256, userData.id)
         .then((imageUrl) => {
-          userData && updateImageUrl(userData.id, imageUrl);
+          updateUserData({ imageUrl });
         })
-        .catch((error) => {
-          setClientError(error);
+        .finally(() => {
+          setIsUploading(false);
+          window.location.reload();
         });
     }
   };
 
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
-
   return (
     <>
       <Section title="">
-        {clientError && (
-          <div className="text-center">
-            <p className="uppercase text-red-500 font-poppins font-medium">
-              {clientError}
-            </p>
-          </div>
-        )}
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-5">
             <div className="flex items-end -space-x-8">
@@ -75,10 +64,7 @@ export default function ProfilePage() {
                 alt="foto de perfil do usuário"
                 width={128}
                 height={128}
-                className={`${
-                  !imageLoaded && "loading-image"
-                } object-cover rounded-full border-4 h-32 w-32 border-purple dark:border-green`}
-                onLoad={() => setImageLoaded(true)}
+                className="object-cover rounded-full border-4 h-32 w-32 border-purple dark:border-green"
               />
               <form onSubmit={upload} className="hidden">
                 <input
