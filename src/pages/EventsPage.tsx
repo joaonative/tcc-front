@@ -19,7 +19,7 @@ export default function EventsPage() {
   const [date, setDate] = useState<string>("");
   const [age_range, setAgeRange] = useState<string>("");
   const [participantLimit, setParticipantLimit] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  //const [category, setCategory] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -143,6 +143,10 @@ export default function EventsPage() {
               <textarea
                 name=""
                 id=""
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
                 className="bg-lightGray dark:bg-dark p-2 resize-none border-[3px] border-purple dark:border-green rounded-xl"
               />
             </div>
