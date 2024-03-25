@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <ThemeProvider>
           <BrowserRouter>
             <Header />
-            <main className="dark:text-white pb-16 lg:pb-24 lg:px-12 md:px-8 px-4 lg:mt-0 mt-24">
+            <main>
               <Routes>
                 <Route element={<App />} path="/" />
                 <Route

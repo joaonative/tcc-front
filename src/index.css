@@ -4,6 +4,7 @@
 
 body.dark {
   background-color: #121212;
+  color: white;
 }
 
 ::selection {
@@ -35,7 +36,7 @@ body.dark .loading-card,
 body.dark .loading-image,
 body.dark .loading-title,
 body.dark .loading-description {
-  background: linear-gradient(110deg, #333333 8%, #2c2c2c 18%, #333333 33%);
+  background: linear-gradient(110deg, #333333 8%, #555555 18%, #333333 33%);
 }
 
 .loading-title,
@@ -48,14 +49,16 @@ body.dark .loading-description {
   height: 24px;
 }
 
-input {
-  border-bottom: #9a35ff 3px solid;
+input.form {
+  border-radius: 12px;
+  border: #9a35ff 3px solid;
   background: #35ff69;
   background: none;
   font-size: 20px;
   font-family: "Prompt", sans-serif;
   font-weight: 100;
   padding: 8px 12px 8px 12px;
+  width: 100%;
 }
 
 input:focus {
@@ -69,8 +72,8 @@ label {
   font-weight: 500;
 }
 
-body.dark input {
-  border-bottom: #35ff69 3px solid;
+body.dark input.form {
+  border: #35ff69 3px solid;
 }
 
 body.dark label {

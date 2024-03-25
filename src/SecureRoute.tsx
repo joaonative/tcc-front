@@ -8,6 +8,7 @@ interface Props {
 
 const SecureRoute = ({ children }: Props) => {
   const { isLoggedIn } = useAuth();
+
   return isLoggedIn ? children : <Navigate to="/entre" replace />;
 };
 

@@ -5,6 +5,7 @@ import { ariaLabel } from "../constants/accessibility";
 import { useTheme } from "../contexts/ThemeContext";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
 
 const Header = () => {
   const { isLoggedIn, userData } = useAuth();
@@ -16,6 +17,9 @@ const Header = () => {
   };
 
   const { darkMode, toggleTheme } = useTheme();
+
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+
   return (
     <>
       <menu className="fixed top-0 flex items-center justify-between lg:hidden"></menu>
@@ -85,12 +89,17 @@ const Header = () => {
               >
                 {darkMode ? <Sun size={32} /> : <Moon size={32} />}
               </button>
-              {isLoggedIn ? (
+              {isLoggedIn && userData ? (
                 <a href="/perfil" className="h-8 w-8">
                   <img
-                    src={userData?.picture}
-                    alt={`Foto do usuário: ${userData?.given_name}`}
-                    className="object-cover border-2 border-purple dark:border-green rounded-full"
+                    src={userData?.imageUrl}
+                    alt={`Foto do usuário: ${userData?.name}`}
+                    width={32}
+                    height={32}
+                    className={`${
+                      !imageLoaded && "loading-image"
+                    } object-cover border-2 border-purple dark:border-green rounded-full`}
+                    onLoad={() => setImageLoaded(true)}
                   />
                 </a>
               ) : (

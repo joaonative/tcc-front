@@ -8,4 +8,6 @@ export enum ariaLabel {
   bookmark = "ícone de marca páginas, suregindo título do evento",
   mapPin = "ícone de pino, suregindo localização",
   circleUserRound = "ícone de usuário, sugerindo perfil",
+  pencil = "ícone de lápis, sugerindo edição",
+  upload = "ícone de envio, sugerindo envio de imagens",
 }
