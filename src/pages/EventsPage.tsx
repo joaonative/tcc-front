@@ -26,6 +26,7 @@ export default function EventsPage() {
 
   const handleClose = () => {
     setIsOpen(false);
+    setSelectedFile(null);
   };
 
   const handleOpen = () => {
@@ -104,8 +105,8 @@ export default function EventsPage() {
                 </label>
               )}
             </div>
-            {selectedFile && selectedFile.type.startsWith("image/") && (
-              <div className="flex items-center justify-between">
+            {selectedFile && selectedFile.type.startsWith("image/") ? (
+              <div className="flex items-center justify-between h-5">
                 <p className="text-xl font-prompt max-w-52 truncate overflow-ellipsis">
                   {selectedFile.name}
                 </p>
@@ -113,6 +114,8 @@ export default function EventsPage() {
                   Alterar
                 </label>
               </div>
+            ) : (
+              <div className="w-full h-5"></div>
             )}
             <div className="flex items-center gap-2">
               <div className="w-1/2 flex flex-col gap-2">

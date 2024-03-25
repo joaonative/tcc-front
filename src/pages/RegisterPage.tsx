@@ -81,7 +81,7 @@ export default function RegisterPage() {
                 <p>{error}</p>
               </div>
             )}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex items-center justify-between gap-5">
                 <div className="flex flex-col">
                   <label htmlFor="name">Nome</label>
