@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.dark {
+  background-color: #121212;
+  color: white;
+}
+
+::selection {
+  background-color: #9a35ff;
+  color: #ffffff;
+}
+
+body.dark ::selection {
+  background-color: #35ff69;
+  color: #000000;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.loading-card,
+.loading-image,
+.loading-title,
+.loading-description {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1s shine linear infinite;
+}
+
+body.dark .loading-card,
+body.dark .loading-image,
+body.dark .loading-title,
+body.dark .loading-description {
+  background: linear-gradient(110deg, #333333 8%, #555555 18%, #333333 33%);
+  background-size: 200% 100%;
+  animation: 1s shine linear infinite;
+}
+
+.loading-title,
+.loading-description {
+  border-radius: 8px;
+  height: 80px;
+}
+
+.loading-title {
+  height: 24px;
+}
+
+input.form {
+  border-radius: 8px;
+  border: #9a35ff 3px solid;
+  background: #35ff69;
+  background: none;
+  font-size: 16px;
+  font-family: "Prompt", sans-serif;
+  font-weight: 100;
+  padding: 8px 12px 8px 12px;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+body.dark input.form {
+  border: #35ff69 3px solid;
+}
+
+body.dark label {
+  color: rgba(255, 255, 255, 0.8);
+}

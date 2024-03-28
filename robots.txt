@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /$
+Disallow: /entre
+Disallow: /eventos
+Disallow: /comunidades
