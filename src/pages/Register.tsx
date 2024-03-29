@@ -23,6 +23,8 @@ const Register = () => {
     passwordC: "",
   });
 
+  const [agreement, setAgreement] = useState<boolean>(false);
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     let fieldValue = value;
@@ -96,6 +98,10 @@ const Register = () => {
       return;
     }
 
+    if (!agreement) {
+      setError("você precisa concordar com nossos termos de uso");
+    }
+
     await createUser(
       formData.email,
       formData.password,
@@ -110,7 +116,7 @@ const Register = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="flex flex-col gap-8 items-center p-12 bg-lightGray dark:bg-dark rounded-2xl">
+        <div className="flex flex-col gap-8 items-center p-8 lg:p-12 bg-lightGray dark:bg-dark rounded-2xl w-full lg:w-max">
           <h1 className="font-prompt text-5xl text-purple dark:text-green">
             Bem-vindo!
           </h1>
@@ -120,7 +126,7 @@ const Register = () => {
                 {error}
               </p>
             )}
-            <div className="flex gap-5">
+            <div className="flex lg:flex-row flex-col gap-5">
               <div className="flex flex-col gap-2">
                 <label>Nome:</label>
                 <input
@@ -155,7 +161,6 @@ const Register = () => {
                 onChange={handleChange}
               />
             </div>
-
             <div className="flex flex-col gap-2">
               <label>Email:</label>
               <input
@@ -167,7 +172,7 @@ const Register = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="flex gap-5">
+            <div className="flex lg:flex-row flex-col gap-5">
               <div className="flex flex-col gap-2">
                 <label>Senha:</label>
                 <input
@@ -190,6 +195,21 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
+            </div>
+            <div className="flex lg:flex-row flex-col items-center lg:justify-between gap-1 font-prompt text-sm">
+              <div className="flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  checked={agreement}
+                  onClick={() => setAgreement(!agreement)}
+                  className="h-4 w-4"
+                />
+                Concordo com os
+                <a href="/" className="underline">
+                  Termos de uso
+                </a>
+              </div>
+              <a href="/entre">Já tem uma conta?</a>
             </div>
             <Button variant="primary" full submit classes="mt-3">
               Entrar

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   variant: "primary" | "outline" | "danger" | "google" | "none";
@@ -17,35 +17,31 @@ const Button = ({
   full,
   submit,
 }: Props) => {
-  const [className, setClassName] = useState("");
+  let className = "";
 
-  useEffect(() => {
-    switch (variant) {
-      case "primary":
-        setClassName(
-          "text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-3 py-1 border lg:border-2 "
-        );
-        break;
-      case "outline":
-        setClassName(
-          "text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-3 py-1 border lg:border-2 "
-        );
-        break;
-      case "danger":
-        setClassName("px-3 py-1 border lg:border-2 ");
-        break;
-      case "google":
-        setClassName(
-          "flex items-center justify-center w-full gap-5 text-black/80 bg-white px-3 py-1 bg-lightGray"
-        );
-        break;
-      case "none":
-        setClassName("");
-        break;
-      default:
-        setClassName("px-3 py-1 border lg:border-2 ");
-    }
-  }, []);
+  switch (variant) {
+    case "primary":
+      className =
+        "text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-3 py-1 border lg:border-2";
+      break;
+    case "outline":
+      className =
+        "text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-3 py-1 border lg:border-2";
+      break;
+    case "danger":
+      className =
+        "text-white bg-red-500 px-3 py-1 border lg:border-2 border-red-500";
+      break;
+    case "google":
+      className =
+        "flex items-center justify-center w-full gap-5 text-black/80 text-white px-3 py-1 bg-lightGray";
+      break;
+    case "none":
+      className = "";
+      break;
+    default:
+      className = "px-3 py-1 border lg:border-2";
+  }
 
   return (
     <button

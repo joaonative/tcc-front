@@ -67,10 +67,10 @@ export async function updateUser(
 ) {
   try {
     const res = await axios.patch(
-      "/users/update/" + id,
+      `/users/update/${id}`,
       { body },
       {
-        headers: { Authorization: "Bearer" + token },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     window.localStorage.setItem("user", JSON.stringify(res.data.userData));
@@ -81,5 +81,18 @@ export async function updateUser(
     } else {
       setError("erro interno no servidor");
     }
+  }
+}
+
+export async function getUserImageUrl(token: string, id: string) {
+  try {
+    const res = await axios.get(`/users/pfp/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data.imageUrl;
+  } catch (err: any) {
+    console.error(err);
   }
 }
