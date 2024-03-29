@@ -23,7 +23,7 @@ const Routes = () => {
   return (
     <>
       <Router>
-        <Route element={<PrivateRoutes />}>
+        <Route path="/" element={<PrivateRoutes />}>
           <Route path="/perfil" element={<Profile />} />
           <Route path="/eventos" element={<Events />} />
           <Route path="/evento/:id" element={<EventSingle />} />
