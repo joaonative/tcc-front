@@ -43,46 +43,49 @@ const Browser = () => {
         </h2>
         <div className="flex flex-col lg:flex-row justify-center gap-3">
           <EventCard
-            id=""
-            title="Batalha da Pista"
+            _id=""
+            name="Batalha da Pista"
             description="Evento cultural onde MCs irão realiazar batalhas de rimas um contra o outro de forma eliminatória até formar um vencedor."
             date="13/03"
             category="Música"
-            age="18"
+            age_range="18"
             imageUrl="eventExample1.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
             owner="iParque Administradores"
             participantCount={68}
             participantLimit={128}
-            time="Quarta, 13 de março de 2024 às 19:00 até quarta, 13 de março de 2024 às 00:00."
+            isExpired={true}
+            participants={[""]}
           />
           <EventCard
-            id=""
-            title="Caminhada matinal no parque ecológico"
+            _id=""
+            name="Caminhada matinal no parque ecológico"
             description="Caminhada matinal visando saúde, somos amigáveis a nossa meta é dar uma volta inteira no parque."
             date="14/03"
             category="Natureza"
-            age="Livre"
+            age_range="Livre"
             imageUrl="eventExample2.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Chácara Areal, Indaiatuba - SP"
             owner="iParque Administradores"
             participantCount={9}
             participantLimit={16}
-            time="Quinta, 14 de março de 2024 às 05:00 até quinta, 14 de março de 2024 às 08:00."
+            isExpired={true}
+            participants={[""]}
           />
           <EventCard
-            id=""
-            title="Churrasco no parque ecológico"
+            _id=""
+            name="Churrasco no parque ecológico"
             description="Churrasco de boas no parque ecológico, cada um leva obrigatóriamente um kit-churrasco, sem menores de idade, por favor."
             date="17/03"
             category="Festa"
-            age="18"
+            age_range="18"
             imageUrl="eventExample3.webp"
             location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
             owner="iParque"
             participantCount={15}
             participantLimit={24}
-            time="Domingo, 17 de março de 2024 às 12:00 até domingo, 17 de março de 2024 às 16:00."
+            isExpired={true}
+            participants={[""]}
           />
         </div>
       </div>
