@@ -1,16 +1,17 @@
 import { Categories } from "./categories";
 
 export default interface Event {
-  id: string;
-  title: string;
+  _id: string;
+  name: string;
   description: string;
   date: string;
   participantLimit: number;
+  participants: string[];
   participantCount: number;
   imageUrl: string;
   owner: string;
   category: Categories;
-  age: string;
+  age_range: string;
   location: string;
-  time: string;
+  isExpired: boolean;
 }

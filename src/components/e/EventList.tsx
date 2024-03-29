@@ -7,9 +7,9 @@ const EventList = ({ events }: { events: Event[] }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-start items-start">
         {events.map((event) => (
           <EventCard
-            key={event.id}
-            id={event.id}
-            title={event.title}
+            key={event._id}
+            _id={event._id}
+            name={event.name}
             description={event.description}
             date={event.date}
             participantCount={event.participantCount}
@@ -17,9 +17,10 @@ const EventList = ({ events }: { events: Event[] }) => {
             imageUrl={event.imageUrl}
             owner={event.owner}
             category={event.category}
-            age={event.age}
+            age_range={event.age_range}
             location={event.location}
-            time={event.time}
+            participants={event.participants}
+            isExpired={event.isExpired}
           />
         ))}
       </div>

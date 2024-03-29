@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound";
 import Events from "./pages/Events";
+import EventSingle from "./pages/EventSingle";
 
 const PrivateRoutes = () => {
   const { authenticated, loadingAuth } = useAuth();
@@ -25,6 +26,7 @@ const Routes = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/perfil" element={<Profile />} />
           <Route path="/eventos" element={<Events />} />
+          <Route path="/evento/:id" element={<EventSingle />} />
         </Route>
         <Route path="/" element={<App />} />
         <Route path="/entre" element={<Login />} />
