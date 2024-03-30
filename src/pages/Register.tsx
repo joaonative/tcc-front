@@ -7,7 +7,7 @@ import Button from "../components/Button";
 
 const Register = () => {
   const { setAuthenticated, setUser } = useAuth();
-  const { setError, error } = useError();
+  const { setError } = useError();
 
   useEffect(() => {
     setAuthenticated(false);
@@ -121,11 +121,6 @@ const Register = () => {
             Bem-vindo!
           </h1>
           <form onSubmit={handleLogin} className="flex flex-col w-full gap-5">
-            {error && (
-              <p className="text-red-500 font-poppins font-medium uppercase text-center">
-                {error}
-              </p>
-            )}
             <div className="flex lg:flex-row flex-col gap-5">
               <div className="flex flex-col gap-2">
                 <label>Nome:</label>
