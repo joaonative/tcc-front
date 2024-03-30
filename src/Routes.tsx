@@ -8,11 +8,12 @@ import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound";
 import Events from "./pages/Events";
 import EventSingle from "./pages/EventSingle";
+import Loading from "./components/Loading";
 
 const PrivateRoutes = () => {
   const { authenticated, loadingAuth } = useAuth();
 
-  if (loadingAuth) return <div>Loading...</div>;
+  if (loadingAuth) return <Loading />;
 
   if (!authenticated) return <Navigate to={"/entre"} replace />;
 
@@ -23,7 +24,7 @@ const Routes = () => {
   return (
     <>
       <Router>
-        <Route path="/" element={<PrivateRoutes />}>
+        <Route element={<PrivateRoutes />}>
           <Route path="/perfil" element={<Profile />} />
           <Route path="/eventos" element={<Events />} />
           <Route path="/evento/:id" element={<EventSingle />} />
