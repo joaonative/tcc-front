@@ -5,6 +5,10 @@ import Event from "../interfaces/Event";
 import { getEvents } from "../api/Events";
 import { useAuth } from "../contexts/Auth.context";
 import { useError } from "../contexts/Error.context";
+import Loading from "../components/Loading";
+import Button from "../components/Button";
+import Modal from "../components/Modal";
+import CreateEventForm from "../components/e/CreateEventForm";
 
 const Events = () => {
   const { user } = useAuth();
@@ -22,7 +26,43 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  return <>{events ? <EventList events={events} /> : <div>loading...</div>}</>;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const handleSubmit = () => {
+    console.log("submit");
+  };
+
+  return (
+    <>
+      <section className="flex flex-col gap-5">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-prompt">Eventos Ativos</h1>{" "}
+          <Button variant="primary" onClick={handleOpen}>
+            Criar evento
+          </Button>
+        </div>
+        {events ? <EventList events={events} /> : <Loading />}
+        {isOpen && (
+          <Modal
+            title={"Criar evento"}
+            handleCancel={handleCancel}
+            handleConfirm={handleSubmit}
+            cancelMessage="voltar"
+            confirmMessage="criar evento"
+          >
+            <CreateEventForm />
+          </Modal>
+        )}
+      </section>
+    </>
+  );
 };
 
 export default Events;
