@@ -1,5 +1,4 @@
 import { Routes as Router, Route, Navigate, Outlet } from "react-router-dom";
-
 import { useAuth } from "./contexts/Auth.context";
 import App from "./App";
 import Login from "./pages/Login";
@@ -8,32 +7,36 @@ import Profile from "./pages/Profile";
 import NotFound from "./components/NotFound";
 import Events from "./pages/Events";
 import EventSingle from "./pages/EventSingle";
+import { ReactNode } from "react";
 
-const PrivateRoutes = () => {
+interface RouteProps {
+  element: ReactNode;
+}
+
+const PrivateRoute = ({ element }: RouteProps) => {
   const { authenticated, loadingAuth } = useAuth();
 
   if (loadingAuth) return <div>Loading...</div>;
 
-  if (!authenticated) return <Navigate to={"/entre"} replace />;
+  if (!authenticated) return <Navigate to="/entre" replace />;
 
-  return <Outlet />;
+  return element;
 };
 
 const Routes = () => {
   return (
-    <>
-      <Router>
-        <Route path="/" element={<PrivateRoutes />}>
-          <Route path="/perfil" element={<Profile />} />
-          <Route path="/eventos" element={<Events />} />
-          <Route path="/evento/:id" element={<EventSingle />} />
-        </Route>
-        <Route path="/" element={<App />} />
-        <Route path="/entre" element={<Login />} />
-        <Route path="/cadastro" element={<Register />} />
-        <Route path="/*" element={<NotFound />} />
-      </Router>
-    </>
+    <Router>
+      <Route path="/" element={<App />} />
+      <Route path="/entre" element={<Login />} />
+      <Route path="/cadastro" element={<Register />} />
+      <Route path="/perfil" element={<PrivateRoute element={<Profile />} />} />
+      <Route path="/eventos" element={<PrivateRoute element={<Events />} />} />
+      <Route
+        path="/eventos:id"
+        element={<PrivateRoute element={<EventSingle />} />}
+      />
+      <Route path="*" element={<NotFound />} />
+    </Router>
   );
 };
 
