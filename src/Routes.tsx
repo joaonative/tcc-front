@@ -1,4 +1,4 @@
-import { Routes as Router, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes as Router, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./contexts/Auth.context";
 import App from "./App";
 import Login from "./pages/Login";
