@@ -88,3 +88,46 @@ export async function joinEvent(
     }
   }
 }
+
+export async function createEvent(
+  token: string,
+  id: string,
+  name: string,
+  description: string,
+  location: string,
+  date: string,
+  age_range: number,
+  imageUrl: string,
+  participantLimit: number,
+  category: string,
+  { setError }: any
+) {
+  try {
+    const res = await axios.post(
+      "/events",
+      {
+        name,
+        description,
+        location,
+        date,
+        age_range,
+        imageUrl,
+        participantLimit,
+        category,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          id: id,
+        },
+      }
+    );
+    return res.data.event;
+  } catch (err: any) {
+    if (err.response && err.response.data && err.response.data.message) {
+      setError(err.response.data.message);
+    } else {
+      setError("erro interno no servidor");
+    }
+  }
+}

@@ -7,12 +7,10 @@ import { useAuth } from "../contexts/Auth.context";
 import { useError } from "../contexts/Error.context";
 import Loading from "../components/Loading";
 import Button from "../components/Button";
-import Modal from "../components/Modal";
 import CreateEventForm from "../components/e/CreateEventForm";
 
 const Events = () => {
   const { user } = useAuth();
-
   const { setError } = useError();
 
   const [events, setEvents] = useState<Event[]>();
@@ -31,12 +29,13 @@ const Events = () => {
     setIsOpen(true);
   };
 
-  const handleCancel = () => {
+  const handleCreateEventSuccess = () => {
+    fetchEvents();
     setIsOpen(false);
   };
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const handleCancel = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -50,15 +49,10 @@ const Events = () => {
         </div>
         {events ? <EventList events={events} /> : <Loading />}
         {isOpen && (
-          <Modal
-            title={"Criar evento"}
-            handleCancel={handleCancel}
-            handleConfirm={handleSubmit}
-            cancelMessage="voltar"
-            confirmMessage="criar evento"
-          >
-            <CreateEventForm />
-          </Modal>
+          <CreateEventForm
+            onCreateEventSuccess={handleCreateEventSuccess}
+            cancel={handleCancel}
+          />
         )}
       </section>
     </>
