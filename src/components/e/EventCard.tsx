@@ -20,20 +20,20 @@ const EventCard = ({
   const formattedDate = `${day}/${month}`;
 
   return (
-    <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark">
+    <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark shadow-2xl dark:shadow-none">
       <img
         src={imageUrl}
         alt={`Foto do evento: ${name}`}
-        width={400}
-        height={222}
-        className="object-cover w-full h-[222px] rounded-2xl"
+        width={500}
+        height={224}
+        className="object-cover rounded-2xl w-full h-56"
       />
       <div className="flex flex-col gap-0">
         <h2 className="font-prompt text-xl text-black dark:text-white line-clamp-1">
           {name}
         </h2>
         <span>
-          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-2 text-nowrap max-w-96">
+          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-2">
             {description}
           </p>
         </span>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 body.dark {
@@ -27,32 +27,18 @@ body.dark ::selection {
   }
 }
 
-.loading-card,
 .loading-image,
-.loading-title,
 .loading-description {
   background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
   background-size: 200% 100%;
   animation: 1s shine linear infinite;
 }
 
-body.dark .loading-card,
 body.dark .loading-image,
-body.dark .loading-title,
 body.dark .loading-description {
   background: linear-gradient(110deg, #333333 8%, #555555 18%, #333333 33%);
   background-size: 200% 100%;
   animation: 1s shine linear infinite;
-}
-
-.loading-title,
-.loading-description {
-  border-radius: 8px;
-  height: 80px;
-}
-
-.loading-title {
-  height: 24px;
 }
 
 input.form {

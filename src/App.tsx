@@ -31,7 +31,7 @@ export default function Home() {
         <Browser />
       </div>
       <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
           <Calendar
             size={58}
             className="text-purple dark:text-green"
@@ -46,7 +46,7 @@ export default function Home() {
             personalizados. Celebre a vida ao ar livre conosco!
           </p>
         </div>
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
           <Users
             size={58}
             className="text-purple dark:text-green"
@@ -61,7 +61,7 @@ export default function Home() {
             compartilhe suas paixões conosco!
           </p>
         </div>
-        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full">
+        <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
           <Lock
             size={58}
             className="text-purple dark:text-green"
