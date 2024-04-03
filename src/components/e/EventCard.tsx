@@ -14,7 +14,7 @@ const EventCard = ({
   imageUrl,
 }: Event) => {
   const toDate = new Date(date);
-  const day = String(toDate.getDate()).padStart(2, "0");
+  const day = String(toDate.getDate() + 1).padStart(2, "0");
   const month = String(toDate.getMonth() + 1).padStart(2, "0");
 
   const formattedDate = `${day}/${month}`;

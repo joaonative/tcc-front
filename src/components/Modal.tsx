@@ -19,7 +19,7 @@ const Modal = ({
   confirmMessage,
 }: Props) => {
   return (
-    <div className="scrollbar scrollbar-thumb-purple dark:scrollbar-thumb-green scrollbar-track-white dark:scrollbar-track-gray max-h-[600px] overflow-y-scroll fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-5 bg-lightGray dark:bg-dark rounded-2xl p-5 shadow-2xl backdrop:blur-3xl">
+    <div className="scrollbar scrollbar-thumb-purple dark:scrollbar-thumb-green scrollbar-track-white dark:scrollbar-track-gray max-h-[512px] overflow-y-scroll fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-5 bg-lightGray dark:bg-dark rounded-2xl p-5 shadow-2xl backdrop:blur-3xl">
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-xl font-prompt capitalize">{title}</h1>
         {children}
