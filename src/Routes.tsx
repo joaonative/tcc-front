@@ -9,6 +9,7 @@ import Events from "./pages/Events";
 import EventSingle from "./pages/EventSingle";
 import Loading from "./components/Loading";
 import { ReactNode } from "react";
+import About from "./pages/About";
 
 interface RouteProps {
   element: ReactNode;
@@ -28,6 +29,7 @@ const Routes = () => {
   return (
     <Router>
       <Route path="/" element={<App />} />
+      <Route path="/sobre" element={<About />} />
       <Route path="/cadastro" element={<Register />} />
       <Route path="/entre" element={<Login />} />
       <Route path="/*" element={<NotFound />} />

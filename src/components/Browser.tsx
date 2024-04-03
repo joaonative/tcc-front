@@ -4,7 +4,7 @@ import EventCard from "./e/EventCard";
 
 const Browser = () => {
   return (
-    <div className="lg:flex flex-col gap-5 lg:gap-3 border-4 border-lightGray dark:border-dark bg-white dark:bg-darkBg p-2 lg:p-3 rounded-xl select-none pointer-events-none">
+    <div className="lg:flex w-full flex-col gap-5 lg:gap-3 border-4 border-lightGray dark:border-dark bg-white dark:bg-darkBg p-2 lg:p-3 rounded-xl select-none pointer-events-none">
       <div className="flex justify-between items-center">
         <span
           className="flex justify-center gap-[4px] lg:gap-2 w-8 lg:w-16"
@@ -41,7 +41,7 @@ const Browser = () => {
         <h2 className="ml-2 py-2 font-prompt text-xl lg:text-2xl dark:text-white">
           Eventos Ativos
         </h2>
-        <div className="flex flex-col lg:flex-row justify-center gap-3">
+        <div className="flex flex-col lg:flex-row w-full justify-between gap-8">
           <EventCard
             _id=""
             name="Batalha da Pista"
