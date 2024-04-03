@@ -90,7 +90,6 @@ const EventSingle = ({ id }: Props) => {
                 <h1 className="text-base font-prompt">{event.name}</h1>
               </span>
               <img
-                crossOrigin="anonymous"
                 src={event.imageUrl}
                 alt={`Foto do evento: ${event.name}`}
                 width={1024}

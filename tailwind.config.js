@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        line: "url('/line.webp')",
+        line: "url('/line.svg')",
       },
       colors: {
         green: "#35FF69",
