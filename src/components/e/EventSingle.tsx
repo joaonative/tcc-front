@@ -213,9 +213,11 @@ const EventSingle = ({ id }: Props) => {
           </span>
           <div className="flex items-center gap-8 overflow-x-scroll">
             {(data.participants ?? []).map((participant: any) => (
-              <div className="flex flex-col items-center gap-2 mb-5">
+              <div
+                className="flex flex-col items-center gap-2 mb-5"
+                key={participant.id}
+              >
                 <img
-                  key={participant.id}
                   src={participant.imageUrl}
                   alt={`foto do participante ${participant.name}`}
                   height={128}
