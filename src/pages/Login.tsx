@@ -44,8 +44,8 @@ const Login = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="flex flex-col gap-8 items-center p-8 lg:p-12 bg-lightGray dark:bg-dark rounded-2xl w-full lg:w-max">
-          <h1 className="font-prompt text-3xl lg:text-5xl text-purple dark:text-green">
+        <div className="flex mt-20 md:mt-0 flex-col gap-8 items-center p-7 lg:p-12 bg-lightGray dark:bg-dark rounded-2xl w-full lg:w-max">
+          <h1 className="font-prompt text-2xl lg:text-5xl text-purple dark:text-green">
             Bem-vindo de volta!
           </h1>
           <form onSubmit={handleLogin} className="flex flex-col w-full gap-5">

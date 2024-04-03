@@ -24,7 +24,7 @@ const Header = () => {
     <>
       <menu className="fixed top-0 flex items-center justify-between lg:hidden"></menu>
 
-      <header className="w-full fixed bottom-0 bg-none dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
+      <header className="w-full fixed bottom-0 bg-white dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
         {/* desktop navigation links */}
         <div className="hidden lg:block lg:w-52 ">
           <a href="/">
@@ -51,7 +51,7 @@ const Header = () => {
 
         <div className="lg:w-52 lg:flex items-center justify-end">
           {/* mobile bottom navigation */}
-          <ul className="flex lg:hidden items-center justify-between px-5 text-purple dark:text-green">
+          <ul className="flex lg:hidden items-center justify-between px-8 py-2 text-purple dark:text-green">
             <li>
               <a href="/eventos">
                 <Calendar size={32} aria-label={ariaLabel.calendar} />
@@ -70,7 +70,7 @@ const Header = () => {
           </ul>
 
           {/* desktop menu, theme button & auth button*/}
-          <div className="fixed left-0 px-5 py-4 top-0 w-full lg:w-max flex lg:relative items-center justify-between lg:justify-normal gap-5 bg-none dark:bg-dark lg:dark:bg-transparent">
+          <div className="fixed left-0 px-5 py-4 top-0 w-full lg:w-max flex lg:relative items-center justify-between lg:justify-normal gap-5 bg-white dark:bg-dark lg:dark:bg-transparent">
             <a href="/" className="lg:hidden">
               <img
                 src={"/logo.svg"}

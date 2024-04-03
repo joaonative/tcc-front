@@ -141,7 +141,7 @@ const EventSingle = ({ id }: Props) => {
                   className="text-purple dark:text-green"
                   aria-label={ariaLabel.bookmark}
                 />
-                <h1 className="text-base font-prompt">{data.event.name}</h1>
+                <h1 className="text-base font-prompt">{data.owner}</h1>
               </span>
               <span className="flex items-center gap-2">
                 <Info
@@ -219,7 +219,9 @@ const EventSingle = ({ id }: Props) => {
                   className="h-32 w-32 rounded-full object-cover border-[3px] border-green"
                 />
                 <h2 className="font-poppinst font-medium">
-                  {participant.name}
+                  {participant.name.length <= 16
+                    ? participant.name
+                    : `${participant.name.slice(0, 16)}...`}
                 </h2>
               </div>
             ))}
