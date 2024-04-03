@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Navigate } from "react-router-dom";
 
 import axios from "../../api/api";
 import { Categories, CategoriesOptions } from "../../interfaces/categories";
@@ -81,7 +80,9 @@ const CreateEventForm = ({ handleCancel }: Props) => {
       });
       return response.data;
     } catch (error: any) {
-      throw new Error(error.response.data.message);
+      setError(error.response.data.message);
+      handleCancel();
+      return;
     }
   };
 
@@ -115,10 +116,10 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     let currDate = new Date();
 
     if (isNaN(date.getTime())) {
-      setError("data inválida");
+      setError("data inválida, siga o formato: AAAA-MM-DD");
       return;
     } else if (date < currDate) {
-      setError("data inválida");
+      setError("data inválida, insira uma data futura");
       return;
     }
 
@@ -132,11 +133,6 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     mutation.mutate(eventData);
     handleCancel();
   };
-
-  if (mutation.error) {
-    setError("erro interno no servidor");
-    return <Navigate to={"/eventos"} replace />;
-  }
 
   if (mutation.isPending) {
     return <Loading />;
@@ -209,12 +205,14 @@ const CreateEventForm = ({ handleCancel }: Props) => {
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="description">Descrição</label>
-          <input
-            type="text"
+          <textarea
             name="description"
             value={formData.description}
-            onChange={handleInputChange}
-            className="form"
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setFormData({ ...formData, description: event.target.value })
+            }
+            rows={5}
+            className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt resize-none"
           />
         </div>
         <div className="flex items-center gap-4">
