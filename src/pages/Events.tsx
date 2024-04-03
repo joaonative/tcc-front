@@ -1,42 +1,48 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import EventList from "../components/e/EventList";
-import Event from "../interfaces/Event";
-import { getEvents } from "../api/Events";
 import { useAuth } from "../contexts/Auth.context";
-import { useError } from "../contexts/Error.context";
 import Loading from "../components/Loading";
 import Button from "../components/Button";
 import CreateEventForm from "../components/e/CreateEventForm";
+import axios from "../api/api";
+import { useError } from "../contexts/Error.context";
+import { Navigate } from "react-router-dom";
 
 const Events = () => {
   const { user } = useAuth();
   const { setError } = useError();
-
-  const [events, setEvents] = useState<Event[]>();
-
-  const fetchEvents = async () => {
-    const res = await getEvents(user.token, { setError });
-    setEvents(res);
-  };
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  const handleCreateEventSuccess = () => {
-    fetchEvents();
-    setIsOpen(false);
+  const getEvents = async () => {
+    const response = await axios.get("/events", {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    if (response.status !== 200) {
+      setError(response.data.message);
+      return;
+    }
+    return response.data;
   };
 
-  const handleCancel = () => {
-    setIsOpen(false);
-  };
+  const { isPending, error, data } = useQuery({
+    queryKey: ["events"],
+    queryFn: getEvents,
+  });
+
+  if (error) {
+    setError("erro interno no servidor");
+    return <Navigate to={"/"} replace />;
+  }
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -47,13 +53,8 @@ const Events = () => {
             Criar evento
           </Button>
         </div>
-        {events ? <EventList events={events} /> : <Loading />}
-        {isOpen && (
-          <CreateEventForm
-            onCreateEventSuccess={handleCreateEventSuccess}
-            cancel={handleCancel}
-          />
-        )}
+        <EventList events={data.events} />
+        {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
       </section>
     </>
   );
