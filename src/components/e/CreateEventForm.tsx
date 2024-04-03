@@ -215,7 +215,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
             className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt resize-none"
           />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
           <div className="flex flex-col gap-2">
             <label htmlFor="participantLimit">Máximo de Participates</label>
             <input
@@ -239,7 +239,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
           <div className="flex flex-col gap-2">
             <label htmlFor="location">Localização</label>
             <input

@@ -38,7 +38,7 @@ const Events = () => {
   if (isPending) {
     return (
       <section className="flex flex-col gap-5">
-        <h1 className="text-3xl font-prompt">Carregando ...</h1>
+        <h1 className="text-2xl lg:text-3xl font-prompt">Carregando ...</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-start items-start">
           <LoadingCardSkeleton />
           <LoadingCardSkeleton />
@@ -55,14 +55,27 @@ const Events = () => {
     <>
       <section className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-prompt">Eventos Ativos</h1>
-          <Button variant="primary" onClick={handleOpen}>
+          <h1 className="text-2xl lg:text-3xl font-prompt">Eventos Ativos</h1>
+          <Button
+            variant="primary"
+            onClick={handleOpen}
+            classes="hidden lg:block"
+          >
             Criar evento
           </Button>
         </div>
         <EventList events={data.events} />
         {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
       </section>
+      {!isOpen && (
+        <Button
+          variant="primary"
+          onClick={handleOpen}
+          classes="lg:hidden fixed bottom-24 right-4"
+        >
+          Criar evento
+        </Button>
+      )}
     </>
   );
 };

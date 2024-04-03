@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <ErrorPopUp />
-                <main className="lg:p-12 md:p-8 p-4 mt-16 lg:mt-0 flex-grow">
+                <main className="lg:p-12 md:p-8 p-4 my-20 lg:my-0 flex-grow">
                   <Routes />
                 </main>
                 <Footer />

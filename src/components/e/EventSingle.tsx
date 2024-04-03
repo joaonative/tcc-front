@@ -116,9 +116,9 @@ const EventSingle = ({ id }: Props) => {
   };
   return (
     <>
-      <section className="flex flex-col gap-8">
-        <div className="flex items-center gap-5">
-          <div className="w-1/2 flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
+      <section className="flex flex-col lg:gap-8 gap-5">
+        <div className="flex lg:flex-row flex-col items-center lg:gap-8 gap-5">
+          <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
               <Bookmark
                 size={24}
@@ -134,7 +134,7 @@ const EventSingle = ({ id }: Props) => {
               height={768}
               className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
             />
-            <div className="flex items-center justify-between">
+            <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
               <span className="flex items-center gap-2">
                 <Crown
                   size={24}
@@ -143,23 +143,27 @@ const EventSingle = ({ id }: Props) => {
                 />
                 <h1 className="text-base font-prompt">{data.owner}</h1>
               </span>
-              <span className="flex items-center gap-2">
-                <Info
-                  size={24}
-                  className="text-purple dark:text-green"
-                  aria-label={ariaLabel.bookmark}
-                />
-                <h1 className="text-base font-prompt">
-                  {data.event.age_range}
-                </h1>
-              </span>
-              <span className="flex items-center gap-2">
-                {categoryIconMap[data.event.category]}
-                <h1 className="text-base font-prompt">{data.event.category}</h1>
-              </span>
+              <div className="flex items-center lg:gap-5 justify-between">
+                <span className="flex items-center gap-2">
+                  <Info
+                    size={24}
+                    className="text-purple dark:text-green"
+                    aria-label={ariaLabel.bookmark}
+                  />
+                  <h1 className="text-base font-prompt">
+                    Idade Mínima: {data.event.age_range}
+                  </h1>
+                </span>
+                <span className="flex items-center gap-2">
+                  {categoryIconMap[data.event.category]}
+                  <h1 className="text-base font-prompt">
+                    {data.event.category}
+                  </h1>
+                </span>
+              </div>
             </div>
           </div>
-          <div className="w-1/2 flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
+          <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
               <MapPin
                 size={24}
