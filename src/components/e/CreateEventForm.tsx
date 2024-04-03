@@ -165,7 +165,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           }}
         />
       </form>
-      <form className="flex flex-col gap-3 min-w-96 my-5">
+      <form className="flex flex-col gap-3 min-w-80 lg:min-w-96 my-5">
         <div className="flex justify-center border-[3px] rounded-lg border-purple dark:border-green">
           {selectedFile && selectedFile.type.startsWith("image/") ? (
             <img
