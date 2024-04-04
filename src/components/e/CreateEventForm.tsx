@@ -9,6 +9,7 @@ import { useError } from "../../contexts/Error.context";
 import Loading from "../Loading";
 import { uploadImage } from "../../api/uploadImage";
 import { UploadCloud } from "lucide-react";
+import SearchComponent from "../MAPGENERATOR";
 
 interface Props {
   handleCancel: () => void;
@@ -240,16 +241,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           </div>
         </div>
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="location">Localização</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleInputChange}
-              className="form"
-            />
-          </div>
+          <SearchComponent />
           <div className="flex flex-col gap-2">
             <label htmlFor="date">Data</label>
             <input

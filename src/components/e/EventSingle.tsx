@@ -222,7 +222,7 @@ const EventSingle = ({ id }: Props) => {
                   alt={`foto do participante ${participant.name}`}
                   height={128}
                   width={128}
-                  className="h-32 w-32 rounded-full object-cover border-[3px] border-green"
+                  className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
                 />
                 <h2 className="font-poppinst font-medium">
                   {participant.name.length <= 16
