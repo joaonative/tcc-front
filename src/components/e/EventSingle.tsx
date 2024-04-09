@@ -170,11 +170,13 @@ const EventSingle = ({ id }: Props) => {
                 className="text-purple dark:text-green"
                 aria-label={ariaLabel.bookmark}
               />
-              <h1 className="text-base font-prompt">{data.event.location}</h1>
+              <h1 className="text-base font-prompt line-clamp-1">
+                {data.event.location}
+              </h1>
             </span>
             <iframe
               title={`localização do evento ${data.event.name} em ${data.event.location}`}
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14679.942943620432!2d-47.2478068128418!3d-23.097617999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8b34b7fce5ac3%3A0x34bb4bcb22fc5f49!2sFIEC%20-%20Funda%C3%A7%C3%A3o%20Indaiatubana%20de%20Educa%C3%A7%C3%A3o%20e%20Cultura!5e0!3m2!1spt-BR!2sbr!4v1710267006435!5m2!1spt-BR!2sbr"
+              src={data.event.mapUrl}
               className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
             />
             <span className="flex items-center gap-2">

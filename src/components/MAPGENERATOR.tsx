@@ -1,63 +1,102 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import debounce from "lodash/debounce";
 
-const SearchComponent: React.FC = () => {
+interface Props {
+  onMapUrlChange: any;
+  onSelectedAddressChange: any;
+}
+
+const SearchLocation = ({ onMapUrlChange, onSelectedAddressChange }: Props) => {
+  const [results, setResults] = useState<
+    [{ address: string; cep: string; mapUrl: string }] | null
+  >();
+
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [addressList, setAddressList] = useState<[]>([]);
 
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const debouncedSearch = debounce(async (term: string) => {
+    console.log("buscando");
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${term},+Indaiatuba`
+    );
+    const data = await res.json();
+    if (!data) {
+      setResults(null);
+      return;
+    }
+    const dataResults = data.map(
+      (item: { display_name: string; lat: number; lon: number }) => {
+        const adMatch = /^(.*?),\s*Indaiatuba/.exec(item.display_name);
+        const address = adMatch ? adMatch[1] : "";
+
+        const cepMatch = /\b\d{5}-\d{3}\b/.exec(item.display_name);
+        const cep = cepMatch ? cepMatch[0] : "";
+
+        const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${item.lon}%2C${item.lat}%2C${item.lon}%2C${item.lat}&layer=mapnik`;
+        return { address, cep, mapUrl };
+      }
+    );
+    setResults(dataResults);
+    console.log("parei");
+  }, 400);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    setResults(null);
+    if (event.target.value.length < 2) {
+      return;
+    }
+    debouncedSearch(event.target.value);
   };
 
-  const search = async () => {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${searchTerm},+Indaiatuba`
-    );
-    const data = await response.json();
-    console.log("res", data);
-    const newList = data.map((item: any) => {
-      console.log(item);
-      const displayName = item.display_name;
-
-      const enderecoRegex = /^(.*?),\s*Indaiatuba/;
-      const enderecoMatch = enderecoRegex.exec(displayName);
-      const ADDRESS = enderecoMatch ? enderecoMatch[1] : "";
-
-      const cepRegex = /\b\d{5}-\d{3}\b/;
-      const cepMatch = cepRegex.exec(displayName);
-      const CEP = cepMatch ? cepMatch[0] : "";
-
-      const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${item.lon}%2C${item.lat}%2C${item.lon}%2C${item.lat}&layer=mapnik`;
-
-      return { address: ADDRESS, cep: CEP, mapUrl };
-    });
-
-    setAddressList(newList);
-    console.log("lista", addressList);
+  const handleAddressSelection = (result: {
+    address: string;
+    cep: string;
+    mapUrl: string;
+  }) => {
+    onSelectedAddressChange(result.address);
+    onMapUrlChange(result.mapUrl);
+    setSearchTerm("");
+    setResults(null);
   };
 
   return (
-    <div className="p-3 bg-lightGray dark:bg-dark border-[3px] border-purple dark:border-green rounded-lg w-1/2 focus:outline-none">
-      {isOpen && (
-        <ul className="flex flex-col">
-          <li>
-            <input
-              className="w-full bg-dark hover:bg-green"
-              type="text"
-              value={searchTerm}
-              onChange={handleInputChange}
-              placeholder="Rua, Bairro, Cidade"
-            />
-          </li>
-          <li className="w-full">Rua Teste teste</li>
-          {addressList.map((item: { address: string; cep: string }) => (
-            <li key={item.cep}>{item.address}</li>
-          ))}
-        </ul>
+    <div className="flex flex-col items-center relative w-full">
+      <div className="flex flex-col gap-2 w-full">
+        <label htmlFor="address"> Endereço</label>
+
+        <input
+          name="address"
+          type="text"
+          value={searchTerm}
+          onChange={handleInputChange}
+          className="form"
+        />
+      </div>
+
+      {results && (
+        <div className="w-full flex flex-col gap-1 items-center max-h-20 overflow-y-scroll absolute top-20 z-50 bg-white dark:bg-darkBg">
+          {results.map(
+            (
+              result: { address: string; cep: string; mapUrl: string },
+              index: number
+            ) => (
+              <span
+                onClick={() => handleAddressSelection(result)}
+                key={result.cep + index}
+                className="cursor-pointer hover:bg-blue-600"
+              >
+                <h2 className="font-poppins font-medium">
+                  {result.address.length > 24
+                    ? `${result.address.substring(0, 24)}...`
+                    : result.address}
+                </h2>
+              </span>
+            )
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-export default SearchComponent;
+export default SearchLocation;
