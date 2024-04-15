@@ -18,12 +18,19 @@ import { useAuth } from "../../contexts/Auth.context";
 import { useState } from "react";
 import { useError } from "../../contexts/Error.context";
 import axios from "../../api/api";
+import Loading from "../Loading";
+import { deleteImage } from "../../api/deleteImage";
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface Props {
   id: string;
 }
 
 const EventSingle = ({ id }: Props) => {
+  if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
+    return <Navigate to={"/eventos"} replace />;
+  }
+
   const { user } = useAuth();
   const { setError } = useError();
 
@@ -78,6 +85,35 @@ const EventSingle = ({ id }: Props) => {
     }
   };
 
+  const deleteEvent = async () => {
+    try {
+      const eventDate = new Date(data.event.date);
+      eventDate.setDate(eventDate.getDate() + 1);
+
+      const day = String(eventDate.getDate()).padStart(2, "0");
+      const month = String(eventDate.getMonth() + 1).padStart(2, "0");
+      const year = String(eventDate.getFullYear());
+
+      await deleteImage(
+        `${user.id}-${year}-${month}-${day}-${data.event.name.replace(
+          /\s+/g,
+          ""
+        )}`
+      );
+
+      const response = await axios.delete(`/events/${id}`, {
+        headers: {
+          Authorization: `Bearer: ${user.token}`,
+          id: user.id,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      return;
+    }
+  };
+
   const queryClient = useQueryClient();
 
   const joinMutation = useMutation({
@@ -97,13 +133,27 @@ const EventSingle = ({ id }: Props) => {
   const { isPending, data } = useQuery({
     queryKey: ["event", id],
     queryFn: getEvent,
+    retry: false,
   });
+
+  const navigate = useNavigate();
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] });
+      navigate("/eventos");
+    },
+  });
+
+  if (!isPending && !data) {
+    return <Navigate to={"/eventos"} replace />;
+  }
 
   if (isPending || joinMutation.isPending || leaveMutation.isPending) {
     return (
       <section className="flex flex-col gap-5">
-        <h1 className="text-3xl font-prompt">Carregando ...</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-start items-start"></div>
+        <Loading />
       </section>
     );
   }
@@ -125,7 +175,9 @@ const EventSingle = ({ id }: Props) => {
                 className="text-purple dark:text-green"
                 aria-label={ariaLabel.bookmark}
               />
-              <h1 className="text-base font-prompt">{data.event.name}</h1>
+              <h1 className="text-base font-prompt w-full">
+                {data.event.name}
+              </h1>
             </span>
             <img
               src={data.event.imageUrl}
@@ -170,7 +222,7 @@ const EventSingle = ({ id }: Props) => {
                 className="text-purple dark:text-green"
                 aria-label={ariaLabel.bookmark}
               />
-              <h1 className="text-base font-prompt line-clamp-1">
+              <h1 className="text-base font-prompt line-clamp-1 w-full">
                 {data.event.location}
               </h1>
             </span>
@@ -240,7 +292,11 @@ const EventSingle = ({ id }: Props) => {
             <a href="/eventos">Voltar</a>
           </Button>
 
-          {isParticipating ? (
+          {data.event.owner === user.id ? (
+            <Button variant="danger" onClick={deleteMutation.mutate}>
+              Excluir evento
+            </Button>
+          ) : isParticipating ? (
             <Button variant="danger" onClick={leaveMutation.mutate}>
               Sair do evento
             </Button>
