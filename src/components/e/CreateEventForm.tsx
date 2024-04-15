@@ -132,6 +132,11 @@ const CreateEventForm = ({ handleCancel }: Props) => {
       return;
     }
 
+    if (formData.age_range > user.age) {
+      setError("idade inválida");
+      return;
+    }
+
     let date = new Date(formData.date);
     let currDate = new Date();
 

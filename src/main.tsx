@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 import "./index.css";
 import Routes from "./Routes.tsx";
@@ -24,9 +25,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <ErrorPopUp />
-                <main className="lg:p-12 md:p-8 p-4 my-20 lg:my-0 flex-grow">
+                <motion.main
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="lg:p-12 md:p-8 p-4 my-20 lg:my-0 flex-grow"
+                >
                   <Routes />
-                </main>
+                </motion.main>
                 <Footer />
               </div>
             </BrowserRouter>

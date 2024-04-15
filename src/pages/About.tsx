@@ -1,6 +1,48 @@
+import { useRef } from "react";
 import Dev from "../components/about/Dev";
+import { motion, useInView } from "framer-motion";
 
 const About = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const cardVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+  };
+
+  const devs = [
+    {
+      name: "João Victor de Matos",
+      email: "joaodematos127@gmail.com",
+      imageUrl: "",
+      job: "frontend",
+    },
+    {
+      name: "João Victor de Matos",
+      email: "joaodematos127@gmail.com",
+      imageUrl: "",
+      job: "frontend",
+    },
+    {
+      name: "João Victor de Matos",
+      email: "joaodematos127@gmail.com",
+      imageUrl: "",
+      job: "frontend",
+    },
+    {
+      name: "João Victor de Matos",
+      email: "joaodematos127@gmail.com",
+      imageUrl: "",
+      job: "frontend",
+    },
+    {
+      name: "João Victor de Matos",
+      email: "joaodematos127@gmail.com",
+      imageUrl: "",
+      job: "frontend",
+    },
+  ];
   return (
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-5">
@@ -54,38 +96,27 @@ const About = () => {
       </section>
       <section className="flex flex-col gap-5">
         <h1 className="text-4xl font-prompt">Equipe</h1>
-        <div className="flex items-center lg:justify-between gap-5 overflow-x-scroll lg:overflow-auto">
-          <Dev
-            name="João Victor de Matos"
-            email="joaodematos127@gmail.com"
-            imageUrl=""
-            job="frontend"
-          />
-          <Dev
-            name="João Victor de Matos"
-            email="joaodematos127@gmail.com"
-            imageUrl=""
-            job="frontend"
-          />
-          <Dev
-            name="João Victor de Matos"
-            email="joaodematos127@gmail.com"
-            imageUrl=""
-            job="frontend"
-          />
-          <Dev
-            name="João Victor de Matos"
-            email="joaodematos127@gmail.com"
-            imageUrl=""
-            job="frontend"
-          />
-          <Dev
-            name="João Victor de Matos"
-            email="joaodematos127@gmail.com"
-            imageUrl=""
-            job="frontend"
-          />
-        </div>
+        <ul
+          ref={ref}
+          className="flex items-center lg:justify-between gap-5 overflow-x-scroll lg:overflow-auto"
+        >
+          {devs.map((dev, index) => (
+            <motion.li
+              variants={cardVariants}
+              initial="initial"
+              animate={isInView ? "animate" : "initial"}
+              transition={{ duration: 0.3, delay: index * 0.3 }}
+              key={index}
+            >
+              <Dev
+                name={dev.name}
+                email={dev.email}
+                imageUrl={dev.imageUrl}
+                job={dev.job}
+              />
+            </motion.li>
+          ))}
+        </ul>
       </section>
     </div>
   );

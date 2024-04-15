@@ -1,8 +1,63 @@
 import { LockIcon, PlusCircle } from "lucide-react";
 
-import EventCard from "./e/EventCard";
+import { CategoriesEnum } from "../interfaces/categories";
+import EventList from "./e/EventList";
 
 const Browser = () => {
+  const mockedEvents = [
+    {
+      _id: "",
+      name: "Batalha da Pista",
+      description:
+        "Evento cultural onde MCs irão realiazar batalhas de rimas um contra o outro de forma eliminatória até formar um vencedor.",
+      date: "2024-07-02T00:00:00.000+00:00",
+      category: CategoriesEnum.Música,
+      age_range: "18",
+      imageUrl: "eventExample1.webp",
+      location:
+        "Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP",
+      owner: "iParque Administradores",
+      participantCount: 68,
+      participantLimit: 128,
+      isExpired: true,
+      participants: [""],
+    },
+    {
+      _id: "",
+      name: "Caminhada matinal no parque ecológico",
+      description:
+        "Caminhada matinal visando saúde, somos amigáveis a nossa meta é dar uma volta inteira no parque.",
+      date: "2024-07-02T00:00:00.000+00:00",
+      category: CategoriesEnum.Natureza,
+      age_range: "Livre",
+      imageUrl: "eventExample2.webp",
+      location:
+        "Av. Eng. Fábio Roberto Barnabé - Chácara Areal, Indaiatuba - SP",
+      owner: "iParque Administradores",
+      participantCount: 9,
+      participantLimit: 16,
+      isExpired: true,
+      participants: [""],
+    },
+    {
+      _id: "",
+      name: "Churrasco no parque ecológico",
+      description:
+        "Churrasco de boas no parque ecológico, cada um leva obrigatóriamente um kit-churrasco, sem menores de idade, por favor.",
+      date: "2024-07-02T00:00:00.000+00:00",
+      category: CategoriesEnum.Festa,
+      age_range: "18",
+      imageUrl: "eventExample3.webp",
+      location:
+        "Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP",
+      owner: "iParque",
+      participantCount: 15,
+      participantLimit: 24,
+      isExpired: true,
+      participants: [""],
+    },
+  ];
+
   return (
     <div className="lg:flex w-full flex-col gap-5 lg:gap-3 border-4 border-lightGray dark:border-dark bg-white dark:bg-darkBg p-2 lg:p-3 rounded-xl select-none pointer-events-none">
       <div className="flex justify-between items-center">
@@ -41,53 +96,7 @@ const Browser = () => {
         <h2 className="ml-2 py-2 font-prompt text-xl lg:text-2xl dark:text-white">
           Eventos Ativos
         </h2>
-        <div className="flex flex-col lg:flex-row w-full justify-between gap-8">
-          <EventCard
-            _id=""
-            name="Batalha da Pista"
-            description="Evento cultural onde MCs irão realiazar batalhas de rimas um contra o outro de forma eliminatória até formar um vencedor."
-            date="2024-07-02T00:00:00.000+00:00"
-            category="Música"
-            age_range="18"
-            imageUrl="eventExample1.webp"
-            location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
-            owner="iParque Administradores"
-            participantCount={68}
-            participantLimit={128}
-            isExpired={true}
-            participants={[""]}
-          />
-          <EventCard
-            _id=""
-            name="Caminhada matinal no parque ecológico"
-            description="Caminhada matinal visando saúde, somos amigáveis a nossa meta é dar uma volta inteira no parque."
-            date="2024-07-02T00:00:00.000+00:00"
-            category="Natureza"
-            age_range="Livre"
-            imageUrl="eventExample2.webp"
-            location="Av. Eng. Fábio Roberto Barnabé - Chácara Areal, Indaiatuba - SP"
-            owner="iParque Administradores"
-            participantCount={9}
-            participantLimit={16}
-            isExpired={true}
-            participants={[""]}
-          />
-          <EventCard
-            _id=""
-            name="Churrasco no parque ecológico"
-            description="Churrasco de boas no parque ecológico, cada um leva obrigatóriamente um kit-churrasco, sem menores de idade, por favor."
-            date="2024-07-02T00:00:00.000+00:00"
-            category="Festa"
-            age_range="18"
-            imageUrl="eventExample3.webp"
-            location="Av. Eng. Fábio Roberto Barnabé - Jardim Esplanada, Indaiatuba - SP"
-            owner="iParque"
-            participantCount={15}
-            participantLimit={24}
-            isExpired={true}
-            participants={[""]}
-          />
-        </div>
+        <EventList events={mockedEvents} />
       </div>
     </div>
   );
