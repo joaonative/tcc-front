@@ -9,6 +9,7 @@ import { useError } from "../../contexts/Error.context";
 import Loading from "../Loading";
 import { uploadImage } from "../../api/uploadImage";
 import { UploadCloud } from "lucide-react";
+import SearchComponent from "../MAPGENERATOR";
 
 interface Props {
   handleCancel: () => void;
@@ -19,10 +20,10 @@ interface FormData {
   description: string;
   participantLimit: number;
   age_range: number;
-  location: string;
   date: string;
   category: Categories;
   imageUrl: string;
+  mapUrl: string;
 }
 
 const CreateEventForm = ({ handleCancel }: Props) => {
@@ -34,10 +35,10 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     description: "",
     participantLimit: 0,
     age_range: 0,
-    location: "",
     date: "",
     category: "",
     imageUrl: "",
+    mapUrl: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +74,25 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     }
   };
 
+  const [mapUrl, setMapUrl] = useState<string>("");
+  const [selectedAddress, setSelectedAddress] = useState<{
+    address: string;
+    cep: string;
+    mapUrl: string;
+  } | null>();
+
+  const handleMapUrlChange = (newMapUrl: string) => {
+    setMapUrl(newMapUrl);
+  };
+
+  const handleSelectedAddressChange = (newSelectedAddress: {
+    address: string;
+    cep: string;
+    mapUrl: string;
+  }) => {
+    setSelectedAddress(newSelectedAddress);
+  };
+
   const postEvent = async (formData: FormData) => {
     try {
       const response = await axios.post("/events", formData, {
@@ -101,14 +121,19 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     if (
       !formData.name ||
       !formData.description ||
-      !formData.location ||
       !formData.age_range ||
       !formData.participantLimit ||
       !formData.date ||
       !formData.category ||
-      !selectedFile
+      !selectedFile ||
+      !mapUrl
     ) {
       setError("preencha todos os campos");
+      return;
+    }
+
+    if (formData.age_range > user.age) {
+      setError("idade inválida");
       return;
     }
 
@@ -129,7 +154,12 @@ const CreateEventForm = ({ handleCancel }: Props) => {
       512,
       `${user.id}-${formData.date}-${formData.name.replace(/\s+/g, "")}`
     );
-    const eventData = { ...formData, imageUrl: url };
+    const eventData = {
+      ...formData,
+      imageUrl: url,
+      mapUrl,
+      location: selectedAddress,
+    };
     mutation.mutate(eventData);
     handleCancel();
   };
@@ -165,7 +195,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           }}
         />
       </form>
-      <form className="flex flex-col gap-3 min-w-80 lg:min-w-96 my-5">
+      <form className="flex flex-col gap-3 min-w-80 lg:w-[620px] my-5">
         <div className="flex justify-center border-[3px] rounded-lg border-purple dark:border-green">
           {selectedFile && selectedFile.type.startsWith("image/") ? (
             <img
@@ -216,7 +246,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           />
         </div>
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="participantLimit">Máximo de Participates</label>
             <input
               type="number"
@@ -228,7 +258,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
               className="form"
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="age_range">Idade Mínima</label>
             <input
               type="number"
@@ -240,17 +270,28 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           </div>
         </div>
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="location">Localização</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleInputChange}
-              className="form"
+          {selectedAddress ? (
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex items-center justify-between">
+                <label htmlFor="address"> Endereço</label>
+                <h2
+                  className="font-poppins"
+                  onClick={() => setSelectedAddress(null)}
+                >
+                  Limpar
+                </h2>
+              </div>
+              <span className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt w-full line-clamp-1">
+                {JSON.stringify(selectedAddress)}
+              </span>
+            </div>
+          ) : (
+            <SearchComponent
+              onMapUrlChange={handleMapUrlChange}
+              onSelectedAddressChange={handleSelectedAddressChange}
             />
-          </div>
-          <div className="flex flex-col gap-2">
+          )}
+          <div className="flex flex-col gap-2 w-full">
             <label htmlFor="date">Data</label>
             <input
               type="text"

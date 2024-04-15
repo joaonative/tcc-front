@@ -6,3 +6,10 @@ export const CategoriesOptions: Categories[] = [
   "Natureza",
   "Artes",
 ];
+
+export enum CategoriesEnum {
+  Música = "Música",
+  Festa = "Festa",
+  Natureza = "Natureza",
+  Artes = "Artes",
+}
