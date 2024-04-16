@@ -10,6 +10,7 @@ import EventSingle from "./pages/EventSingle";
 import Loading from "./components/Loading";
 import { ReactNode } from "react";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 interface RouteProps {
   element: ReactNode;
@@ -32,6 +33,7 @@ const Routes = () => {
       <Route path="/sobre" element={<About />} />
       <Route path="/cadastro" element={<Register />} />
       <Route path="/entre" element={<Login />} />
+      <Route path="/contato" element={<Contact />} />
       <Route path="/*" element={<NotFound />} />
       <Route path="/eventos" element={<PrivateRoute element={<Events />} />} />
       <Route path="/perfil" element={<PrivateRoute element={<Profile />} />} />
