@@ -47,11 +47,19 @@ export default function Profile() {
 
       uploadImage(selectedFile, 256, 256, user.id)
         .then((imageUrl) => {
-          updateUser(user.token, user.id, { imageUrl }, { setError, setUser });
+          const updatedUser = {
+            name: user.name,
+            email: user.email,
+            imageUrl,
+            token: user.token,
+            phone: user.phone,
+            age: user.age,
+            id: user.id,
+          };
+          updateUser(user.token, user.id, updatedUser, { setError, setUser });
         })
         .finally(() => {
           setIsUploading(false);
-          window.location.reload();
         });
     }
   };

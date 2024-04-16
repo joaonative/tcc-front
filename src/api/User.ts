@@ -66,13 +66,10 @@ export async function updateUser(
   { setError, setUser }: any
 ) {
   try {
-    const res = await axios.patch(
-      `/users/update/${id}`,
-      { body },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const res = await axios.patch(`/users/update/${id}`, body, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
     window.localStorage.setItem("user", JSON.stringify(res.data.userData));
     setUser(res.data.userData);
   } catch (err: any) {
