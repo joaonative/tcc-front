@@ -112,6 +112,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     mutationFn: (eventData: FormData) => postEvent(eventData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["events"] });
+      handleCancel();
     },
   });
 
@@ -161,7 +162,6 @@ const CreateEventForm = ({ handleCancel }: Props) => {
       location: selectedAddress,
     };
     mutation.mutate(eventData);
-    handleCancel();
   };
 
   if (mutation.isPending) {
@@ -178,6 +178,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     >
       <form className="hidden">
         <input
+          autoComplete="off"
           id="image"
           type="file"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -226,6 +227,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Título</label>
           <input
+            autoComplete="off"
             type="text"
             name="name"
             value={formData.name}
@@ -236,6 +238,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
         <div className="flex flex-col gap-2">
           <label htmlFor="description">Descrição</label>
           <textarea
+            autoComplete="off"
             name="description"
             value={formData.description}
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -248,19 +251,29 @@ const CreateEventForm = ({ handleCancel }: Props) => {
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="participantLimit">Máximo de Participates</label>
-            <input
-              type="number"
+            <select
               name="participantLimit"
-              value={
-                formData.participantLimit !== 0 ? formData.participantLimit : ""
-              }
-              onChange={handleInputChange}
-              className="form"
-            />
+              className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt"
+              value={formData.participantLimit}
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                setFormData({
+                  ...formData,
+                  participantLimit: parseInt(event.target.value),
+                });
+              }}
+            >
+              <option value={""}>Selecionar Limite</option>
+              <option value={8}>8</option>
+              <option value={16}>16</option>
+              <option value={32}>32</option>
+              <option value={64}>64</option>
+              <option value={128}>128</option>
+            </select>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="age_range">Idade Mínima</label>
             <input
+              autoComplete="off"
               type="number"
               name="age_range"
               value={formData.age_range !== 0 ? formData.age_range : ""}
@@ -294,6 +307,7 @@ const CreateEventForm = ({ handleCancel }: Props) => {
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="date">Data</label>
             <input
+              autoComplete="off"
               type="text"
               name="date"
               value={formData.date}

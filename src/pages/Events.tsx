@@ -8,8 +8,10 @@ import CreateEventForm from "../components/e/CreateEventForm";
 import axios from "../api/api";
 import { useError } from "../contexts/Error.context";
 import LoadingCardSkeleton from "../components/LoadingCardSkeleton";
+import { useTheme } from "../contexts/Theme.context";
 
 const Events = () => {
+  const { darkMode } = useTheme();
   const { user } = useAuth();
   const { setError } = useError();
 
@@ -48,6 +50,45 @@ const Events = () => {
           <LoadingCardSkeleton />
         </div>
       </section>
+    );
+  }
+
+  if (!data.events || data.events.length === 0) {
+    return (
+      <>
+        <section className="flex flex-col gap-5">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl lg:text-3xl font-prompt">
+              Nenhum evento ativo!
+            </h1>
+            <Button
+              variant="primary"
+              onClick={handleOpen}
+              classes="hidden lg:block"
+            >
+              Criar evento
+            </Button>
+          </div>
+          {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
+          <div className="flex items-center justify-center">
+            <img
+              src={darkMode ? "notfoundDark.svg" : "notfound.svg"}
+              width={768}
+              height={768}
+              className="object-cover w-full lg:w-[768px]"
+            />
+          </div>
+        </section>
+        {!isOpen && (
+          <Button
+            variant="primary"
+            onClick={handleOpen}
+            classes="lg:hidden fixed bottom-24 right-4"
+          >
+            Criar evento
+          </Button>
+        )}
+      </>
     );
   }
 

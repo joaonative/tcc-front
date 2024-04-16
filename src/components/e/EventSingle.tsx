@@ -2,12 +2,14 @@ import {
   Bookmark,
   CalendarClock,
   Crown,
+  Drama,
+  HeartPulse,
   Info,
   Leaf,
   MapPin,
   Music2,
-  PaintBucket,
   PartyPopper,
+  PlaneLanding,
   Users,
 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,6 +23,7 @@ import axios from "../../api/api";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
 import { Navigate, useNavigate } from "react-router-dom";
+import Modal from "../Modal";
 
 interface Props {
   id: string;
@@ -33,6 +36,8 @@ const EventSingle = ({ id }: Props) => {
 
   const { user } = useAuth();
   const { setError } = useError();
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [isParticipating, setisParticipating] = useState<boolean>();
 
@@ -159,10 +164,14 @@ const EventSingle = ({ id }: Props) => {
   }
 
   const categoryIconMap: { [key: string]: JSX.Element } = {
-    Artes: <PaintBucket size={24} className="text-purple dark:text-green" />,
+    Cultura: <Drama size={24} className="text-purple dark:text-green" />,
     Festa: <PartyPopper size={24} className="text-purple dark:text-green" />,
     Música: <Music2 size={24} className="text-purple dark:text-green" />,
     Natureza: <Leaf size={24} className="text-purple dark:text-green" />,
+    Esportes: (
+      <PlaneLanding size={24} className="text-purple dark:text-green" />
+    ),
+    Saúde: <HeartPulse size={24} className="text-purple dark:text-green" />,
   };
   return (
     <>
@@ -293,7 +302,7 @@ const EventSingle = ({ id }: Props) => {
           </Button>
 
           {data.event.owner === user.id ? (
-            <Button variant="danger" onClick={deleteMutation.mutate}>
+            <Button variant="danger" onClick={() => setIsOpen(true)}>
               Excluir evento
             </Button>
           ) : isParticipating ? (
@@ -307,6 +316,17 @@ const EventSingle = ({ id }: Props) => {
           )}
         </div>
       </section>
+      {isOpen && (
+        <Modal
+          handleCancel={() => setIsOpen(false)}
+          handleConfirm={deleteMutation.mutate}
+          title="Tem certeza?"
+          cancelMessage="Cancelar"
+          confirmMessage="Deletar"
+        >
+          <img />
+        </Modal>
+      )}
     </>
   );
 };
