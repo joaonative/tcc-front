@@ -155,7 +155,12 @@ const EventSingle = ({ id }: Props) => {
     return <Navigate to={"/eventos"} replace />;
   }
 
-  if (isPending || joinMutation.isPending || leaveMutation.isPending) {
+  if (
+    isPending ||
+    joinMutation.isPending ||
+    leaveMutation.isPending ||
+    deleteMutation.isPending
+  ) {
     return (
       <section className="flex flex-col gap-5">
         <Loading />
@@ -324,7 +329,10 @@ const EventSingle = ({ id }: Props) => {
           cancelMessage="Cancelar"
           confirmMessage="Deletar"
         >
-          <img />
+          <img src={data.event.imageUrl} width={512} height={256} />
+          <h1 className="font-poppins font-medium text-xl">
+            O evento: {data.event.name} será excluido permanentemente!
+          </h1>
         </Modal>
       )}
     </>

@@ -3,7 +3,7 @@ import Button from "./Button";
 
 interface Props {
   title: string;
-  children: ReactNode;
+  children?: ReactNode;
   cancelMessage?: string;
   confirmMessage?: string;
   handleCancel: () => void;
