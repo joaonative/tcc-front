@@ -2,12 +2,14 @@ import {
   Bookmark,
   CalendarClock,
   Crown,
+  Drama,
+  HeartPulse,
   Info,
   Leaf,
   MapPin,
   Music2,
-  PaintBucket,
   PartyPopper,
+  PlaneLanding,
   Users,
 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -159,10 +161,14 @@ const EventSingle = ({ id }: Props) => {
   }
 
   const categoryIconMap: { [key: string]: JSX.Element } = {
-    Artes: <PaintBucket size={24} className="text-purple dark:text-green" />,
+    Cultura: <Drama size={24} className="text-purple dark:text-green" />,
     Festa: <PartyPopper size={24} className="text-purple dark:text-green" />,
     Música: <Music2 size={24} className="text-purple dark:text-green" />,
     Natureza: <Leaf size={24} className="text-purple dark:text-green" />,
+    Esportes: (
+      <PlaneLanding size={24} className="text-purple dark:text-green" />
+    ),
+    Saúde: <HeartPulse size={24} className="text-purple dark:text-green" />,
   };
   return (
     <>

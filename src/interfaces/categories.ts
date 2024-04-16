@@ -1,15 +1,26 @@
-export type Categories = "Música" | "Festa" | "Natureza" | "Artes" | "";
+export type Categories =
+  | "Música"
+  | "Festa"
+  | "Natureza"
+  | "Cultura"
+  | "Esportes"
+  | "Saúde"
+  | "";
 
 export const CategoriesOptions: Categories[] = [
   "Música",
   "Festa",
   "Natureza",
-  "Artes",
+  "Cultura",
+  "Esportes",
+  "Saúde",
 ];
 
 export enum CategoriesEnum {
   Música = "Música",
   Festa = "Festa",
   Natureza = "Natureza",
-  Artes = "Artes",
+  Cultura = "Cultura",
+  Esportes = "Esportes",
+  Saúde = "Saúde",
 }
