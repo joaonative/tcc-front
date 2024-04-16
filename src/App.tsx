@@ -1,10 +1,11 @@
 import { Lock, Calendar, Users } from "lucide-react";
 
 import { ariaLabel } from "./constants/aria-label";
-import Browser from "./components/Browser";
 import Button from "./components/Button";
+import { useTheme } from "./contexts/Theme.context";
 
 export default function Home() {
+  const { darkMode } = useTheme();
   return (
     <>
       <div className="flex flex-col gap-5 pb-5">
@@ -27,8 +28,19 @@ export default function Home() {
         </h2>
       </div>
 
-      <div className="flex justify-center">
-        <Browser />
+      <div className="flex justify-between items-center select-none">
+        <img
+          src={darkMode ? "desktop-dark.png" : "desktop.png"}
+          width={512}
+          height={512}
+          className="hidden lg:block object-contain w-full h-[612px]"
+        />
+        <img
+          src={darkMode ? "mobile-dark.png" : "mobile.png"}
+          width={512}
+          height={512}
+          className="hidden lg:block object-contain w-full h-[512px]"
+        />
       </div>
       <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
         <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
