@@ -59,7 +59,7 @@ const Events = () => {
         <section className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl lg:text-3xl font-prompt">
-              Nenhum evento ativo!
+              Sem eventos, começe agora!
             </h1>
             <Button
               variant="primary"
@@ -74,8 +74,8 @@ const Events = () => {
             <img
               src={darkMode ? "notfoundDark.svg" : "notfound.svg"}
               width={768}
-              height={768}
-              className="object-cover w-full lg:w-[768px]"
+              height={512}
+              className="object-cover w-full lg:w-[512px]"
             />
           </div>
         </section>

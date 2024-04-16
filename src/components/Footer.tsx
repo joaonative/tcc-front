@@ -13,10 +13,14 @@ const Footer = () => {
           GitHub
         </a>
         <img src={"/logo.svg"} alt="iParque logo" width={32} height={32} />
-        <a href="/" target="blank" className="w-40 text-center">
+        <a href="/" target="_blank" className="w-40 text-center">
           Termos de Uso
         </a>
-        <a href="/" target="blank" className="w-40 text-center">
+        <a
+          href="https://docs.google.com/document/d/19R-ZIN6Ay16D__C7Pt9P3BAYoQstoCrdzCrdYFrSJjg/edit?usp=sharing"
+          target="_blank"
+          className="w-40 text-center"
+        >
           Documentação
         </a>
       </div>
