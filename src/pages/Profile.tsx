@@ -60,6 +60,7 @@ export default function Profile() {
         })
         .finally(() => {
           setIsUploading(false);
+          handleCancel();
         });
     }
   };

@@ -30,10 +30,6 @@ interface Props {
 }
 
 const EventSingle = ({ id }: Props) => {
-  if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
-    return <Navigate to={"/eventos"} replace />;
-  }
-
   const { user } = useAuth();
   const { setError } = useError();
 
@@ -151,6 +147,10 @@ const EventSingle = ({ id }: Props) => {
     },
   });
 
+  if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
+    return <Navigate to={"/eventos"} replace />;
+  }
+
   if (!isPending && !data) {
     return <Navigate to={"/eventos"} replace />;
   }
@@ -198,7 +198,7 @@ const EventSingle = ({ id }: Props) => {
               alt={`Foto do evento: ${data.event.name}`}
               width={1024}
               height={768}
-              className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
+              className="object-cover rounded-2xl w-full h-64 lg:h-[512px]"
             />
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
               <span className="flex items-center gap-2">
@@ -243,7 +243,7 @@ const EventSingle = ({ id }: Props) => {
             <iframe
               title={`localização do evento ${data.event.name} em ${data.event.location}`}
               src={data.event.mapUrl}
-              className="object-cover rounded-2xl w-full h-[196px] lg:h-[252px]"
+              className="object-cover rounded-2xl w-full h-64 lg:h-[512px]"
             />
             <span className="flex items-center gap-2">
               <CalendarClock
