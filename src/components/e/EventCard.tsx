@@ -26,14 +26,14 @@ const EventCard = ({
         alt={`Foto do evento: ${name}`}
         width={500}
         height={224}
-        className="object-cover rounded-2xl w-full h-72"
+        className="object-cover rounded-2xl w-full h-60 lg:h-72"
       />
       <div className="flex flex-col gap-0">
         <h2 className="font-prompt text-xl text-black dark:text-white line-clamp-1">
           {name}
         </h2>
         <span>
-          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-2 h-10">
+          <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-1 lg:line-clamp-2 lg:h-10">
             {description}
           </p>
         </span>
