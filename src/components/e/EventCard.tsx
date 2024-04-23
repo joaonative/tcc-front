@@ -26,7 +26,7 @@ const EventCard = ({
         alt={`Foto do evento: ${name}`}
         width={500}
         height={224}
-        className="object-cover rounded-2xl w-full h-60 3xl:h-72"
+        className="object-cover rounded-2xl w-full h-60 3xl:h-80"
       />
       <div className="flex flex-col gap-0">
         <h2 className="font-prompt text-xl text-black dark:text-white line-clamp-1">

@@ -31,7 +31,7 @@ const Header = () => {
             <img src={"/logo.svg"} alt="iParque logo" width={36} height={36} />
           </a>
         </div>
-        <ul className="hidden lg:flex items-center gap-3 font-prompt text-base text-black/75 dark:text-white/75">
+        <ul className="hidden lg:flex items-center gap-3 font-prompt text-base 3xl:text-xl text-black/75 dark:text-white/75">
           <li>
             <a href="/eventos" className="w-20 text-center">
               Eventos
