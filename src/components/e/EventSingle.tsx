@@ -198,7 +198,7 @@ const EventSingle = ({ id }: Props) => {
               alt={`Foto do evento: ${data.event.name}`}
               width={1024}
               height={768}
-              className="object-cover rounded-2xl w-full h-64 lg:h-[512px]"
+              className="object-cover rounded-2xl w-full h-64 3xl:h-[512px]"
             />
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
               <span className="flex items-center gap-2">
@@ -243,7 +243,7 @@ const EventSingle = ({ id }: Props) => {
             <iframe
               title={`localização do evento ${data.event.name} em ${data.event.location}`}
               src={data.event.mapUrl}
-              className="object-cover rounded-2xl w-full h-64 lg:h-[512px]"
+              className="object-cover rounded-2xl w-full h-64 3xl:h-[512px]"
             />
             <span className="flex items-center gap-2">
               <CalendarClock
@@ -281,25 +281,31 @@ const EventSingle = ({ id }: Props) => {
           </span>
           <div className=" overflow-x-scroll">
             <div className="flex items-center gap-8 w-max">
-              {(data.participants ?? []).map((participant: any) => (
-                <div
-                  className="flex flex-col items-center gap-2 mb-5"
-                  key={participant.id}
-                >
-                  <img
-                    src={participant.imageUrl}
-                    alt={`foto do participante ${participant.name}`}
-                    height={128}
-                    width={128}
-                    className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
-                  />
-                  <h2 className="font-poppinst font-medium">
-                    {participant.name.length <= 16
-                      ? participant.name
-                      : `${participant.name.slice(0, 16)}...`}
-                  </h2>
-                </div>
-              ))}
+              {(data.participants ?? []).map(
+                (participant: {
+                  id: string;
+                  imageUrl: string;
+                  name: string;
+                }) => (
+                  <div
+                    className="flex flex-col items-center gap-2 mb-5"
+                    key={participant.id}
+                  >
+                    <img
+                      src={participant.imageUrl}
+                      alt={`foto do participante ${participant.name}`}
+                      height={128}
+                      width={128}
+                      className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
+                    />
+                    <h2 className="font-poppinst font-medium">
+                      {participant.name.length <= 16
+                        ? participant.name
+                        : `${participant.name.slice(0, 16)}...`}
+                    </h2>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>

@@ -16,6 +16,9 @@ export default {
         gray: "#303030",
         lightGray: "#f1f1f1",
       },
+      screens: {
+        "3xl": "1920px",
+      },
       fontFamily: {
         poppins: ["'Poppins'", "sans-serif"],
         prompt: ["'Prompt'", "sans-serif"],
