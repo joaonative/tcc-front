@@ -15,16 +15,22 @@ const Events = () => {
   const { user } = useAuth();
   const { setError } = useError();
 
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = () => {
     setIsOpen(true);
   };
 
-  const getEvents = async () => {
+  const getEvents = async (page: number) => {
     try {
       const response = await axios.get("/events", {
         headers: { Authorization: `Bearer ${user.token}` },
+        params: { page },
       });
+      setTotalPages(response.data.totalPages);
+      console.log(response);
       return response.data;
     } catch (error: any) {
       setError(error.response.data.message);
@@ -32,9 +38,14 @@ const Events = () => {
     }
   };
 
-  const { isPending, data } = useQuery({
-    queryKey: ["events"],
-    queryFn: getEvents,
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
+    refetch;
+  };
+
+  const { isPending, data, refetch } = useQuery({
+    queryKey: ["events", currentPage],
+    queryFn: () => getEvents(currentPage),
   });
 
   if (isPending) {
@@ -107,6 +118,19 @@ const Events = () => {
         </div>
         <EventList events={data.events} />
         {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
+        <div className="flex items-center justify-center gap-5">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePagination(index)}
+              className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
+                currentPage === index && "border-4"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </section>
       {!isOpen && (
         <Button
