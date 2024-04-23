@@ -198,7 +198,7 @@ const EventSingle = ({ id }: Props) => {
               alt={`Foto do evento: ${data.event.name}`}
               width={1024}
               height={768}
-              className="object-cover rounded-2xl w-full h-64 3xl:h-[512px]"
+              className="object-cover rounded-2xl w-full h-64 lg:h-80 3xl:h-[512px]"
             />
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
               <span className="flex items-center gap-2">
@@ -243,7 +243,7 @@ const EventSingle = ({ id }: Props) => {
             <iframe
               title={`localização do evento ${data.event.name} em ${data.event.location}`}
               src={data.event.mapUrl}
-              className="object-cover rounded-2xl w-full h-64 3xl:h-[512px]"
+              className="object-cover rounded-2xl w-full h-64 lg:h-80 3xl:h-[512px]"
             />
             <span className="flex items-center gap-2">
               <CalendarClock
