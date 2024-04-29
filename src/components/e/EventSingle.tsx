@@ -2,14 +2,8 @@ import {
   Bookmark,
   CalendarClock,
   Crown,
-  Drama,
-  HeartPulse,
   Info,
-  Leaf,
   MapPin,
-  Music2,
-  PartyPopper,
-  PlaneLanding,
   Users,
 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +18,7 @@ import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
 import { Navigate, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
+import { categoryIconMap } from "../../utils/CategoryIconMap";
 
 interface Props {
   id: string;
@@ -120,14 +115,24 @@ const EventSingle = ({ id }: Props) => {
   const joinMutation = useMutation({
     mutationFn: joinEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["event", id] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          ["event", id],
+          ["events", user.id],
+        ],
+      });
     },
   });
 
   const leaveMutation = useMutation({
     mutationFn: leaveEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["event", id] });
+      queryClient.invalidateQueries({
+        queryKey: [
+          ["event", id],
+          ["events", user.id],
+        ],
+      });
     },
   });
 
@@ -168,16 +173,6 @@ const EventSingle = ({ id }: Props) => {
     );
   }
 
-  const categoryIconMap: { [key: string]: JSX.Element } = {
-    Cultura: <Drama size={24} className="text-purple dark:text-green" />,
-    Festa: <PartyPopper size={24} className="text-purple dark:text-green" />,
-    Música: <Music2 size={24} className="text-purple dark:text-green" />,
-    Natureza: <Leaf size={24} className="text-purple dark:text-green" />,
-    Esportes: (
-      <PlaneLanding size={24} className="text-purple dark:text-green" />
-    ),
-    Saúde: <HeartPulse size={24} className="text-purple dark:text-green" />,
-  };
   return (
     <>
       <section className="flex flex-col lg:gap-8 gap-5">
@@ -337,10 +332,7 @@ const EventSingle = ({ id }: Props) => {
           cancelMessage="Cancelar"
           confirmMessage="Deletar"
         >
-          <img src={data.event.imageUrl} width={512} height={256} />
-          <h1 className="font-poppins font-medium text-xl">
-            O evento: {data.event.name} será excluido permanentemente!
-          </h1>
+          <h1 className="text-xl">O evento será removido para sempre!</h1>
         </Modal>
       )}
     </>
