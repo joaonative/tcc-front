@@ -17,12 +17,16 @@ const About = () => {
       email: "joao35434@fiec.edu.br",
       imageUrl: "https://avatars.githubusercontent.com/u/147207558?v=4",
       job: "Frontend",
+      github: "https://github.com/joaonative",
+      username: "joaonative",
     },
     {
       name: "Guilherme Oliveira Ferreira",
       email: "guilherme35525@fiec.edu.br",
       imageUrl: "https://avatars.githubusercontent.com/u/146398231?v=4",
       job: "Backend",
+      github: "https://github.com/g-uizo",
+      username: "g-uizo",
     },
     {
       name: "Carolina Cristina Campos",
@@ -30,12 +34,17 @@ const About = () => {
       imageUrl:
         "https://lh3.googleusercontent.com/a-/ALV-UjUTM6efMM9bZG5rqEFUrj-rc2irg0zCAJ6ntYo44yDcRIZTcBI=s512-c",
       job: "Backend",
+      github: "https://github.com/CCamposDEV23",
+      username: "CCamposDEV23",
     },
     {
       name: "Juila Orlandi",
       email: "julia35436@fiec.edu.br",
-      imageUrl: "",
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocJYRGQniHd_dnpI6AJXnC1A3DDFcWMfIj5BgLxTI-Htnnb5Vg=s512-c-mo",
       job: "Banco de dados",
+      github: "",
+      username: "",
     },
     {
       name: "Nicolas Masaishi",
@@ -43,6 +52,8 @@ const About = () => {
       imageUrl:
         "https://lh3.googleusercontent.com/a-/ALV-UjWISh1alOk1YIf7qppzK7l3WBETTFoj0Uke_oWVv2i4jth0y0E=s512-c",
       job: "Documentação",
+      github: "",
+      username: "",
     },
   ];
   return (
@@ -111,6 +122,8 @@ const About = () => {
               key={index}
             >
               <Dev
+                github={dev.github}
+                username={dev.username}
                 name={dev.name}
                 email={dev.email}
                 imageUrl={dev.imageUrl}
