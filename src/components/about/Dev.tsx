@@ -1,4 +1,4 @@
-import { Github, Mail } from "lucide-react";
+import { Github } from "lucide-react";
 
 interface Props {
   name: string;
@@ -9,7 +9,7 @@ interface Props {
   username: string;
 }
 
-const Dev = ({ name, imageUrl, job, email, github, username }: Props) => {
+const Dev = ({ name, imageUrl, job, github, username }: Props) => {
   return (
     <div className="w-full flex flex-col items-start bg-lightGray dark:bg-dark p-5 gap-5 lg:rounded-2xl rounded-xl shadow-xl dark:shadow-none">
       <div className="flex items-center justify-between w-full">
