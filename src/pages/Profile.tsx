@@ -82,9 +82,29 @@ export default function Profile() {
     }
   };
 
-  const { isPending, data } = useQuery({
-    queryKey: ["events", user.id],
+  const getParticipatingEvents = async () => {
+    try {
+      const response = await axios.get("/events/participant", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          id: user.id,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      return;
+    }
+  };
+
+  const ownerQuery = useQuery({
+    queryKey: ["owner", user.id],
     queryFn: () => getEvents(),
+  });
+
+  const participatingQuery = useQuery({
+    queryKey: ["participating", user.id],
+    queryFn: () => getParticipatingEvents(),
   });
 
   return (
@@ -132,28 +152,28 @@ export default function Profile() {
         </Button>
         <section className="flex flex-col gap-5">
           <h1 className="text-2xl lg:text-3xl font-prompt">Seus eventos:</h1>
-          {isPending ? (
+          {ownerQuery.isPending ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
               <LoadingCardSkeleton />
               <LoadingCardSkeleton />
               <LoadingCardSkeleton />
             </div>
           ) : (
-            <EventList events={data.events} />
+            <EventList events={ownerQuery.data.events} />
           )}
         </section>
         <section className="flex flex-col gap-5">
           <h1 className="text-2xl lg:text-3xl font-prompt">
             Você está participando de:
           </h1>
-          {isPending ? (
+          {participatingQuery.isPending ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
               <LoadingCardSkeleton />
               <LoadingCardSkeleton />
               <LoadingCardSkeleton />
             </div>
           ) : (
-            <EventList events={data.events} />
+            <EventList events={participatingQuery.data.events} />
           )}
         </section>
       </div>
