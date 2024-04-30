@@ -14,32 +14,34 @@ const About = () => {
   const devs = [
     {
       name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
+      email: "joao35434@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/147207558?v=4",
       job: "Frontend",
     },
     {
       name: "Guilherme Oliveira Ferreira",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
+      email: "guilherme35525@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/146398231?v=4",
       job: "Backend",
     },
     {
       name: "Carolina Cristina Campos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
+      email: "carolina35420@fiec.edu.br",
+      imageUrl:
+        "https://lh3.googleusercontent.com/a-/ALV-UjUTM6efMM9bZG5rqEFUrj-rc2irg0zCAJ6ntYo44yDcRIZTcBI=s512-c",
       job: "Backend",
     },
     {
       name: "Juila Orlandi",
-      email: "joaodematos127@gmail.com",
+      email: "julia35436@fiec.edu.br",
       imageUrl: "",
       job: "Banco de dados",
     },
     {
       name: "Nicolas Masaishi",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
+      email: "nicolas35440@fiec.edu.br",
+      imageUrl:
+        "https://lh3.googleusercontent.com/a-/ALV-UjWISh1alOk1YIf7qppzK7l3WBETTFoj0Uke_oWVv2i4jth0y0E=s512-c",
       job: "Documentação",
     },
   ];
