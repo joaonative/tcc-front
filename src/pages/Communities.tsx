@@ -87,6 +87,20 @@ const Communities = () => {
               className="object-cover w-full lg:w-[512px]"
             />
           </div>
+          <div className="flex items-center justify-center gap-5">
+            {totalPages > 1 &&
+              Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePagination(index)}
+                  className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
+                    currentPage === index && "border-4"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+          </div>
         </section>
         {!isOpen && (
           <Button
