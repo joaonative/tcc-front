@@ -31,8 +31,7 @@ const About = () => {
     {
       name: "Carolina Cristina Campos",
       email: "carolina35420@fiec.edu.br",
-      imageUrl:
-        "https://lh3.googleusercontent.com/a-/ALV-UjUTM6efMM9bZG5rqEFUrj-rc2irg0zCAJ6ntYo44yDcRIZTcBI=s512-c",
+      imageUrl: "https://avatars.githubusercontent.com/u/125034396?v=4",
       job: "Backend",
       github: "https://github.com/CCamposDEV23",
       username: "CCamposDEV23",
@@ -111,7 +110,7 @@ const About = () => {
         <h1 className="text-4xl font-prompt">Equipe</h1>
         <ul
           ref={ref}
-          className="flex items-center lg:justify-between gap-5 overflow-x-scroll lg:overflow-auto"
+          className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-5"
         >
           {devs.map((dev, index) => (
             <motion.li
