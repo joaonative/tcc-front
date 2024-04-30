@@ -11,6 +11,7 @@ import Loading from "./components/Loading";
 import { ReactNode } from "react";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Communities from "./pages/Communities";
 
 interface RouteProps {
   element: ReactNode;
@@ -36,11 +37,15 @@ const Routes = () => {
       <Route path="/contato" element={<Contact />} />
       <Route path="/*" element={<NotFound />} />
       <Route path="/eventos" element={<PrivateRoute element={<Events />} />} />
-      <Route path="/perfil" element={<PrivateRoute element={<Profile />} />} />
       <Route
         path="/evento/:id"
         element={<PrivateRoute element={<EventSingle />} />}
       />
+      <Route
+        path="/comunidades"
+        element={<PrivateRoute element={<Communities />} />}
+      />
+      <Route path="/perfil" element={<PrivateRoute element={<Profile />} />} />
     </Router>
   );
 };

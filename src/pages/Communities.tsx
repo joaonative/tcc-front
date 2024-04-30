@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import EventList from "../components/e/EventList";
 import { useAuth } from "../contexts/Auth.context";
-import Button from "../components/Button";
-import CreateEventForm from "../components/e/CreateEventForm";
 import axios from "../api/api";
+import { useTheme } from "../contexts/Theme.context";
 import { useError } from "../contexts/Error.context";
 import LoadingCardSkeleton from "../components/LoadingCardSkeleton";
-import { useTheme } from "../contexts/Theme.context";
+import Button from "../components/Button";
+import CommunityForm from "../components/c/CommunityForm";
 
-const Events = () => {
+const Communities = () => {
   const { darkMode } = useTheme();
   const { user } = useAuth();
   const { setError } = useError();
@@ -23,9 +22,9 @@ const Events = () => {
     setIsOpen(true);
   };
 
-  const getEvents = async (page: number) => {
+  const getCommunities = async (page: number) => {
     try {
-      const response = await axios.get("/events", {
+      const response = await axios.get("/communities", {
         headers: { Authorization: `Bearer ${user.token}` },
         params: { page },
       });
@@ -43,8 +42,8 @@ const Events = () => {
   };
 
   const { isPending, data, refetch } = useQuery({
-    queryKey: ["events", currentPage],
-    queryFn: () => getEvents(currentPage),
+    queryKey: ["communities", currentPage],
+    queryFn: () => getCommunities(currentPage),
   });
 
   if (isPending) {
@@ -63,23 +62,23 @@ const Events = () => {
     );
   }
 
-  if (!data.events || data.events.length === 0) {
+  if (!data.communities || data.communities.length === 0) {
     return (
       <>
         <section className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl lg:text-3xl font-prompt">
-              Sem eventos, começe agora!
+              Sem comunidades, começe agora!
             </h1>
             <Button
               variant="primary"
               onClick={handleOpen}
               classes="hidden lg:block"
             >
-              Criar evento
+              Criar comunidade
             </Button>
           </div>
-          {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
+          {isOpen && <CommunityForm handleCancel={() => setIsOpen(false)} />}
           <div className="flex items-center justify-center">
             <img
               src={darkMode ? "notfoundDark.svg" : "notfound.svg"}
@@ -87,6 +86,20 @@ const Events = () => {
               height={512}
               className="object-cover w-full lg:w-[512px]"
             />
+          </div>
+          <div className="flex items-center justify-center gap-5">
+            {totalPages > 1 &&
+              Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePagination(index)}
+                  className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
+                    currentPage === index && "border-4"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
           </div>
         </section>
         {!isOpen && (
@@ -101,48 +114,7 @@ const Events = () => {
       </>
     );
   }
-
-  return (
-    <>
-      <section className="flex flex-col gap-5">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl lg:text-3xl font-prompt">Eventos Ativos</h1>
-          <Button
-            variant="primary"
-            onClick={handleOpen}
-            classes="hidden lg:block"
-          >
-            Criar evento
-          </Button>
-        </div>
-        <EventList events={data.events} />
-        {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
-        <div className="flex items-center justify-center gap-5">
-          {totalPages > 1 &&
-            Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => handlePagination(index)}
-                className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
-                  currentPage === index && "border-4"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-        </div>
-      </section>
-      {!isOpen && (
-        <Button
-          variant="primary"
-          onClick={handleOpen}
-          classes="lg:hidden fixed bottom-24 right-4"
-        >
-          Criar evento
-        </Button>
-      )}
-    </>
-  );
+  return <section className="flex flex-col gap-5"></section>;
 };
 
-export default Events;
+export default Communities;

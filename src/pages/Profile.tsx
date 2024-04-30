@@ -8,6 +8,10 @@ import { ariaLabel } from "../constants/aria-label";
 import { uploadImage } from "../api/uploadImage";
 import { updateUser } from "../api/User";
 import { useError } from "../contexts/Error.context";
+import axios from "../api/api";
+import { useQuery } from "@tanstack/react-query";
+import EventList from "../components/e/EventList";
+import LoadingCardSkeleton from "../components/LoadingCardSkeleton";
 
 export default function Profile() {
   const { user, setUser, setAuthenticated } = useAuth();
@@ -65,6 +69,44 @@ export default function Profile() {
     }
   };
 
+  const getEvents = async () => {
+    try {
+      const response = await axios.get("/events/owner/" + user.id, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      return;
+    }
+  };
+
+  const getParticipatingEvents = async () => {
+    try {
+      const response = await axios.get("/events/participant", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          id: user.id,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      return;
+    }
+  };
+
+  const ownerQuery = useQuery({
+    queryKey: ["owner", user.id],
+    queryFn: () => getEvents(),
+  });
+
+  const participatingQuery = useQuery({
+    queryKey: ["participating", user.id],
+    queryFn: () => getParticipatingEvents(),
+  });
+
   return (
     <>
       <div className="flex flex-col gap-8">
@@ -108,6 +150,32 @@ export default function Profile() {
         <Button variant="outline" onClick={logout}>
           Sair
         </Button>
+        <section className="flex flex-col gap-5">
+          <h1 className="text-2xl lg:text-3xl font-prompt">Seus eventos:</h1>
+          {ownerQuery.isPending ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
+              <LoadingCardSkeleton />
+              <LoadingCardSkeleton />
+              <LoadingCardSkeleton />
+            </div>
+          ) : (
+            <EventList events={ownerQuery.data.events} />
+          )}
+        </section>
+        <section className="flex flex-col gap-5">
+          <h1 className="text-2xl lg:text-3xl font-prompt">
+            Você está participando de:
+          </h1>
+          {participatingQuery.isPending ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
+              <LoadingCardSkeleton />
+              <LoadingCardSkeleton />
+              <LoadingCardSkeleton />
+            </div>
+          ) : (
+            <EventList events={participatingQuery.data.events} />
+          )}
+        </section>
       </div>
 
       {selectedFile && !isSelectionCancelled && (

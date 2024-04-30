@@ -14,33 +14,45 @@ const About = () => {
   const devs = [
     {
       name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
-      job: "frontend",
+      email: "joao35434@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/147207558?v=4",
+      job: "Frontend",
+      github: "https://github.com/joaonative",
+      username: "joaonative",
     },
     {
-      name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
-      job: "frontend",
+      name: "Guilherme Oliveira Ferreira",
+      email: "guilherme35525@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/146398231?v=4",
+      job: "Backend",
+      github: "https://github.com/g-uizo",
+      username: "g-uizo",
     },
     {
-      name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
-      job: "frontend",
+      name: "Carolina Cristina Campos",
+      email: "carolina35420@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/125034396?v=4",
+      job: "Backend",
+      github: "https://github.com/CCamposDEV23",
+      username: "CCamposDEV23",
     },
     {
-      name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
-      job: "frontend",
+      name: "Juila Orlandi",
+      email: "julia35436@fiec.edu.br",
+      imageUrl:
+        "https://lh3.googleusercontent.com/a/ACg8ocJYRGQniHd_dnpI6AJXnC1A3DDFcWMfIj5BgLxTI-Htnnb5Vg=s512-c-mo",
+      job: "Banco de dados",
+      github: "",
+      username: "",
     },
     {
-      name: "João Victor de Matos",
-      email: "joaodematos127@gmail.com",
-      imageUrl: "",
-      job: "frontend",
+      name: "Nicolas Masaishi",
+      email: "nicolas35440@fiec.edu.br",
+      imageUrl:
+        "https://lh3.googleusercontent.com/a-/ALV-UjWISh1alOk1YIf7qppzK7l3WBETTFoj0Uke_oWVv2i4jth0y0E=s512-c",
+      job: "Documentação",
+      github: "",
+      username: "",
     },
   ];
   return (
@@ -98,7 +110,7 @@ const About = () => {
         <h1 className="text-4xl font-prompt">Equipe</h1>
         <ul
           ref={ref}
-          className="flex items-center lg:justify-between gap-5 overflow-x-scroll lg:overflow-auto"
+          className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-5"
         >
           {devs.map((dev, index) => (
             <motion.li
@@ -109,6 +121,8 @@ const About = () => {
               key={index}
             >
               <Dev
+                github={dev.github}
+                username={dev.username}
                 name={dev.name}
                 email={dev.email}
                 imageUrl={dev.imageUrl}

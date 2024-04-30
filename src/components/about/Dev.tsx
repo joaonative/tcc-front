@@ -1,29 +1,43 @@
-import { Mail } from "lucide-react";
+import { Github } from "lucide-react";
 
 interface Props {
   name: string;
   imageUrl: string;
   job: string;
   email: string;
+  github: string;
+  username: string;
 }
 
-const Dev = ({ name, imageUrl, job, email }: Props) => {
+const Dev = ({ name, imageUrl, job, github, username }: Props) => {
   return (
-    <div className="flex flex-col items-center bg-lightGray dark:bg-dark p-5 rounded-2xl gap-3 shadow-xl dark:shadow-none">
-      <img
-        src={imageUrl}
-        alt=""
-        className="object cover border-[3px] border-purple dark:border-green rounded-full"
-        width={144}
-        height={144}
-      />
-      <div className="flex flex-col gap-1 items-center">
-        <h2 className="text-xl font-prompt">{name}</h2>
-        <h3 className="text-base font-poppins font-medium">{job}</h3>
-      </div>
-      <div className="flex items-center gap-2">
-        <Mail size={32} className="text-purple dark:text-green" />
-        <h4 className="font-poppins">{email}</h4>
+    <div className="w-full flex flex-col items-start bg-lightGray dark:bg-dark p-5 gap-5 lg:rounded-2xl rounded-xl shadow-xl dark:shadow-none">
+      <div className="flex items-center justify-between w-full">
+        <img
+          src={imageUrl}
+          alt=""
+          width={144}
+          height={144}
+          className="md:w-36 md:h-36 w-28 h-2w-28 object-cover rounded-full border-4 dark:border-green border-purple"
+        />
+        <div className="flex flex-col gap-2 items-center w-full">
+          <div className="text-center">
+            <h2 className="text-base font-poppins font-medium text-black/75 dark:text-white/75">
+              {job}
+            </h2>
+            <h1 className="text-xl font-prompt">{name}</h1>
+          </div>
+          <span className="flex items-center gap-2">
+            <Github size={32} className="dark:text-green text-purple" />
+            <a
+              href={github}
+              target="_blank"
+              className="text-base font-poppins font-medium"
+            >
+              @{username}
+            </a>
+          </span>
+        </div>
       </div>
     </div>
   );
