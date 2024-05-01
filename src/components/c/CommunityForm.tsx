@@ -33,7 +33,6 @@ const CommunityForm = ({ handleCancel }: Props) => {
     description: "",
     participantLimit: 0,
     age_range: 0,
-
     category: "",
     imageUrl: "",
   });
@@ -58,6 +57,7 @@ const CommunityForm = ({ handleCancel }: Props) => {
         [name]: value,
       });
     }
+    console.log(formData);
   };
 
   const postEvent = async (formData: FormData) => {
@@ -76,7 +76,7 @@ const CommunityForm = ({ handleCancel }: Props) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (eventData: FormData) => postEvent(eventData),
+    mutationFn: (communityData: FormData) => postEvent(communityData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["communities"] });
       handleCancel();
@@ -107,13 +107,13 @@ const CommunityForm = ({ handleCancel }: Props) => {
       selectedFile,
       768,
       512,
-      `${user.id}-${formData.name.replace(/\s+/g, "")}`
+      `${user.id}-${formData.name.replace(/\s+/g, "")}-comunidade`
     );
-    const eventData = {
+    const communityData = {
       ...formData,
       imageUrl: url,
     };
-    mutation.mutate(eventData);
+    mutation.mutate(communityData);
   };
 
   if (mutation.isPending) {
@@ -134,7 +134,7 @@ const CommunityForm = ({ handleCancel }: Props) => {
           id="image"
           type="file"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            let file = event.target.files?.[0];
+            const file = event.target.files?.[0];
             if (!file) {
               return;
             }

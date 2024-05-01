@@ -8,6 +8,7 @@ import { useError } from "../contexts/Error.context";
 import LoadingCardSkeleton from "../components/LoadingCardSkeleton";
 import Button from "../components/Button";
 import CommunityForm from "../components/c/CommunityForm";
+import CommunityList from "../components/c/CommunityList";
 
 const Communities = () => {
   const { darkMode } = useTheme();
@@ -87,20 +88,6 @@ const Communities = () => {
               className="object-cover w-full lg:w-[512px]"
             />
           </div>
-          <div className="flex items-center justify-center gap-5">
-            {totalPages > 1 &&
-              Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => handlePagination(index)}
-                  className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
-                    currentPage === index && "border-4"
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-          </div>
         </section>
         {!isOpen && (
           <Button
@@ -108,13 +95,40 @@ const Communities = () => {
             onClick={handleOpen}
             classes="lg:hidden fixed bottom-24 right-4"
           >
-            Criar evento
+            Criar comunidade
           </Button>
         )}
       </>
     );
   }
-  return <section className="flex flex-col gap-5"></section>;
+  return (
+    <section className="flex flex-col gap-5">
+      <CommunityList communities={data.communities} />
+      <div className="flex items-center justify-center gap-5">
+        {totalPages > 1 &&
+          Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePagination(index)}
+              className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
+                currentPage === index && "border-4"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+      </div>
+      {!isOpen && (
+        <Button
+          variant="primary"
+          onClick={handleOpen}
+          classes="lg:hidden fixed bottom-24 right-4"
+        >
+          Criar comunidade
+        </Button>
+      )}
+    </section>
+  );
 };
 
 export default Communities;

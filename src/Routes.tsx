@@ -12,6 +12,7 @@ import { ReactNode } from "react";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Communities from "./pages/Communities";
+import Community from "./pages/Community";
 
 interface RouteProps {
   element: ReactNode;
@@ -44,6 +45,10 @@ const Routes = () => {
       <Route
         path="/comunidades"
         element={<PrivateRoute element={<Communities />} />}
+      />
+      <Route
+        path="/comunidade/:id"
+        element={<PrivateRoute element={<Community />} />}
       />
       <Route path="/perfil" element={<PrivateRoute element={<Profile />} />} />
     </Router>
