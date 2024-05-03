@@ -16,7 +16,7 @@ import { useError } from "../../contexts/Error.context";
 import axios from "../../api/api";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
 
@@ -305,9 +305,9 @@ const EventSingle = ({ id }: Props) => {
           </div>
         </div>
         <div className="w-full flex items-center gap-5 justify-end">
-          <Button variant="outline">
-            <a href="/eventos">Voltar</a>
-          </Button>
+          <Link to={"/eventos"}>
+            <Button variant="outline">Voltar</Button>
+          </Link>
 
           {data.event.owner === user.id ? (
             <Button variant="danger" onClick={() => setIsOpen(true)}>

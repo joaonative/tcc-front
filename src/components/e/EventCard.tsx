@@ -1,5 +1,6 @@
 import { CalendarClock, Users } from "lucide-react";
 
+import { Link } from "react-router-dom";
 import { ariaLabel } from "../../constants/aria-label";
 import Event from "../../interfaces/Event";
 import Button from "../Button";
@@ -39,9 +40,10 @@ const EventCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button variant="primary">
-          <a href={`/evento/${_id}`}>Ver Mais</a>
-        </Button>
+        <Link to={`/evento/${_id}`}>
+          <Button variant="primary">Ver Mais</Button>
+        </Link>
+
         <span className="flex items-center gap-3">
           <CalendarClock
             size={24}
