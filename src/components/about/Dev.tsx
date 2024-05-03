@@ -1,4 +1,5 @@
 import { Github } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Props {
   name: string;
@@ -27,16 +28,10 @@ const Dev = ({ name, imageUrl, job, github, username }: Props) => {
             </h2>
             <h1 className="text-xl font-prompt">{name}</h1>
           </div>
-          <span className="flex items-center gap-2">
-            <Github size={32} className="dark:text-green text-purple" />
-            <a
-              href={github}
-              target="_blank"
-              className="text-base font-poppins font-medium"
-            >
-              @{username}
-            </a>
-          </span>
+          <Link to={github} target="_blank" className="flex items-center gap-2">
+            <Github size={32} className="dark:text-green text-purple" />@
+            {username}
+          </Link>
         </div>
       </div>
     </div>
