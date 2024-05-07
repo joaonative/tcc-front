@@ -19,14 +19,50 @@ import { deleteImage } from "../../api/deleteImage";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
+import EventList from "../e/EventList";
+import CreateEventForm from "../e/CreateEventForm";
+import { useTheme } from "../../contexts/Theme.context";
 
 interface Props {
   id: string;
 }
 
 const CommunitySingle = ({ id }: Props) => {
+  const { darkMode } = useTheme();
   const { user } = useAuth();
   const { setError } = useError();
+
+  const [isFormModalOpen, setIsFormModalOpen] = useState<boolean>(false);
+  const handleOpen = () => {
+    setIsFormModalOpen(true);
+  };
+
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+
+  const getEvents = async (page: number) => {
+    try {
+      const response = await axios.get("/events/owner/" + data.community._id, {
+        headers: { Authorization: `Bearer ${user.token}` },
+        params: { page },
+      });
+      setTotalPages(response.data.totalPages);
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      return;
+    }
+  };
+
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
+    eventsQuery.refetch();
+  };
+
+  const eventsQuery = useQuery({
+    queryKey: ["commuunuity events", currentPage],
+    queryFn: () => getEvents(currentPage),
+  });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -142,6 +178,7 @@ const CommunitySingle = ({ id }: Props) => {
       queryClient.invalidateQueries({ queryKey: ["communities"] });
       navigate("/comunidades");
     },
+    retry: false,
   });
 
   if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
@@ -222,7 +259,7 @@ const CommunitySingle = ({ id }: Props) => {
             {data.community.description}
           </blockquote>
         </div>
-        <div className="w-full flex flex-col p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
+        <div className="w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
           <span className="flex items-center gap-2">
             <Users
               size={24}
@@ -234,7 +271,7 @@ const CommunitySingle = ({ id }: Props) => {
               {data.community.participantLimit}
             </h1>
           </span>
-          <div className=" overflow-x-scroll">
+          <div className="overflow-x-scroll">
             <div className="flex items-center gap-8 w-max">
               {(data.participants ?? []).map(
                 (participant: {
@@ -254,9 +291,9 @@ const CommunitySingle = ({ id }: Props) => {
                       className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
                     />
                     <h2 className="font-poppinst font-medium">
-                      {participant.name.length <= 16
+                      {participant.name.length <= 22
                         ? participant.name
-                        : `${participant.name.slice(0, 16)}...`}
+                        : `${participant.name.slice(0, 22)}...`}
                     </h2>
                   </div>
                 )
@@ -264,6 +301,84 @@ const CommunitySingle = ({ id }: Props) => {
             </div>
           </div>
         </div>
+
+        {!eventsQuery.data ||
+        !eventsQuery.data.events ||
+        eventsQuery.data.events.length === 0 ||
+        eventsQuery.isPending ? (
+          <>
+            <section className="flex flex-col gap-5">
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl lg:text-3xl font-prompt">
+                  Sem eventos na comunidade, começe agora!
+                </h1>
+                <Button
+                  variant="primary"
+                  onClick={handleOpen}
+                  classes="hidden lg:block"
+                >
+                  Criar evento
+                </Button>
+              </div>
+              {isFormModalOpen && (
+                <CreateEventForm
+                  handleCancel={() => setIsFormModalOpen(false)}
+                />
+              )}
+              <div className="flex items-center justify-center">
+                <img
+                  src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
+                  width={768}
+                  height={512}
+                  className="object-cover w-full lg:w-[512px]"
+                />
+              </div>
+            </section>
+            {!isFormModalOpen && (
+              <Button
+                variant="primary"
+                onClick={handleOpen}
+                classes="lg:hidden fixed bottom-24 right-4"
+              >
+                Criar evento
+              </Button>
+            )}
+          </>
+        ) : (
+          <section className="flex flex-col gap-5">
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl lg:text-3xl font-prompt">
+                Eventos Ativos
+              </h1>
+              <Button
+                variant="primary"
+                onClick={handleOpen}
+                classes="hidden lg:block"
+              >
+                Criar evento
+              </Button>
+            </div>
+            <EventList events={eventsQuery.data.events} />
+            {isFormModalOpen && (
+              <CreateEventForm handleCancel={() => setIsFormModalOpen(false)} />
+            )}
+            <div className="flex items-center justify-center gap-5">
+              {totalPages > 1 &&
+                Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => handlePagination(index)}
+                    className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
+                      currentPage === index && "border-4"
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+            </div>
+          </section>
+        )}
+
         <div className="w-full flex items-center gap-5 justify-end">
           <Link to={"/comunidades"}>
             <Button variant="outline">Voltar</Button>
@@ -284,6 +399,17 @@ const CommunitySingle = ({ id }: Props) => {
           )}
         </div>
       </section>
+
+      {!isFormModalOpen && (
+        <Button
+          variant="primary"
+          onClick={handleOpen}
+          classes="lg:hidden fixed bottom-24 right-4"
+        >
+          Criar evento
+        </Button>
+      )}
+
       {isOpen && (
         <Modal
           handleCancel={() => setIsOpen(false)}
