@@ -103,6 +103,16 @@ const Communities = () => {
   }
   return (
     <section className="flex flex-col gap-5">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl lg:text-3xl font-prompt">Comunidades</h1>
+        <Button
+          variant="primary"
+          onClick={handleOpen}
+          classes="hidden lg:block"
+        >
+          Criar comunidade
+        </Button>
+      </div>
       <CommunityList communities={data.communities} />
       <div className="flex items-center justify-center gap-5">
         {totalPages > 1 &&
@@ -118,6 +128,7 @@ const Communities = () => {
             </button>
           ))}
       </div>
+      {isOpen && <CommunityForm handleCancel={() => setIsOpen(false)} />}
       {!isOpen && (
         <Button
           variant="primary"

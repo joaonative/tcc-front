@@ -82,7 +82,7 @@ const Events = () => {
           {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
           <div className="flex items-center justify-center">
             <img
-              src={darkMode ? "notfoundDark.svg" : "notfound.svg"}
+              src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
               width={768}
               height={512}
               className="object-cover w-full lg:w-[512px]"
