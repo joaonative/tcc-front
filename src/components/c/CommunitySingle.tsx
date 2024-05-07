@@ -1,11 +1,4 @@
-import {
-  Bookmark,
-  CalendarClock,
-  Crown,
-  Info,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { Bookmark, Crown, Info, Users } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { ariaLabel } from "../../constants/aria-label";
