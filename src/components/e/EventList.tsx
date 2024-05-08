@@ -24,7 +24,7 @@ const EventList = ({ events }: { events: Event[] }) => {
             variants={cardVariants}
             initial="initial"
             animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.4, delay: index * 0.18 }}
+            transition={{ duration: 0.5, delay: index * 0.08 }}
             key={event._id}
           >
             <EventCard

@@ -3,6 +3,7 @@ import { Community } from "../../interfaces/Community";
 import Button from "../Button";
 import { ariaLabel } from "../../constants/aria-label";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
+import { Link } from "react-router-dom";
 
 interface Props {
   community: Community;
@@ -29,9 +30,9 @@ const CommunityCard = ({ community }: Props) => {
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Button variant="primary">
-          <a href={`/comunidade/${community._id}`}>Ver Mais</a>
-        </Button>
+        <Link to={`/comunidade/${community._id}`}>
+          <Button variant="primary">Ver Mais</Button>
+        </Link>
         <span className="flex items-center gap-2">
           {categoryIconMap[community.category]}
           <h1 className="text-base font-prompt">{community.category}</h1>

@@ -25,7 +25,7 @@ const CommunityList = ({ communities }: Props) => {
           variants={cardVariants}
           initial="initial"
           animate={isInView ? "animate" : "initial"}
-          transition={{ duration: 0.4, delay: index * 0.18 }}
+          transition={{ duration: 0.5, delay: index * 0.08 }}
           key={community._id}
         >
           <CommunityCard community={community} />
