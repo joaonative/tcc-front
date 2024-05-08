@@ -14,4 +14,5 @@ export default interface Event {
   age_range: string;
   location: string;
   isExpired: boolean;
+  mapUrl?: string;
 }

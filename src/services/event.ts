@@ -1,0 +1,55 @@
+import axios from "../api/api";
+import { deleteImage } from "../api/deleteImage";
+
+export class EventService {
+  static async getEvents(userToken: string, page: number) {
+    const response = await axios.get("/events", {
+      headers: { Authorization: `Bearer ${userToken}` },
+      params: { page },
+    });
+    return response.data;
+  }
+
+  static async getEventById(userToken: string, eventId: string) {
+    const response = await axios.get(`/events/${eventId}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return response.data;
+  }
+
+  static async joinEvent(userToken: string, eventId: string, userId: string) {
+    const response = await axios.put(
+      `/events/join/${eventId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          id: userId,
+        },
+      }
+    );
+    return response.data;
+  }
+
+  static async leaveEvent(userToken: string, eventId: string, userId: string) {
+    const response = await axios.get(`/events/leave/${eventId}`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+        id: userId,
+      },
+    });
+    return response.data;
+  }
+
+  static async deleteEvent(userToken: string, eventId: string, userId: string) {
+    const response = await axios.delete(`/events/${eventId}`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+        id: userId,
+      },
+    });
+    return response.data;
+  }
+}
