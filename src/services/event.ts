@@ -1,5 +1,4 @@
 import axios from "../api/api";
-import { deleteImage } from "../api/deleteImage";
 
 export class EventService {
   static async getEvents(userToken: string, page: number) {
