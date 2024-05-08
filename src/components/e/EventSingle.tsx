@@ -19,6 +19,7 @@ import Modal from "../Modal";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
 import Event from "../../interfaces/Event";
 import { EventService } from "../../services/event";
+import Page from "../Page";
 
 interface Props {
   id: string;
@@ -100,12 +101,16 @@ const EventSingle = ({ event, owner, participants }: Props) => {
     leaveMutation.isPending ||
     deleteMutation.isPending
   ) {
-    return <Loading />;
+    return (
+      <Page>
+        <Loading />
+      </Page>
+    );
   }
 
   return (
     <>
-      <section className="flex flex-col lg:gap-8 gap-5">
+      <Page>
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 gap-5">
           <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
@@ -243,7 +248,7 @@ const EventSingle = ({ event, owner, participants }: Props) => {
             </Button>
           )}
         </div>
-      </section>
+      </Page>
       {isOpen && (
         <Modal
           handleCancel={() => setIsOpen(false)}

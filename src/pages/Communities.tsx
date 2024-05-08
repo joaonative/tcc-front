@@ -62,7 +62,7 @@ const Communities = () => {
             Criar comunidade
           </Button>
         </div>
-        {data.events && data.events.length >= 1 ? (
+        {data.communities && data.communities.length >= 1 ? (
           <>
             <CommunityList communities={data.communities} />
             <div className="flex items-center justify-center gap-5">

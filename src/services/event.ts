@@ -51,4 +51,14 @@ export class EventService {
     });
     return response.data;
   }
+
+  static async getEventsByOwner(userToken: string, ownerId: string) {
+    const response = await axios.get(`/events/owner/${ownerId}`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+      },
+    });
+
+    return response.data;
+  }
 }

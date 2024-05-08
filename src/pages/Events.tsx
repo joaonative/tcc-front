@@ -51,7 +51,7 @@ const Events = () => {
       <Page>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl lg:text-3xl font-prompt">
-            {data.events || data.events.length >= 1
+            {data.events && data.events.length >= 1
               ? "Eventos Ativos"
               : "Sem eventos, começe agora!"}
           </h1>
