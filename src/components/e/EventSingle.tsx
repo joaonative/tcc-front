@@ -6,118 +6,70 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { ariaLabel } from "../../constants/aria-label";
 import Button from "../Button";
 import { useAuth } from "../../contexts/Auth.context";
 import { useState } from "react";
-import { useError } from "../../contexts/Error.context";
-import axios from "../../api/api";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
+import Event from "../../interfaces/Event";
+import { EventService } from "../../services/event";
+import Page from "../Page";
 
 interface Props {
   id: string;
+  event: Event;
+  participants: { id: string; imageUrl: string; name: string }[];
+  owner: string;
 }
 
-const EventSingle = ({ id }: Props) => {
+const EventSingle = ({ event, owner, participants }: Props) => {
   const { user } = useAuth();
-  const { setError } = useError();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [isParticipating, setisParticipating] = useState<boolean>();
+  const isOwner = event.owner === user.id;
+  const isParticipating: boolean = event.participants.includes(user.id);
 
-  const getEvent = async () => {
-    try {
-      const response = await axios.get(`/events/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      setisParticipating(response.data.event.participants.includes(user.id));
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+  const join = async () => {
+    const res = await EventService.joinEvent(user.token, event._id, user.id);
+    return res;
   };
-
-  const joinEvent = async () => {
-    try {
-      const response = await axios.put(
-        `/events/join/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            id: user.id,
-          },
-        }
-      );
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
-  };
-
   const leaveEvent = async () => {
-    try {
-      const response = await axios.get(`/events/leave/${id}`, {
-        headers: {
-          Authorization: `Bearer: ${user.token}`,
-          id: user.id,
-        },
-      });
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+    const res = await EventService.leaveEvent(user.token, event._id, user.id);
+    return res;
   };
 
   const deleteEvent = async () => {
-    try {
-      const eventDate = new Date(data.event.date);
-      eventDate.setDate(eventDate.getDate() + 1);
+    const eventDate = new Date(event.date);
+    eventDate.setDate(eventDate.getDate() + 1);
 
-      const day = String(eventDate.getDate()).padStart(2, "0");
-      const month = String(eventDate.getMonth() + 1).padStart(2, "0");
-      const year = String(eventDate.getFullYear());
+    const day = String(eventDate.getDate()).padStart(2, "0");
+    const month = String(eventDate.getMonth() + 1).padStart(2, "0");
+    const year = String(eventDate.getFullYear());
 
-      await deleteImage(
-        `${user.id}-${year}-${month}-${day}-${data.event.name.replace(
-          /\s+/g,
-          ""
-        )}`
-      );
+    await deleteImage(
+      `${user.id}-${year}-${month}-${day}-${event.name.replace(/\s+/g, "")}`
+    );
 
-      const response = await axios.delete(`/events/${id}`, {
-        headers: {
-          Authorization: `Bearer: ${user.token}`,
-          id: user.id,
-        },
-      });
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+    const res = await EventService.deleteEvent(user.token, event._id, user.id);
+    return res;
   };
 
   const queryClient = useQueryClient();
 
   const joinMutation = useMutation({
-    mutationFn: joinEvent,
+    mutationFn: join,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [
-          ["event", id],
+          ["event", event._id],
           ["events", user.id],
         ],
       });
@@ -129,20 +81,12 @@ const EventSingle = ({ id }: Props) => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [
-          ["event", id],
+          ["event", event._id],
           ["events", user.id],
         ],
       });
     },
   });
-
-  const { isPending, data } = useQuery({
-    queryKey: ["event", id],
-    queryFn: getEvent,
-    retry: false,
-  });
-
-  const navigate = useNavigate();
 
   const deleteMutation = useMutation({
     mutationFn: deleteEvent,
@@ -152,30 +96,21 @@ const EventSingle = ({ id }: Props) => {
     },
   });
 
-  if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
-    return <Navigate to={"/eventos"} replace />;
-  }
-
-  if (!isPending && !data) {
-    return <Navigate to={"/eventos"} replace />;
-  }
-
   if (
-    isPending ||
     joinMutation.isPending ||
     leaveMutation.isPending ||
     deleteMutation.isPending
   ) {
     return (
-      <section className="flex flex-col gap-5">
+      <Page>
         <Loading />
-      </section>
+      </Page>
     );
   }
 
   return (
     <>
-      <section className="flex flex-col lg:gap-8 gap-5">
+      <Page>
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 gap-5">
           <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
@@ -184,13 +119,11 @@ const EventSingle = ({ id }: Props) => {
                 className="text-purple dark:text-green"
                 aria-label={ariaLabel.bookmark}
               />
-              <h1 className="text-base font-prompt w-full">
-                {data.event.name}
-              </h1>
+              <h1 className="text-base font-prompt w-full">{event.name}</h1>
             </span>
             <img
-              src={data.event.imageUrl}
-              alt={`Foto do evento: ${data.event.name}`}
+              src={event.imageUrl}
+              alt={`Foto do evento: ${event.name}`}
               width={1024}
               height={768}
               className="object-cover rounded-2xl w-full h-64 lg:h-80 3xl:h-[512px]"
@@ -202,7 +135,7 @@ const EventSingle = ({ id }: Props) => {
                   className="text-purple dark:text-green"
                   aria-label={ariaLabel.bookmark}
                 />
-                <h1 className="text-base font-prompt">{data.owner}</h1>
+                <h1 className="text-base font-prompt">{owner}</h1>
               </span>
               <div className="flex items-center lg:gap-5 justify-between">
                 <span className="flex items-center gap-2">
@@ -212,14 +145,12 @@ const EventSingle = ({ id }: Props) => {
                     aria-label={ariaLabel.bookmark}
                   />
                   <h1 className="text-base font-prompt">
-                    Idade Mínima: {data.event.age_range}
+                    Idade Mínima: {event.age_range}
                   </h1>
                 </span>
                 <span className="flex items-center gap-2">
-                  {categoryIconMap[data.event.category]}
-                  <h1 className="text-base font-prompt">
-                    {data.event.category}
-                  </h1>
+                  {categoryIconMap[event.category]}
+                  <h1 className="text-base font-prompt">{event.category}</h1>
                 </span>
               </div>
             </div>
@@ -232,12 +163,12 @@ const EventSingle = ({ id }: Props) => {
                 aria-label={ariaLabel.bookmark}
               />
               <h1 className="text-base font-prompt line-clamp-1 w-full">
-                {data.event.location}
+                {event.location}
               </h1>
             </span>
             <iframe
-              title={`localização do evento ${data.event.name} em ${data.event.location}`}
-              src={data.event.mapUrl}
+              title={`localização do evento ${event.name} em ${event.location}`}
+              src={event.mapUrl}
               className="object-cover rounded-2xl w-full h-64 lg:h-80 3xl:h-[512px]"
             />
             <span className="flex items-center gap-2">
@@ -247,20 +178,20 @@ const EventSingle = ({ id }: Props) => {
                 aria-label={ariaLabel.bookmark}
               />
               <h1 className="text-base font-prompt">
-                {`${String(new Date(data.event.date).getDate() + 1).padStart(
+                {`${String(new Date(event.date).getDate() + 1).padStart(
                   2,
                   "0"
-                )}/${String(new Date(data.event.date).getMonth() + 1).padStart(
+                )}/${String(new Date(event.date).getMonth() + 1).padStart(
                   2,
                   "0"
-                )}/${String(new Date(data.event.date).getFullYear())}`}
+                )}/${String(new Date(event.date).getFullYear())}`}
               </h1>
             </span>
           </div>
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
           <blockquote className="font-poppins font-medium">
-            {data.event.description}
+            {event.description}
           </blockquote>
         </div>
         <div className="w-full flex flex-col p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
@@ -271,36 +202,30 @@ const EventSingle = ({ id }: Props) => {
               aria-label={ariaLabel.users}
             />
             <h1 className="text-base font-prompt">
-              {data.event.participantCount}/{data.event.participantLimit}
+              {event.participantCount}/{event.participantLimit}
             </h1>
           </span>
           <div className=" overflow-x-scroll">
             <div className="flex items-center gap-8 w-max">
-              {(data.participants ?? []).map(
-                (participant: {
-                  id: string;
-                  imageUrl: string;
-                  name: string;
-                }) => (
-                  <div
-                    className="flex flex-col items-center gap-2 mb-5"
-                    key={participant.id}
-                  >
-                    <img
-                      src={participant.imageUrl}
-                      alt={`foto do participante ${participant.name}`}
-                      height={128}
-                      width={128}
-                      className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
-                    />
-                    <h2 className="font-poppinst font-medium">
-                      {participant.name.length <= 16
-                        ? participant.name
-                        : `${participant.name.slice(0, 16)}...`}
-                    </h2>
-                  </div>
-                )
-              )}
+              {participants.map((participant) => (
+                <div
+                  className="flex flex-col items-center gap-2 mb-5"
+                  key={participant.id}
+                >
+                  <img
+                    src={participant.imageUrl}
+                    alt={`foto do participante ${participant.name}`}
+                    height={128}
+                    width={128}
+                    className="h-32 w-32 rounded-full object-cover border-[3px] border-purple dark:border-green"
+                  />
+                  <h2 className="font-poppinst font-medium">
+                    {participant.name.length <= 16
+                      ? participant.name
+                      : `${participant.name.slice(0, 16)}...`}
+                  </h2>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -309,7 +234,7 @@ const EventSingle = ({ id }: Props) => {
             <Button variant="outline">Voltar</Button>
           </Link>
 
-          {data.event.owner === user.id ? (
+          {isOwner ? (
             <Button variant="danger" onClick={() => setIsOpen(true)}>
               Excluir evento
             </Button>
@@ -323,7 +248,7 @@ const EventSingle = ({ id }: Props) => {
             </Button>
           )}
         </div>
-      </section>
+      </Page>
       {isOpen && (
         <Modal
           handleCancel={() => setIsOpen(false)}

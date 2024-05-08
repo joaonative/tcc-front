@@ -4,137 +4,87 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ariaLabel } from "../../constants/aria-label";
 import Button from "../Button";
 import { useAuth } from "../../contexts/Auth.context";
-import { useState } from "react";
-import { useError } from "../../contexts/Error.context";
-import axios from "../../api/api";
+import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
-import EventList from "../e/EventList";
-import CreateEventForm from "../e/CreateEventForm";
-import { useTheme } from "../../contexts/Theme.context";
+import { Community } from "../../interfaces/Community";
+import { CommunityService } from "../../services/community";
+import Page from "../Page";
+import CommunityEvents from "./CommunityEvents";
+import { EventService } from "../../services/event";
 
 interface Props {
   id: string;
+  community: Community;
+  participants: { id: string; imageUrl: string; name: string }[];
+  owner: string;
 }
 
-const CommunitySingle = ({ id }: Props) => {
-  const { darkMode } = useTheme();
+const CommunitySingle = ({ id, community, owner, participants }: Props) => {
   const { user } = useAuth();
-  const { setError } = useError();
+  const navigate = useNavigate();
+
+  const isOwner = community.owner === user.id;
+  const isParticipating: boolean = community.participants.includes(user.id);
 
   const [isFormModalOpen, setIsFormModalOpen] = useState<boolean>(false);
   const handleOpen = () => {
     setIsFormModalOpen(true);
   };
 
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(0);
-
-  const getEvents = async (page: number) => {
-    try {
-      const response = await axios.get("/events/owner/" + data.community._id, {
-        headers: { Authorization: `Bearer ${user.token}` },
-        params: { page },
-      });
-      setTotalPages(response.data.totalPages);
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
-  };
-
-  const handlePagination = (page: number) => {
-    setCurrentPage(page);
-    eventsQuery.refetch();
+  const get = async () => {
+    const res = await EventService.getEventsByOwner(user.token, community._id);
+    return res;
   };
 
   const eventsQuery = useQuery({
-    queryKey: ["commuunuity events", currentPage],
-    queryFn: () => getEvents(currentPage),
+    queryKey: ["commuunuity events" + community._id],
+    queryFn: get,
   });
+
+  useEffect(() => {
+    get();
+  }, []);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [isParticipating, setisParticipating] = useState<boolean>();
-
-  const getCommunity = async () => {
-    try {
-      const response = await axios.get(`/communities/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      setisParticipating(
-        response.data.community.participants.includes(user.id)
-      );
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+  const join = async () => {
+    const res = await CommunityService.joinCommunity(
+      user.token,
+      community._id,
+      user.id
+    );
+    return res;
   };
 
-  const joinCommunity = async () => {
-    try {
-      const response = await axios.put(
-        `/communities/join/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            id: user.id,
-          },
-        }
-      );
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+  const leave = async () => {
+    const res = await CommunityService.leaveCommunity(
+      user.token,
+      community._id,
+      user.id
+    );
+    return res;
   };
 
-  const leaveCommunity = async () => {
-    try {
-      const response = await axios.get(`/communities/leave/${id}`, {
-        headers: {
-          Authorization: `Bearer: ${user.token}`,
-          id: user.id,
-        },
-      });
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
-  };
-
-  const deleteCommunity = async () => {
-    try {
-      await deleteImage(
-        `${user.id}-${data.community.name.replace(/\s+/g, "")}-comunidade`
-      );
-
-      const response = await axios.delete(`/communities/${id}`, {
-        headers: {
-          Authorization: `Bearer: ${user.token}`,
-          id: user.id,
-        },
-      });
-      return response.data;
-    } catch (error: any) {
-      setError(error.response.data.message);
-      return;
-    }
+  const deleteC = async () => {
+    await deleteImage(
+      `${user.id}-${community.name.replace(/\s+/g, "")}-comunidade`
+    );
+    const res = CommunityService.deleteCommunity(
+      user.token,
+      community._id,
+      user.id
+    );
+    return res;
   };
 
   const queryClient = useQueryClient();
 
   const joinMutation = useMutation({
-    mutationFn: joinCommunity,
+    mutationFn: join,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [
@@ -146,7 +96,7 @@ const CommunitySingle = ({ id }: Props) => {
   });
 
   const leaveMutation = useMutation({
-    mutationFn: leaveCommunity,
+    mutationFn: leave,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [
@@ -157,16 +107,8 @@ const CommunitySingle = ({ id }: Props) => {
     },
   });
 
-  const { isPending, data } = useQuery({
-    queryKey: ["communities", id],
-    queryFn: getCommunity,
-    retry: false,
-  });
-
-  const navigate = useNavigate();
-
   const deleteMutation = useMutation({
-    mutationFn: deleteCommunity,
+    mutationFn: deleteC,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["communities"] });
       navigate("/comunidades");
@@ -174,30 +116,21 @@ const CommunitySingle = ({ id }: Props) => {
     retry: false,
   });
 
-  if (typeof id !== "string" || !/^[0-9a-fA-F]{24}$/.test(id)) {
-    return <Navigate to={"/comunidades"} replace />;
-  }
-
-  if (!isPending && !data) {
-    return <Navigate to={"/comunidades"} replace />;
-  }
-
   if (
-    isPending ||
     joinMutation.isPending ||
     leaveMutation.isPending ||
     deleteMutation.isPending
   ) {
     return (
-      <section className="flex flex-col gap-5">
+      <Page>
         <Loading />
-      </section>
+      </Page>
     );
   }
 
   return (
     <>
-      <section className="flex flex-col lg:gap-8 gap-5">
+      <Page>
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 gap-5">
           <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
@@ -206,13 +139,11 @@ const CommunitySingle = ({ id }: Props) => {
                 className="text-purple dark:text-green"
                 aria-label={ariaLabel.bookmark}
               />
-              <h1 className="text-base font-prompt w-full">
-                {data.community.name}
-              </h1>
+              <h1 className="text-base font-prompt w-full">{community.name}</h1>
             </span>
             <img
-              src={data.community.imageUrl}
-              alt={`Foto da comunidade: ${data.community.name}`}
+              src={community.imageUrl}
+              alt={`Foto da comunidade: ${community.name}`}
               width={1024}
               height={768}
               className="object-cover rounded-2xl w-full h-64 lg:h-80 3xl:h-[512px]"
@@ -224,7 +155,7 @@ const CommunitySingle = ({ id }: Props) => {
                   className="text-purple dark:text-green"
                   aria-label={ariaLabel.bookmark}
                 />
-                <h1 className="text-base font-prompt">{data.owner}</h1>
+                <h1 className="text-base font-prompt">{owner}</h1>
               </span>
               <div className="flex items-center lg:gap-5 justify-between">
                 <span className="flex items-center gap-2">
@@ -234,13 +165,13 @@ const CommunitySingle = ({ id }: Props) => {
                     aria-label={ariaLabel.bookmark}
                   />
                   <h1 className="text-base font-prompt">
-                    Idade Mínima: {data.community.age_range}
+                    Idade Mínima: {community.age_range}
                   </h1>
                 </span>
                 <span className="flex items-center gap-2">
-                  {categoryIconMap[data.community.category]}
+                  {categoryIconMap[community.category]}
                   <h1 className="text-base font-prompt">
-                    {data.community.category}
+                    {community.category}
                   </h1>
                 </span>
               </div>
@@ -249,7 +180,7 @@ const CommunitySingle = ({ id }: Props) => {
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
           <blockquote className="font-poppins font-medium">
-            {data.community.description}
+            {community.description}
           </blockquote>
         </div>
         <div className="w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
@@ -260,13 +191,12 @@ const CommunitySingle = ({ id }: Props) => {
               aria-label={ariaLabel.users}
             />
             <h1 className="text-base font-prompt">
-              {data.community.participantCount}/
-              {data.community.participantLimit}
+              {community.participantCount}/{community.participantLimit}
             </h1>
           </span>
           <div className="overflow-x-scroll">
             <div className="flex items-center gap-8 w-max">
-              {(data.participants ?? []).map(
+              {participants.map(
                 (participant: {
                   id: string;
                   imageUrl: string;
@@ -295,89 +225,16 @@ const CommunitySingle = ({ id }: Props) => {
           </div>
         </div>
 
-        {!eventsQuery.data ||
-        !eventsQuery.data.events ||
-        eventsQuery.data.events.length === 0 ||
-        eventsQuery.isPending ? (
-          <>
-            <section className="flex flex-col gap-5">
-              <div className="flex items-center justify-between">
-                <h1 className="text-2xl lg:text-3xl font-prompt">
-                  Sem eventos na comunidade, começe agora!
-                </h1>
-                <Button
-                  variant="primary"
-                  onClick={handleOpen}
-                  classes="hidden lg:block"
-                >
-                  Criar evento
-                </Button>
-              </div>
-              {isFormModalOpen && (
-                <CreateEventForm
-                  handleCancel={() => setIsFormModalOpen(false)}
-                />
-              )}
-              <div className="flex items-center justify-center">
-                <img
-                  src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
-                  width={768}
-                  height={512}
-                  className="object-cover w-full lg:w-[512px]"
-                />
-              </div>
-            </section>
-            {!isFormModalOpen && (
-              <Button
-                variant="primary"
-                onClick={handleOpen}
-                classes="lg:hidden fixed bottom-24 right-4"
-              >
-                Criar evento
-              </Button>
-            )}
-          </>
-        ) : (
-          <section className="flex flex-col gap-5">
-            <div className="flex items-center justify-between">
-              <h1 className="text-2xl lg:text-3xl font-prompt">
-                Eventos Ativos
-              </h1>
-              <Button
-                variant="primary"
-                onClick={handleOpen}
-                classes="hidden lg:block"
-              >
-                Criar evento
-              </Button>
-            </div>
-            <EventList events={eventsQuery.data.events} />
-            {isFormModalOpen && (
-              <CreateEventForm handleCancel={() => setIsFormModalOpen(false)} />
-            )}
-            <div className="flex items-center justify-center gap-5">
-              {totalPages > 1 &&
-                Array.from({ length: totalPages }, (_, index) => (
-                  <button
-                    key={index + 1}
-                    onClick={() => handlePagination(index)}
-                    className={`h-8 w-8 bg-purple dark:bg-green text-white dark:text-black font-medium font-poppins ${
-                      currentPage === index && "border-4"
-                    }`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-            </div>
-          </section>
-        )}
+        <CommunityEvents
+          events={eventsQuery.isPending ? [] : eventsQuery.data.events}
+        />
 
         <div className="w-full flex items-center gap-5 justify-end">
           <Link to={"/comunidades"}>
             <Button variant="outline">Voltar</Button>
           </Link>
 
-          {data.community.owner === user.id ? (
+          {isOwner ? (
             <Button variant="danger" onClick={() => setIsOpen(true)}>
               Excluir comunidade
             </Button>
@@ -391,7 +248,7 @@ const CommunitySingle = ({ id }: Props) => {
             </Button>
           )}
         </div>
-      </section>
+      </Page>
 
       {!isFormModalOpen && (
         <Button
