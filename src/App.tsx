@@ -9,7 +9,7 @@ export default function Home() {
   const { darkMode } = useTheme();
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col xl:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-5 pb-5">
           <span className="font-prompt text-5xl lg:text-6xl lg:space-y-4">
             <h1 className="text-black dark:text-white">
@@ -30,11 +30,11 @@ export default function Home() {
 
         <img
           src={darkMode ? "heroDark.png" : "hero.png"}
-          className="object-contain h-[622px] bg-purple dark:bg-green"
+          className="object-contain lg:h-[512px] 2xl:h-[622px]"
         />
       </div>
 
-      <section className="mt-12 flex flex-col lg:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
+      <section className="mt-12 flex flex-col xl:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
         <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
           <Calendar
             size={58}
