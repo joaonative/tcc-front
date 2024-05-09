@@ -5,11 +5,11 @@
 body {
   background-color: #fff;
   background-image: linear-gradient(
-      rgba(154, 53, 255, 0.2) 0.1em,
+      rgba(237, 237, 237, 1) 0.1em,
       transparent 0.1em
     ),
-    linear-gradient(90deg, rgba(154, 53, 255, 0.2) 0.1em, transparent 0.1em);
-  background-size: 9rem 9rem;
+    linear-gradient(90deg, rgba(237, 237, 237, 1) 0.1em, transparent 0.1em);
+  background-size: 12rem 12rem;
   background-position: 50% 50%;
 }
 
@@ -17,11 +17,11 @@ body.dark {
   background-color: #121212;
   color: white;
   background-image: linear-gradient(
-      rgba(53, 255, 105, 0.1) 0.1em,
+      rgba(48, 48, 48, 1) 0.1em,
       transparent 0.1em
     ),
-    linear-gradient(90deg, rgba(53, 255, 105, 0.1) 0.1em, transparent 0.1em);
-  background-size: 9rem 9rem;
+    linear-gradient(90deg, rgba(48, 48, 48, 1) 0.1em, transparent 0.1em);
+  background-size: 12rem 12rem;
   background-position: 50% 50%;
 }
 
