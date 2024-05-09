@@ -30,11 +30,11 @@ export default function Home() {
 
         <img
           src={darkMode ? "heroDark.png" : "hero.png"}
-          className="object-contain lg:h-[512px] 2xl:h-[622px]"
+          className="object-contain lg:h-[512px] 3xl:h-[622px]"
         />
       </div>
 
-      <section className="mt-12 flex flex-col xl:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
+      <section className="mt-4 flex flex-col xl:flex-row items-center gap-5 justify-between dark:text-white lg:mb-0 mb-12">
         <div className="card flex flex-col items-center gap-2 lg:gap-5 p-6 bg-lightGray dark:bg-dark rounded-2xl w-full shadow-xl dark:shadow-none">
           <Calendar
             size={58}
