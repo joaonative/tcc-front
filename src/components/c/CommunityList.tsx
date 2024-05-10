@@ -18,7 +18,7 @@ const CommunityList = ({ communities }: Props) => {
   return (
     <ul
       ref={ref}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 justify-start items-start"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 gap-5 justify-start items-start"
     >
       {communities.map((community, index) => (
         <motion.li
