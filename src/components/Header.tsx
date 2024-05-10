@@ -24,25 +24,25 @@ const Header = () => {
     <>
       <menu className="fixed top-0 flex items-center justify-between lg:hidden"></menu>
 
-      <header className="w-full fixed bottom-0 bg-white dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
+      <header className="w-full fixed bottom-0 bg-white border-b-[3px] dark:border-gray border-lightGray dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
         {/* desktop navigation links */}
-        <div className="hidden lg:block lg:w-52 ">
+        <div className="hidden lg:block lg:w-52">
           <a href="/">
             <img src={"/logo.svg"} alt="iParque logo" width={36} height={36} />
           </a>
         </div>
-        <ul className="hidden lg:flex items-center gap-3 font-prompt text-base text-black/75 dark:text-white/75">
-          <li>
+        <ul className="hidden lg:flex items-center gap-8 font-prompt text-base text-black/75 dark:text-white/75">
+          <li className="text-center">
             <a href="/eventos" className="w-20 text-center">
               Eventos
             </a>
           </li>
-          <li>
+          <li className="text-center">
             <a href="/comunidades" className="w-36 text-center">
               Comunidades
             </a>
           </li>
-          <li>
+          <li className="text-center">
             <a href="/sobre" className="w-20 text-center">
               Sobre
             </a>
