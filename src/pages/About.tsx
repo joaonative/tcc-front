@@ -58,7 +58,7 @@ const About = () => {
   ];
   return (
     <Page>
-      <div className="space-y-14">
+      <div className="space-y-12">
         <section className="flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-prompt">Sobre o iParque</h1>
           <blockquote className="font-xl font-poppins font-medium text-center">
@@ -69,6 +69,11 @@ const About = () => {
             todo o trajeto.
           </blockquote>
         </section>
+
+        <img
+          src="/fiec.webp"
+          className="bg-purple dark:bg-green rounded-2xl w-full h-96 object-cover"
+        />
 
         <section className="flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-prompt">A Plataforma</h1>
@@ -81,10 +86,6 @@ const About = () => {
             evento e personalizá-lo da forma que quiser!
           </blockquote>
         </section>
-
-        <div className="w-full">
-          <img className="bg-purple dark:bg-green rounded-2xl w-full h-[600px]" />
-        </div>
 
         <section className="flex flex-col gap-5">
           <h1 className="text-4xl font-prompt text-center">
