@@ -58,7 +58,7 @@ const About = () => {
   ];
   return (
     <Page>
-      <div className="space-y-14 px-28">
+      <div className="space-y-14">
         <section className="flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-prompt">Sobre o iParque</h1>
           <blockquote className="font-xl font-poppins font-medium text-center">
