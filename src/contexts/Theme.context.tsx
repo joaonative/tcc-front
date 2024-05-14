@@ -33,8 +33,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
     if (darkMode) {
       document.body.classList.add("dark");
+      document.body.classList.remove("light");
     } else {
       document.body.classList.remove("dark");
+      document.body.classList.add("light");
     }
   }, [darkMode]);
 
