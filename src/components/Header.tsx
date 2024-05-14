@@ -24,7 +24,7 @@ const Header = () => {
     <>
       <menu className="fixed top-0 flex items-center justify-between lg:hidden"></menu>
 
-      <header className="w-full fixed bottom-0 bg-white border-b-[3px] dark:border-gray border-lightGray dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
+      <header className="z-10 w-full fixed bottom-0 bg-white border-b-[3px] dark:border-gray border-lightGray dark:bg-dark lg:dark:bg-darkBg lg:relative lg:flex items-center justify-between py-2 lg:px-12 md:px-8 px-4">
         {/* desktop navigation links */}
         <div className="hidden lg:block lg:w-52">
           <a href="/">
