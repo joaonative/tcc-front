@@ -30,36 +30,59 @@ export default function Home() {
               className="w-max"
               target="_blank"
             >
-              <Button variant="outline">Repositório GitHub</Button>
+              <Button variant="outline">GitHub</Button>
             </Link>
           </div>
         </div>
-
         <img
-          src="hero.png"
-          className="scale-x-[-1] lg:h-[512px] 3xl:h-[622px] hero bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green"
+          src="hero.webp"
+          className="shadow-2xl scale-x-[-1] lg:h-[512px] 3xl:h-[622px] hero bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green"
         />
       </section>
-      <section className="flex flex-col items-center gap-4">
-        <div className="bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green p-5 rounded-xl">
+
+      <section className="flex flex-col lg:items-center gap-8">
+        <div className="bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green p-3 lg:p-5 rounded-xl">
           <img
-            src={darkMode ? "demoDark.png" : "demo.png"}
-            className="object-cover bg-black rounded-xl h-96"
+            src={darkMode ? "demoDark.webp" : "demo.webp"}
+            className="object-cover bg-black rounded-xl h-[420px]"
           />
         </div>
-        <span className="text-center lg:space-y-2">
+        <span className="lg:text-center lg:space-y-2">
           <h1 className="font-prompt text-3xl lg:text-4xl ">
             Encontre o Evento Perfeito
           </h1>
           <p className="text-xl text-black dark:text-white font-poppins font-medium">
             Explore a ampla seleção de eventos disponíveis na aba específica e
-            encontre aquele que melhor se alinha com suas atividades. Em
-            seguida, participe da experiência com apenas alguns cliques!
+            encontre aquele que melhor se alinha com suas atividades.
+            <br />
+            Em seguida, participe da experiência com apenas alguns cliques!
           </p>
         </span>
         <Link to={"/eventos"} className="w-max">
           <Button variant="primary">Explorar Eventos Ativos</Button>
         </Link>
+      </section>
+
+      <section className="flex flex-col lg:items-center gap-8">
+        <div className="flex lg:flex-row flex-col items-center lg:gap-32">
+          <img
+            src="comm.webp"
+            className="lg:h-96 comm bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green shadow-2xl"
+          />
+          <div className="flex flex-col gap-5">
+            <h1 className="font-prompt text-3xl lg:text-4xl ">
+              Explore Comunidades
+            </h1>
+            <p className="text-xl text-black dark:text-white font-poppins font-medium">
+              Navegue pela variedade de eventos personalizados para comunidades
+              e encontre aquele que ecoa com a alma do seu grupo. Depois,
+              mergulhe nessa experiência com apenas alguns cliques!
+            </p>
+            <Link to={"/comunidades"} className="w-max">
+              <Button variant="primary">Descubra Comunidades</Button>
+            </Link>
+          </div>
+        </div>
       </section>
     </Page>
   );
