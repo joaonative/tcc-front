@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.8 }}
-                  className="w-[90%] mx-auto py-20 lg:py-5 flex-grow"
+                  className="w-[90%] 3xl:w-[70%] mx-auto py-20 lg:py-5 flex-grow"
                 >
                   <Routes />
                 </motion.main>
