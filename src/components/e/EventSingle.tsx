@@ -68,10 +68,7 @@ const EventSingle = ({ event, owner, participants }: Props) => {
     mutationFn: join,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          ["event", event._id],
-          ["events", user.id],
-        ],
+        queryKey: ["event" + event._id, "events" + user.id],
       });
     },
   });
@@ -80,10 +77,7 @@ const EventSingle = ({ event, owner, participants }: Props) => {
     mutationFn: leaveEvent,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [
-          ["event", event._id],
-          ["events", user.id],
-        ],
+        queryKey: ["event" + event._id, "events" + user.id],
       });
     },
   });
