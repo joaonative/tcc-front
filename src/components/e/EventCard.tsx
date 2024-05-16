@@ -3,7 +3,7 @@ import { CalendarClock, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ariaLabel } from "../../constants/aria-label";
 import Event from "../../interfaces/Event";
-import Button from "../Button";
+import { categoryIconMap } from "../../utils/CategoryIconMap";
 
 const EventCard = ({
   _id,
@@ -13,6 +13,7 @@ const EventCard = ({
   participantCount,
   participantLimit,
   imageUrl,
+  category,
 }: Event) => {
   const toDate = new Date(date);
   const day = String(toDate.getDate() + 1).padStart(2, "0");
@@ -21,7 +22,10 @@ const EventCard = ({
   const formattedDate = `${day}/${month}`;
 
   return (
-    <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark shadow-2xl dark:shadow-none">
+    <Link
+      to={`/evento/${_id}`}
+      className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark shadow-2xl dark:shadow-none"
+    >
       <img
         src={imageUrl}
         alt={`Foto do evento: ${name}`}
@@ -40,9 +44,10 @@ const EventCard = ({
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Link to={`/evento/${_id}`}>
-          <Button variant="primary">Ver Mais</Button>
-        </Link>
+        <span className="flex items-center gap-2">
+          {categoryIconMap[category]}
+          <h1 className="text-base font-prompt">{category}</h1>
+        </span>
 
         <span className="flex items-center gap-3">
           <CalendarClock
@@ -65,7 +70,7 @@ const EventCard = ({
           </h3>
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -11,7 +11,10 @@ interface Props {
 
 const CommunityCard = ({ community }: Props) => {
   return (
-    <div className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark shadow-2xl dark:shadow-none">
+    <Link
+      to={`/comunidade/${community._id}`}
+      className="w-full col-span-1 flex flex-col gap-2 p-4 rounded-2xl bg-lightGray dark:bg-dark shadow-2xl dark:shadow-none"
+    >
       <img
         src={community.imageUrl}
         alt={`Foto do evento: ${name}`}
@@ -30,9 +33,7 @@ const CommunityCard = ({ community }: Props) => {
         </span>
       </div>
       <div className="flex items-center justify-between">
-        <Link to={`/comunidade/${community._id}`}>
-          <Button variant="primary">Ver Mais</Button>
-        </Link>
+        {/* aqui */}
         <span className="flex items-center gap-2">
           {categoryIconMap[community.category]}
           <h1 className="text-base font-prompt">{community.category}</h1>
@@ -48,7 +49,7 @@ const CommunityCard = ({ community }: Props) => {
           </h3>
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
