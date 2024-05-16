@@ -20,6 +20,10 @@ const Header = () => {
 
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
+  const isActive = (path: string) => {
+    return path === window.location.pathname;
+  };
+
   return (
     <>
       <menu className="fixed top-0 flex items-center justify-between lg:hidden"></menu>
@@ -33,22 +37,43 @@ const Header = () => {
         </div>
         <ul className="hidden lg:flex items-center gap-8 font-prompt text-base text-black/75 dark:text-white/75">
           <li className="text-center">
-            <Link to="/" className="w-20 text-center">
+            <Link
+              to="/"
+              className={`w-20 text-center border-purple dark:border-green ${
+                isActive("/") && "border-b-2 dark:text-green text-purple"
+              }`}
+            >
               Início
             </Link>
           </li>
           <li className="text-center">
-            <Link to="/eventos" className="w-20 text-center">
+            <Link
+              to="/eventos"
+              className={`w-20 text-center border-purple dark:border-green ${
+                isActive("/eventos") && "border-b-2 dark:text-green text-purple"
+              }`}
+            >
               Eventos
             </Link>
           </li>
           <li className="text-center">
-            <Link to="/comunidades" className="w-36 text-center">
+            <Link
+              to="/comunidades"
+              className={`w-20 text-center border-purple dark:border-green ${
+                isActive("/comunidades") &&
+                "border-b-2 dark:text-green text-purple"
+              }`}
+            >
               Comunidades
             </Link>
           </li>
           <li className="text-center">
-            <Link to="/sobre" className="w-20 text-center">
+            <Link
+              to="/sobre"
+              className={`w-20 text-center border-purple dark:border-green ${
+                isActive("/sobre") && "border-b-2 dark:text-green text-purple"
+              }`}
+            >
               Sobre
             </Link>
           </li>
