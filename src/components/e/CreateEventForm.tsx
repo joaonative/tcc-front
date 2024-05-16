@@ -13,6 +13,7 @@ import SearchComponent from "../MAPGENERATOR";
 
 interface Props {
   handleCancel: () => void;
+  communityId?: string;
 }
 
 interface FormData {
@@ -26,7 +27,7 @@ interface FormData {
   mapUrl: string;
 }
 
-const CreateEventForm = ({ handleCancel }: Props) => {
+const CreateEventForm = ({ handleCancel, communityId }: Props) => {
   const { user } = useAuth();
   const { setError } = useError();
 
@@ -106,12 +107,32 @@ const CreateEventForm = ({ handleCancel }: Props) => {
     }
   };
 
+  const postCommunityEvent = async (formData: FormData) => {
+    try {
+      const response = await axios.post(
+        "/events/community",
+        { ...formData, communityId },
+        {
+          headers: { Authorization: `Bearer ${user.token}`, id: user.id },
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      setError(error.response.data.message);
+      handleCancel();
+      return;
+    }
+  };
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (eventData: FormData) => postEvent(eventData),
+    mutationFn: (eventData: FormData) =>
+      communityId ? postCommunityEvent(eventData) : postEvent(eventData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["events"] });
+      queryClient.invalidateQueries({
+        queryKey: ["community events" + communityId, "events"],
+      });
       handleCancel();
     },
   });

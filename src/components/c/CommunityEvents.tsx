@@ -8,9 +8,10 @@ import CreateEventForm from "../e/CreateEventForm";
 
 interface Props {
   events: Event[];
+  communityId: string;
 }
 
-const CommunityEvents = ({ events }: Props) => {
+const CommunityEvents = ({ events, communityId }: Props) => {
   const { darkMode } = useTheme();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,7 +48,12 @@ const CommunityEvents = ({ events }: Props) => {
           </div>
         )}
       </Page>
-      {isOpen && <CreateEventForm handleCancel={() => setIsOpen(false)} />}
+      {isOpen && (
+        <CreateEventForm
+          communityId={communityId}
+          handleCancel={() => setIsOpen(false)}
+        />
+      )}
       {!isOpen && (
         <Button
           variant="primary"

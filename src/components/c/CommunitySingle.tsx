@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ariaLabel } from "../../constants/aria-label";
 import Button from "../Button";
 import { useAuth } from "../../contexts/Auth.context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ import { CommunityService } from "../../services/community";
 import Page from "../Page";
 import CommunityEvents from "./CommunityEvents";
 import { EventService } from "../../services/event";
+import { useTheme } from "../../contexts/Theme.context";
 
 interface Props {
   id: string;
@@ -26,6 +27,7 @@ interface Props {
 const CommunitySingle = ({ id, community, owner, participants }: Props) => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { darkMode } = useTheme();
 
   const isOwner = community.owner === user.id;
   const isParticipating: boolean = community.participants.includes(user.id);
@@ -44,10 +46,6 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
     queryKey: ["commuunuity events" + community._id],
     queryFn: get,
   });
-
-  useEffect(() => {
-    get();
-  }, []);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -146,8 +144,9 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
               alt={`Foto da comunidade: ${community.name}`}
               width={1024}
               height={768}
-              className="object-cover rounded-2xl w-full h-64 lg:h-80"
+              className="object-cover rounded-2xl h-full"
             />
+
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
               <span className="flex items-center gap-2">
                 <Crown
@@ -176,6 +175,71 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
                 </span>
               </div>
             </div>
+          </div>
+          <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
+            {!eventsQuery.isPending &&
+            eventsQuery.data.events &&
+            eventsQuery.data.events.length >= 1 ? (
+              <>
+                <span className="flex items-center gap-2">
+                  <Bookmark
+                    size={24}
+                    className="text-purple dark:text-green"
+                    aria-label={ariaLabel.bookmark}
+                  />
+                  <h1 className="text-base font-prompt w-full">
+                    Último Evento de {community.name}
+                  </h1>
+                </span>
+                <img
+                  src={eventsQuery.data.events[0].imageUrl}
+                  alt={`Foto do evento: ${eventsQuery.data.events[0].name}`}
+                  width={1024}
+                  height={768}
+                  className="object-cover rounded-2xl h-full"
+                />
+
+                <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
+                  <span className="flex items-center gap-2">
+                    <Crown
+                      size={24}
+                      className="text-purple dark:text-green"
+                      aria-label={ariaLabel.bookmark}
+                    />
+                    <h1 className="text-base font-prompt">{community.name}</h1>
+                  </span>
+                  <div className="flex items-center lg:gap-5 justify-between">
+                    <span className="flex items-center gap-2">
+                      <Info
+                        size={24}
+                        className="text-purple dark:text-green"
+                        aria-label={ariaLabel.bookmark}
+                      />
+                      <h1 className="text-base font-prompt">
+                        Idade Mínima: {eventsQuery.data.events[0].age_range}
+                      </h1>
+                    </span>
+                    <span className="flex items-center gap-2">
+                      {categoryIconMap[eventsQuery.data.events[0].category]}
+                      <h1 className="text-base font-prompt">
+                        {eventsQuery.data.events[0].category}
+                      </h1>
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-col items-center justify-center">
+                  <img
+                    src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
+                    width={768}
+                    height={512}
+                    className="object-cover rounded-2xl h-full"
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
@@ -226,6 +290,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
         </div>
 
         <CommunityEvents
+          communityId={community._id}
           events={eventsQuery.isPending ? [] : eventsQuery.data.events}
         />
 
