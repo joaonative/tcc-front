@@ -41,49 +41,51 @@ const Contact = () => {
         alert("Erro ao enviar o email. Por favor, tente novamente mais tarde.");
       }
     } catch (error) {
-      console.error("Erro ao enviar o email:", error);
+      return;
     }
   };
   return (
-    <section className="flex flex-col gap-5 items-center">
+    <section className="flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 p-8 lg:p-12 bg-dark rounded-2xl max-w-[768px]"
+        className="lg:space-y-8 space-y-4 p-8 lg:p-10 bg-lightGray dark:bg-dark rounded-2xl lg:w-max"
       >
-        <h1 className="font-prompt text-3xl lg:text-5xl text-center text-purple dark:text-green">
-          Envie uma mensagem!
+        <h1 className="text-center lg:text-left font-prompt text-3xl lg:text-5xl lg:w-max">
+          Deixe a sua mensagem!
         </h1>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="block">
-            Nome
-          </label>
-          <input
-            autoComplete="off"
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="form"
-            required
-          />
+        <div className="flex lg:flex-row flex-col items-center lg:gap-5 gap-1">
+          <div className="flex flex-col lg:gap-2 gap-1 w-full">
+            <label htmlFor="name" className="block">
+              Nome
+            </label>
+            <input
+              autoComplete="off"
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="form"
+              required
+            />
+          </div>
+          <div className="flex flex-col lg:gap-2 gap-1 w-full">
+            <label htmlFor="email" className="block">
+              Email
+            </label>
+            <input
+              autoComplete="off"
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="form"
+              required
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="email" className="block">
-            Email
-          </label>
-          <input
-            autoComplete="off"
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="form"
-            required
-          />
-        </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col lg:gap-2 gap-1">
           <label htmlFor="message" className="block">
             Mensagem
           </label>
@@ -93,13 +95,15 @@ const Contact = () => {
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="w-full border-[3px] border-purple dark:border-green rounded-lg px-3 py-2 h-24 bg-transparent resize-none focus:outline-none"
+            className="w-full border-[3px] border-purple dark:border-green rounded-lg px-3 py-2 h-32 bg-transparent resize-none focus:outline-none"
             required
           ></textarea>
         </div>
-        <Button variant="primary" full submit>
-          Enviar
-        </Button>
+        <div className="flex justify-end">
+          <Button variant="primary" full submit>
+            Enviar
+          </Button>
+        </div>
       </form>
     </section>
   );
