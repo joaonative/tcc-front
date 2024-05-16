@@ -165,11 +165,7 @@ export default function Profile() {
             Você está participando de:
           </h1>
           {participatingQuery.isPending ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
-              <LoadingCardSkeleton />
-              <LoadingCardSkeleton />
-              <LoadingCardSkeleton />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start"></div>
           ) : (
             <EventList events={participatingQuery.data.events} />
           )}
