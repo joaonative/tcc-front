@@ -35,6 +35,7 @@ export default function Home() {
           </div>
         </div>
         <img
+          loading="lazy"
           src="hero.webp"
           className="shadow-2xl scale-x-[-1] lg:h-[512px] 3xl:h-[622px] hero bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green"
         />
@@ -43,6 +44,7 @@ export default function Home() {
       <section className="flex flex-col lg:items-center gap-8">
         <div className="bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green p-3 lg:p-5 rounded-xl">
           <img
+            loading="lazy"
             src={darkMode ? "demoDark.webp" : "demo.webp"}
             className="object-cover bg-black rounded-xl h-[420px]"
           />
@@ -66,6 +68,7 @@ export default function Home() {
       <section className="flex flex-col lg:items-center gap-8">
         <div className="flex lg:flex-row flex-col items-center lg:gap-32">
           <img
+            loading="lazy"
             src="comm.webp"
             className="lg:h-96 comm bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green shadow-2xl"
           />
