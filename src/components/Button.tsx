@@ -22,25 +22,25 @@ const Button = ({
   switch (variant) {
     case "primary":
       className =
-        "text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-5 py-2 border lg:border-2";
+        "text-white dark:text-black bg-purple dark:bg-green border-purple dark:border-green px-2 py-1 border lg:border-2";
       break;
     case "outline":
       className =
-        "text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-5 py-2 border lg:border-2";
+        "text-purple dark:text-green border-purple dark:border-green hover:text-white hover:bg-purple dark:hover:bg-green dark:hover:text-black px-2 py-1 border lg:border-2";
       break;
     case "danger":
       className =
-        "text-white bg-red-500 px-5 py-2 border lg:border-2 border-red-500";
+        "text-white bg-red-500 px-2 py-1 border lg:border-2 border-red-500";
       break;
     case "google":
       className =
-        "flex items-center justify-center w-full gap-5 text-black/80 text-white px-5 py-2 bg-lightGray";
+        "flex items-center justify-center w-full gap-5 text-black/80 text-white px-2 py-1 bg-lightGray";
       break;
     case "none":
       className = "";
       break;
     default:
-      className = "px-5 py-2 border lg:border-2";
+      className = "px-2 py-1 border lg:border-2";
   }
 
   return (
