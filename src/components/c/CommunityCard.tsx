@@ -1,6 +1,5 @@
 import { Users } from "lucide-react";
 import { Community } from "../../interfaces/Community";
-import Button from "../Button";
 import { ariaLabel } from "../../constants/aria-label";
 import { categoryIconMap } from "../../utils/CategoryIconMap";
 import { Link } from "react-router-dom";
