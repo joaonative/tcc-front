@@ -8,7 +8,7 @@ import CreateEventForm from "../components/e/CreateEventForm";
 import { useTheme } from "../contexts/Theme.context";
 import { EventService } from "../services/event";
 import Page from "../components/Page";
-import Loading from "../components/Loading";
+import LoadingList from "../components/LoadingList";
 
 const Events = () => {
   const { darkMode } = useTheme();
@@ -38,20 +38,12 @@ const Events = () => {
     queryFn: () => get(currentPage),
   });
 
-  if (isPending) {
-    return (
-      <Page>
-        <Loading />
-      </Page>
-    );
-  }
-
   return (
     <>
       <Page>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl lg:text-3xl font-prompt">
-            {data.events && data.events.length >= 1
+            {!isPending && data.events && data.events.length >= 1
               ? "Eventos Ativos"
               : "Sem eventos, começe agora!"}
           </h1>
@@ -63,7 +55,11 @@ const Events = () => {
             Criar evento
           </Button>
         </div>
-        {data.events && data.events.length >= 1 ? (
+        {isPending ? (
+          <div className="flex items-center justify-center">
+            <LoadingList />
+          </div>
+        ) : data.events && data.events.length >= 1 ? (
           <>
             <EventList events={data.events} />
             <div className="flex items-center justify-center gap-5">

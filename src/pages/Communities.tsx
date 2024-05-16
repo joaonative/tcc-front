@@ -7,7 +7,8 @@ import CommunityForm from "../components/c/CommunityForm";
 import CommunityList from "../components/c/CommunityList";
 import { CommunityService } from "../services/community";
 import Page from "../components/Page";
-import Loading from "../components/Loading";
+
+import LoadingList from "../components/LoadingList";
 
 const Communities = () => {
   const { darkMode } = useTheme();
@@ -37,20 +38,12 @@ const Communities = () => {
     queryFn: () => get(currentPage),
   });
 
-  if (isPending) {
-    return (
-      <Page>
-        <Loading />
-      </Page>
-    );
-  }
-
   return (
     <>
       <Page>
         <div className="flex items-center justify-between">
           <h1 className="text-2xl lg:text-3xl font-prompt">
-            {data.communities && data.communities.length >= 1
+            {!isPending && data.communities && data.communities.length >= 1
               ? "Comunidades Ativas"
               : "Sem comunidades, começe agora!"}
           </h1>
@@ -62,7 +55,11 @@ const Communities = () => {
             Criar comunidade
           </Button>
         </div>
-        {data.communities && data.communities.length >= 1 ? (
+        {isPending ? (
+          <div>
+            <LoadingList />
+          </div>
+        ) : data.communities && data.communities.length >= 1 ? (
           <>
             <CommunityList communities={data.communities} />
             <div className="flex items-center justify-center gap-5">
