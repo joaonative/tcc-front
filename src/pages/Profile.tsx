@@ -11,7 +11,7 @@ import { useError } from "../contexts/Error.context";
 import axios from "../api/api";
 import { useQuery } from "@tanstack/react-query";
 import EventList from "../components/e/EventList";
-import LoadingCardSkeleton from "../components/LoadingCardSkeleton";
+import LoadingList from "../components/LoadingList";
 
 export default function Profile() {
   const { user, setUser, setAuthenticated } = useAuth();
@@ -154,9 +154,7 @@ export default function Profile() {
           <h1 className="text-2xl lg:text-3xl font-prompt">Seus eventos:</h1>
           {ownerQuery.isPending ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
-              <LoadingCardSkeleton />
-              <LoadingCardSkeleton />
-              <LoadingCardSkeleton />
+              <LoadingList />
             </div>
           ) : (
             <EventList events={ownerQuery.data.events} />
