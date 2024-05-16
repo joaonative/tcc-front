@@ -10,4 +10,5 @@ export enum ariaLabel {
   circleUserRound = "ícone de usuário, sugerindo perfil",
   pencil = "ícone de lápis, sugerindo edição",
   upload = "ícone de envio, sugerindo envio de imagens",
+  home = "ícone de casa, sugerindo pagina inicial",
 }
