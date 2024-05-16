@@ -30,14 +30,6 @@ const About = () => {
       username: "g-uizo",
     },
     {
-      name: "Carolina Cristina Campos",
-      email: "carolina35420@fiec.edu.br",
-      imageUrl: "https://avatars.githubusercontent.com/u/125034396?v=4",
-      job: "Backend",
-      github: "https://github.com/CCamposDEV23",
-      username: "CCamposDEV23",
-    },
-    {
       name: "Juila Orlandi",
       email: "julia35436@fiec.edu.br",
       imageUrl:
@@ -55,13 +47,21 @@ const About = () => {
       github: "",
       username: "",
     },
+    {
+      name: "Carolina Cristina Campos",
+      email: "carolina35420@fiec.edu.br",
+      imageUrl: "https://avatars.githubusercontent.com/u/125034396?v=4",
+      job: "Backend",
+      github: "https://github.com/CCamposDEV23",
+      username: "CCamposDEV23",
+    },
   ];
   return (
     <Page>
       <div className="space-y-12">
         <section className="flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-prompt">Sobre o iParque</h1>
-          <blockquote className="font-xl font-poppins font-medium text-center">
+          <blockquote className="font-xl font-poppins font-medium lg:text-center">
             Somos um projeto vinculado ao curso de Informática para Internet da
             Fundação Indaiatubana de Educação e Cultura (FIEC), tudo começou no
             ano de 2023, onde nós fomos introduzidos ao curso com a proposta de
@@ -77,7 +77,7 @@ const About = () => {
 
         <section className="flex flex-col items-center justify-center gap-5">
           <h1 className="text-4xl font-prompt">A Plataforma</h1>
-          <blockquote className="font-xl font-poppins font-medium text-center">
+          <blockquote className="font-xl font-poppins font-medium lg:text-center">
             O iParque é uma plataforma on-line criada com a finalidade de unir
             pessoas em eventos em parques, o principal parque do projeto é o
             Parque Ecológico da cidade de Indaiatuba. A plataforma permite o
@@ -88,7 +88,7 @@ const About = () => {
         </section>
 
         <section className="flex flex-col gap-5">
-          <h1 className="text-4xl font-prompt text-center">
+          <h1 className="text-4xl font-prompt lg:text-center">
             Equipe de Desenvolvimento
           </h1>
           <ul
