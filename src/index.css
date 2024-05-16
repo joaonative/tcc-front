@@ -2,30 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-bod.light::-webkit-scrollbar-track {
-  background: #fff;
-  border-radius: 2px;
-}
-
-body.light::-webkit-scrollbar-thumb {
-  background: #9a35ff;
-  border-radius: 4px;
-}
-
-body dark::-webkit-scrollbar-track {
-  background: #000000;
-  border-radius: 2px;
-}
-
-body.dark::-webkit-scrollbar-thumb {
-  background: #35ff69;
-  border-radius: 4px;
-}
-
 body {
   background-color: #fff;
   background-image: linear-gradient(
