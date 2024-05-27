@@ -265,8 +265,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
               setFormData({ ...formData, description: event.target.value })
             }
-            rows={5}
-            className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt resize-none"
+            className="min-h-20 bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt resize-none"
           />
         </div>
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
