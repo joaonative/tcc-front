@@ -15,11 +15,9 @@ const EventCard = ({
   imageUrl,
   category,
 }: Event) => {
-  const toDate = new Date(date);
-  const day = String(toDate.getDate() + 1).padStart(2, "0");
-  const month = String(toDate.getMonth() + 1).padStart(2, "0");
-
-  const formattedDate = `${day}/${month}`;
+  const eDate = new Date(date);
+  const day = ("0" + eDate.getUTCDate()).slice(-2);
+  const month = ("0" + (eDate.getUTCMonth() + 1)).slice(-2);
 
   return (
     <Link
@@ -56,7 +54,7 @@ const EventCard = ({
             aria-label={ariaLabel.calendarClock}
           />
           <h3 className="text-base dark:text-white font-prompt">
-            {formattedDate}
+            {day}/{month}
           </h3>
         </span>
         <span className="flex items-center gap-3">
