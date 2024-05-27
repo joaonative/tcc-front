@@ -11,7 +11,7 @@ import { useError } from "../contexts/Error.context";
 import axios from "../api/api";
 import { useQuery } from "@tanstack/react-query";
 import EventList from "../components/e/EventList";
-import LoadingList from "../components/LoadingList";
+import Loading from "../components/Loading";
 
 export default function Profile() {
   const { user, setUser, setAuthenticated } = useAuth();
@@ -153,9 +153,7 @@ export default function Profile() {
         <section className="flex flex-col gap-5">
           <h1 className="text-2xl lg:text-3xl font-prompt">Seus eventos:</h1>
           {ownerQuery.isPending ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start">
-              <LoadingList />
-            </div>
+            <Loading />
           ) : (
             <EventList events={ownerQuery.data.events} />
           )}
@@ -165,7 +163,7 @@ export default function Profile() {
             Você está participando de:
           </h1>
           {participatingQuery.isPending ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-5 justify-start items-start"></div>
+            <Loading />
           ) : (
             <EventList events={participatingQuery.data.events} />
           )}
