@@ -21,7 +21,7 @@ const EventSingle = () => {
   };
 
   const { isPending, data } = useQuery({
-    queryKey: ["event", id],
+    queryKey: ["event" + id, "events" + user.id],
     queryFn: get,
     retry: false,
   });

@@ -20,7 +20,10 @@ const Community = () => {
   };
 
   const { isPending, data } = useQuery({
-    queryKey: ["community", id],
+    queryKey: [
+      ["community", id],
+      ["communities", user.id],
+    ],
     queryFn: get,
     retry: false,
   });
