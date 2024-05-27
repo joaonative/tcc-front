@@ -265,7 +265,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
             onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
               setFormData({ ...formData, description: event.target.value })
             }
-            className="min-h-20 bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt resize-none"
+            className="min-h-20 bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green font-prompt blur-none"
           />
         </div>
         <div className="flex lg:flex-row flex-col lg:items-center lg:gap-4 gap-3">
@@ -306,7 +306,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
           {selectedAddress ? (
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-center justify-between">
-                <label htmlFor="address"> Endereço</label>
+                <label htmlFor="address">Endereço</label>
                 <h2
                   className="font-poppins"
                   onClick={() => setSelectedAddress(null)}
