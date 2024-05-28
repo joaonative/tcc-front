@@ -151,27 +151,31 @@ export default function Profile() {
           Sair
         </Button>
         <section className="flex flex-col gap-5">
-          <h1 className="text-2xl lg:text-3xl font-prompt">
-            {ownerQuery.data.events.lenght >= 1
-              ? "Seus eventos:"
-              : "Você não possui nenhum evento"}
-          </h1>
           {ownerQuery.isPending ? (
             <Loading />
           ) : (
-            <EventList events={ownerQuery.data.events} />
+            <>
+              <h1 className="text-2xl lg:text-3xl font-prompt">
+                {ownerQuery.data.events.lenght >= 1
+                  ? "Seus eventos:"
+                  : "Você não possui nenhum evento"}
+              </h1>
+              <EventList events={ownerQuery.data.events} />
+            </>
           )}
         </section>
         <section className="flex flex-col gap-5">
-          <h1 className="text-2xl lg:text-3xl font-prompt">
-            {participatingQuery.data.events.lenght >= 1
-              ? "Você está participando de:"
-              : "Você não participa de nenhum evento"}
-          </h1>
           {participatingQuery.isPending ? (
             <Loading />
           ) : (
-            <EventList events={participatingQuery.data.events} />
+            <>
+              <h1 className="text-2xl lg:text-3xl font-prompt">
+                {participatingQuery.data.events.lenght >= 1
+                  ? "Você está participando de:"
+                  : "Você não participa de nenhum evento:"}
+              </h1>
+              <EventList events={participatingQuery.data.events} />
+            </>
           )}
         </section>
       </div>
