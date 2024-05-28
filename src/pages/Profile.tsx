@@ -156,7 +156,7 @@ export default function Profile() {
           ) : (
             <>
               <h1 className="text-2xl lg:text-3xl font-prompt">
-                {ownerQuery.data.events.lenght >= 1
+                {ownerQuery.data.events.length >= 1
                   ? "Seus eventos:"
                   : "Você não possui nenhum evento"}
               </h1>
@@ -170,7 +170,7 @@ export default function Profile() {
           ) : (
             <>
               <h1 className="text-2xl lg:text-3xl font-prompt">
-                {participatingQuery.data.events.lenght >= 1
+                {participatingQuery.data.events.length >= 1
                   ? "Você está participando de:"
                   : "Você não participa de nenhum evento:"}
               </h1>
