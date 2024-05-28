@@ -131,7 +131,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
       communityId ? postCommunityEvent(eventData) : postEvent(eventData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["community events" + communityId, "events"],
+        queryKey: ["community events" + communityId],
       });
       handleCancel();
     },
