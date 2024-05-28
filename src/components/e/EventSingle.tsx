@@ -184,7 +184,7 @@ const EventSingle = ({ event, owner, participants }: Props) => {
           </div>
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
-          <blockquote className="text-justify font-poppins font-medium">
+          <blockquote className="font-poppins font-medium break-words">
             {event.description}
           </blockquote>
         </div>
