@@ -20,11 +20,11 @@ export class CommunityService {
 
   static async joinCommunity(
     userToken: string,
-    eventId: string,
+    communityId: string,
     userId: string
   ) {
     const response = await axios.put(
-      `/communities/join/${eventId}`,
+      `/communities/join/${communityId}`,
       {},
       {
         headers: {
@@ -52,10 +52,10 @@ export class CommunityService {
 
   static async deleteCommunity(
     userToken: string,
-    eventId: string,
+    communityId: string,
     userId: string
   ) {
-    const response = await axios.delete(`/communities/${eventId}`, {
+    const response = await axios.delete(`/communities/${communityId}`, {
       headers: {
         Authorization: `Bearer: ${userToken}`,
         id: userId,
