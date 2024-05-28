@@ -14,7 +14,7 @@ export default {
         dark: "#1E1E1E",
         danger: "#D02323",
         gray: "#303030",
-        lightGray: "#FFFFF7 ",
+        lightGray: "#FAFAFA ",
       },
       screens: {
         "3xl": "1920px",
