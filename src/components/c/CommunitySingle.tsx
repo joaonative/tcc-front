@@ -43,7 +43,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
   };
 
   const eventsQuery = useQuery({
-    queryKey: ["commuunuity events" + community._id],
+    queryKey: ["community events" + community._id],
     queryFn: get,
   });
 
@@ -243,7 +243,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
           </div>
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
-          <blockquote className="font-poppins font-medium">
+          <blockquote className="text-justify font-poppins font-medium">
             {community.description}
           </blockquote>
         </div>
