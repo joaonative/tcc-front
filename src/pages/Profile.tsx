@@ -151,7 +151,11 @@ export default function Profile() {
           Sair
         </Button>
         <section className="flex flex-col gap-5">
-          <h1 className="text-2xl lg:text-3xl font-prompt">Seus eventos:</h1>
+          <h1 className="text-2xl lg:text-3xl font-prompt">
+            {ownerQuery.data.events.lenght >= 1
+              ? "Seus eventos:"
+              : "Você não possui nenhum evento"}
+          </h1>
           {ownerQuery.isPending ? (
             <Loading />
           ) : (
@@ -160,7 +164,9 @@ export default function Profile() {
         </section>
         <section className="flex flex-col gap-5">
           <h1 className="text-2xl lg:text-3xl font-prompt">
-            Você está participando de:
+            {participatingQuery.data.events.lenght >= 1
+              ? "Você está participando de:"
+              : "Você não participa de nenhum evento"}
           </h1>
           {participatingQuery.isPending ? (
             <Loading />
