@@ -5,13 +5,14 @@ import Page from "../Page";
 import EventList from "../e/EventList";
 import { useTheme } from "../../contexts/Theme.context";
 import CreateEventForm from "../e/CreateEventForm";
+import { Community } from "../../interfaces/Community";
 
 interface Props {
   events: Event[];
-  communityId: string;
+  community: Community;
 }
 
-const CommunityEvents = ({ events, communityId }: Props) => {
+const CommunityEvents = ({ events, community }: Props) => {
   const { darkMode } = useTheme();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -50,7 +51,7 @@ const CommunityEvents = ({ events, communityId }: Props) => {
       </Page>
       {isOpen && (
         <CreateEventForm
-          communityId={communityId}
+          community={community}
           handleCancel={() => setIsOpen(false)}
         />
       )}

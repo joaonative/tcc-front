@@ -15,4 +15,5 @@ export default interface Event {
   location: string;
   isExpired: boolean;
   mapUrl?: string;
+  community?: string;
 }

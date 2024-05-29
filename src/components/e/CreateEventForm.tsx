@@ -10,10 +10,11 @@ import Loading from "../Loading";
 import { uploadImage } from "../../api/uploadImage";
 import { UploadCloud } from "lucide-react";
 import SearchComponent from "../MAPGENERATOR";
+import { Community } from "../../interfaces/Community";
 
 interface Props {
   handleCancel: () => void;
-  communityId?: string;
+  community?: Community;
 }
 
 interface FormData {
@@ -27,7 +28,7 @@ interface FormData {
   mapUrl: string;
 }
 
-const CreateEventForm = ({ handleCancel, communityId }: Props) => {
+const CreateEventForm = ({ handleCancel, community }: Props) => {
   const { user } = useAuth();
   const { setError } = useError();
 
@@ -37,7 +38,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
     participantLimit: 0,
     age_range: 0,
     date: "",
-    category: "",
+    category: community ? community.category : "",
     imageUrl: "",
     mapUrl: "",
   });
@@ -111,7 +112,7 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
     try {
       const response = await axios.post(
         "/events/community",
-        { ...formData, communityId },
+        { ...formData, communityId: community?._id },
         {
           headers: { Authorization: `Bearer ${user.token}`, id: user.id },
         }
@@ -128,10 +129,10 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
 
   const mutation = useMutation({
     mutationFn: (eventData: FormData) =>
-      communityId ? postCommunityEvent(eventData) : postEvent(eventData),
+      community?._id ? postCommunityEvent(eventData) : postEvent(eventData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["community events" + communityId],
+        queryKey: ["community events" + community?._id],
       });
       handleCancel();
     },
@@ -338,27 +339,29 @@ const CreateEventForm = ({ handleCancel, communityId }: Props) => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="category">Categoria</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              setFormData({
-                ...formData,
-                category: event.target.value as Categories,
-              });
-            }}
-            className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt"
-          >
-            <option value="">Selecionar Categoria</option>
-            {CategoriesOptions.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
+        {!community && (
+          <div className="flex flex-col gap-2">
+            <label htmlFor="category">Categoria</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                setFormData({
+                  ...formData,
+                  category: event.target.value as Categories,
+                });
+              }}
+              className="bg-lightGray dark:bg-dark px-3 py-2 rounded-lg border-[3px] border-purple dark:border-green focus:outline-none font-prompt"
+            >
+              <option value="">Selecionar Categoria</option>
+              {CategoriesOptions.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </form>
     </Modal>
   );

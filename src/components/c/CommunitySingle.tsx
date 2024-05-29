@@ -38,7 +38,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
   };
 
   const get = async () => {
-    const res = await EventService.getEventsByOwner(user.token, community._id);
+    const res = await EventService.getCommunityEvent(user.token, community._id);
     return res;
   };
 
@@ -290,7 +290,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
         </div>
 
         <CommunityEvents
-          communityId={community._id}
+          community={community}
           events={eventsQuery.isPending ? [] : eventsQuery.data.events}
         />
 

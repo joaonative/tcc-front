@@ -61,4 +61,14 @@ export class EventService {
 
     return response.data;
   }
+
+  static async getCommunityEvent(userToken: string, communityId: string) {
+    const response = await axios.get(`/events/community/${communityId}`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+      },
+    });
+
+    return response.data;
+  }
 }
