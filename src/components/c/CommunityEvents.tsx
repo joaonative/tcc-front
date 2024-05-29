@@ -10,9 +10,10 @@ import { Community } from "../../interfaces/Community";
 interface Props {
   events: Event[];
   community: Community;
+  isParticipating: boolean;
 }
 
-const CommunityEvents = ({ events, community }: Props) => {
+const CommunityEvents = ({ events, community, isParticipating }: Props) => {
   const { darkMode } = useTheme();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -28,13 +29,19 @@ const CommunityEvents = ({ events, community }: Props) => {
               ? "Eventos Ativos"
               : "Sem eventos, começe agora!"}
           </h1>
-          <Button
-            variant="primary"
-            onClick={handleOpen}
-            classes="hidden lg:block"
-          >
-            Criar evento
-          </Button>
+          {isParticipating ? (
+            <Button
+              variant="primary"
+              onClick={handleOpen}
+              classes="hidden lg:block"
+            >
+              Criar evento
+            </Button>
+          ) : (
+            <Button disabled variant="primary" classes="hidden lg:block">
+              Participe para criar eventos
+            </Button>
+          )}
         </div>
         {events && events.length >= 1 ? (
           <EventList events={events} />
