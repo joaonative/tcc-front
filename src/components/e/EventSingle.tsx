@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ariaLabel } from "../../constants/aria-label";
 import Button from "../Button";
 import { useAuth } from "../../contexts/Auth.context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import { deleteImage } from "../../api/deleteImage";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,6 +20,8 @@ import { categoryIconMap } from "../../utils/CategoryIconMap";
 import Event from "../../interfaces/Event";
 import { EventService } from "../../services/event";
 import Page from "../Page";
+import { Community } from "../../interfaces/Community";
+import { CommunityService } from "../../services/community";
 
 interface Props {
   id: string;
@@ -36,6 +38,8 @@ const EventSingle = ({ event, owner, participants }: Props) => {
 
   const isOwner = event.owner === user.id;
   const isParticipating: boolean = event.participants.includes(user.id);
+
+  const [community, setCommunity] = useState<Community | null>(null);
 
   const join = async () => {
     const res = await EventService.joinEvent(user.token, event._id, user.id);
@@ -90,6 +94,20 @@ const EventSingle = ({ event, owner, participants }: Props) => {
     },
   });
 
+  useEffect(() => {
+    const fetchCommunity = async () => {
+      if (event.community && typeof event.community === "string") {
+        const fetchedCommunity = await CommunityService.getCommunityById(
+          user.token,
+          event.community
+        );
+        setCommunity(fetchedCommunity.community);
+      }
+    };
+
+    fetchCommunity();
+  }, []);
+
   if (
     joinMutation.isPending ||
     leaveMutation.isPending ||
@@ -105,6 +123,24 @@ const EventSingle = ({ event, owner, participants }: Props) => {
   return (
     <>
       <Page>
+        {community && (
+          <div className="font-poppins font-medium text-lg flex items-center gap-2">
+            <Info
+              size={24}
+              className="text-purple dark:text-green"
+              aria-label={ariaLabel.bookmark}
+            />
+            <h1>
+              Este evento faz parte de{" "}
+              <Link
+                to={`/comunidade/${community._id}`}
+                className="text-purple dark:text-green"
+              >
+                {community.name}
+              </Link>
+            </h1>
+          </div>
+        )}
         <div className="flex lg:flex-row flex-col items-center lg:gap-8 gap-5">
           <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
             <span className="flex items-center gap-2">
