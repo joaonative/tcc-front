@@ -7,6 +7,7 @@ interface Props {
   classes?: string;
   full?: boolean;
   submit?: boolean;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -16,6 +17,7 @@ const Button = ({
   classes,
   full,
   submit,
+  disabled,
 }: Props) => {
   let className = "";
 
@@ -49,7 +51,8 @@ const Button = ({
       onClick={onClick}
       className={`${
         full ? "w-full" : "w-max"
-      } text-base font-poppins font-medium uppercase rounded-xl transition-colors duration-100 ${className} ${classes}`}
+      } disabled:bg-slate-500 border-white text-base font-poppins font-medium uppercase rounded-xl transition-colors duration-100 ${className} ${classes}`}
+      disabled={disabled}
     >
       {children}
     </button>
