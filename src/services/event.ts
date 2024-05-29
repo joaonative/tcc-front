@@ -71,4 +71,16 @@ export class EventService {
 
     return response.data;
   }
+
+  static async searchEvent(userToken: string, searchTerm: string) {
+    const response = await axios.get(`/events/search`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+      },
+      params: {
+        searchTerm,
+      },
+    });
+    return response.data;
+  }
 }
