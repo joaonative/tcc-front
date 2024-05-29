@@ -15,7 +15,6 @@ import { CommunityService } from "../../services/community";
 import Page from "../Page";
 import CommunityEvents from "./CommunityEvents";
 import { EventService } from "../../services/event";
-import { useTheme } from "../../contexts/Theme.context";
 
 interface Props {
   id: string;
@@ -27,7 +26,6 @@ interface Props {
 const CommunitySingle = ({ id, community, owner, participants }: Props) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { darkMode } = useTheme();
 
   const isOwner = community.owner === user.id;
   const isParticipating: boolean = community.participants.includes(user.id);
