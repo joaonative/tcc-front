@@ -144,7 +144,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
               alt={`Foto da comunidade: ${community.name}`}
               width={1024}
               height={768}
-              className="object-cover rounded-2xl h-full"
+              className="object-cover rounded-2xl w-full h-64 lg:h-80"
             />
 
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
@@ -176,71 +176,74 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
               </div>
             </div>
           </div>
-          <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
-            {!eventsQuery.isPending &&
-            eventsQuery.data.events &&
-            eventsQuery.data.events.length >= 1 ? (
-              <>
+          {!eventsQuery.isPending &&
+          eventsQuery.data.events &&
+          eventsQuery.data.events.length >= 1 ? (
+            <Link
+              to={`/evento/${eventsQuery.data.events[0]._id}`}
+              className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5"
+            >
+              <span className="flex items-center gap-2">
+                <Crown
+                  size={24}
+                  className="text-purple dark:text-green"
+                  aria-label={ariaLabel.bookmark}
+                />
+                <h1 className="text-base font-prompt w-full line-clamp-1">
+                  Último Evento de {community.name}
+                </h1>
+              </span>
+              <img
+                src={eventsQuery.data.events[0].imageUrl}
+                alt={`Foto do evento: ${eventsQuery.data.events[0].name}`}
+                width={1024}
+                height={768}
+                className="object-cover rounded-2xl w-full h-64 lg:h-80"
+              />
+
+              <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
                 <span className="flex items-center gap-2">
                   <Bookmark
                     size={24}
                     className="text-purple dark:text-green"
                     aria-label={ariaLabel.bookmark}
                   />
-                  <h1 className="text-base font-prompt w-full">
-                    Último Evento de {community.name}
+                  <h1 className="text-base font-prompt text-ellipsis w-24 truncate">
+                    {eventsQuery.data.events[0].name}
                   </h1>
                 </span>
-                <img
-                  src={eventsQuery.data.events[0].imageUrl}
-                  alt={`Foto do evento: ${eventsQuery.data.events[0].name}`}
-                  width={1024}
-                  height={768}
-                  className="object-cover rounded-2xl h-full"
-                />
-
-                <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-4">
+                <div className="flex items-center lg:gap-5 justify-between">
                   <span className="flex items-center gap-2">
-                    <Crown
+                    <Info
                       size={24}
                       className="text-purple dark:text-green"
                       aria-label={ariaLabel.bookmark}
                     />
-                    <h1 className="text-base font-prompt">{community.name}</h1>
+                    <h1 className="text-base font-prompt">
+                      Idade Mínima: {eventsQuery.data.events[0].age_range}
+                    </h1>
                   </span>
-                  <div className="flex items-center lg:gap-5 justify-between">
-                    <span className="flex items-center gap-2">
-                      <Info
-                        size={24}
-                        className="text-purple dark:text-green"
-                        aria-label={ariaLabel.bookmark}
-                      />
-                      <h1 className="text-base font-prompt">
-                        Idade Mínima: {eventsQuery.data.events[0].age_range}
-                      </h1>
-                    </span>
-                    <span className="flex items-center gap-2">
-                      {categoryIconMap[eventsQuery.data.events[0].category]}
-                      <h1 className="text-base font-prompt">
-                        {eventsQuery.data.events[0].category}
-                      </h1>
-                    </span>
-                  </div>
+                  <span className="flex items-center gap-2">
+                    {categoryIconMap[eventsQuery.data.events[0].category]}
+                    <h1 className="text-base font-prompt">
+                      {eventsQuery.data.events[0].category}
+                    </h1>
+                  </span>
                 </div>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col items-center justify-center">
-                  <img
-                    src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
-                    width={768}
-                    height={512}
-                    className="object-cover rounded-2xl h-full"
-                  />
-                </div>
-              </>
-            )}
-          </div>
+              </div>
+            </Link>
+          ) : (
+            <div className="lg:w-1/2 w-full flex flex-col justify-between p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
+              <div className="flex flex-col items-center justify-center">
+                <img
+                  src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
+                  width={768}
+                  height={512}
+                  className="object-cover rounded-2xl h-full"
+                />
+              </div>
+            </div>
+          )}
         </div>
         <div className="w-full p-5 lg:p-8 bg-lightGray dark:bg-dark rounded-2xl gap-5">
           <blockquote className="font-poppins font-medium break-words">
@@ -291,6 +294,7 @@ const CommunitySingle = ({ id, community, owner, participants }: Props) => {
 
         <CommunityEvents
           community={community}
+          isParticipating={isParticipating}
           events={eventsQuery.isPending ? [] : eventsQuery.data.events}
         />
 
