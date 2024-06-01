@@ -9,6 +9,8 @@ import { useTheme } from "../contexts/Theme.context";
 import { EventService } from "../services/event";
 import Page from "../components/Page";
 import LoadingList from "../components/LoadingList";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
 
 const Events = () => {
   const { darkMode } = useTheme();
@@ -47,13 +49,25 @@ const Events = () => {
               ? "Eventos Ativos"
               : "Sem eventos, começe agora!"}
           </h1>
-          <Button
-            variant="primary"
-            onClick={handleOpen}
-            classes="hidden lg:block"
-          >
-            Criar evento
-          </Button>
+          <div className="space-x-2 flex">
+            <Link to={"/eventos/pesquisar"}>
+              <Button
+                variant="primary"
+                onClick={handleOpen}
+                classes="hidden lg:flex gap-2 items-center"
+              >
+                Pesquisar
+                <Search />
+              </Button>
+            </Link>
+            <Button
+              variant="primary"
+              onClick={handleOpen}
+              classes="hidden lg:block"
+            >
+              Criar evento
+            </Button>
+          </div>
         </div>
         {isPending ? (
           <div className="flex items-center justify-center">

@@ -9,6 +9,8 @@ import { CommunityService } from "../services/community";
 import Page from "../components/Page";
 
 import LoadingList from "../components/LoadingList";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
 
 const Communities = () => {
   const { darkMode } = useTheme();
@@ -47,13 +49,25 @@ const Communities = () => {
               ? "Comunidades Ativas"
               : "Sem comunidades, começe agora!"}
           </h1>
-          <Button
-            variant="primary"
-            onClick={handleOpen}
-            classes="hidden lg:block"
-          >
-            Criar comunidade
-          </Button>
+          <div className="space-x-2 flex">
+            <Link to={"/comunidades/pesquisar"}>
+              <Button
+                variant="primary"
+                onClick={handleOpen}
+                classes="hidden lg:flex gap-2 items-center"
+              >
+                Pesquisar
+                <Search />
+              </Button>
+            </Link>
+            <Button
+              variant="primary"
+              onClick={handleOpen}
+              classes="hidden lg:block"
+            >
+              Criar comunidade
+            </Button>
+          </div>
         </div>
         {isPending ? (
           <div>

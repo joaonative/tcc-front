@@ -13,6 +13,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Communities from "./pages/Communities";
 import Community from "./pages/Community";
+import SearchEvent from "./pages/SearchEvent";
+import SearchComm from "./pages/SearchComm";
 
 interface RouteProps {
   element: ReactNode;
@@ -39,12 +41,20 @@ const Routes = () => {
       <Route path="/*" element={<NotFound />} />
       <Route path="/eventos" element={<PrivateRoute element={<Events />} />} />
       <Route
+        path="/eventos/pesquisar"
+        element={<PrivateRoute element={<SearchEvent />} />}
+      />
+      <Route
         path="/evento/:id"
         element={<PrivateRoute element={<EventSingle />} />}
       />
       <Route
         path="/comunidades"
         element={<PrivateRoute element={<Communities />} />}
+      />
+      <Route
+        path="/comunidades/pesquisar"
+        element={<PrivateRoute element={<SearchComm />} />}
       />
       <Route
         path="/comunidade/:id"
