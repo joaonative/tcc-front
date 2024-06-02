@@ -8,13 +8,15 @@ import NotFound from "./components/NotFound";
 import Events from "./pages/Events";
 import EventSingle from "./pages/EventSingle";
 import Loading from "./components/Loading";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Communities from "./pages/Communities";
 import Community from "./pages/Community";
 import SearchEvent from "./pages/SearchEvent";
 import SearchComm from "./pages/SearchComm";
+import { configureInterceptorFunctions } from "./api/api";
+import { useError } from "./contexts/Error.context";
 
 interface RouteProps {
   element: ReactNode;
@@ -31,6 +33,11 @@ const PrivateRoute = ({ element }: RouteProps) => {
 };
 
 const Routes = () => {
+  const { logout } = useAuth();
+  const { setError } = useError();
+  useEffect(() => {
+    configureInterceptorFunctions(logout, setError);
+  }, [logout, setError]);
   return (
     <Router>
       <Route path="/" element={<App />} />
