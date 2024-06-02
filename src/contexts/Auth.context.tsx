@@ -15,11 +15,10 @@ type Props = {
 type IAuthContext = {
   authenticated: boolean;
   setAuthenticated: (newState: boolean) => void;
-
   loadingAuth: boolean;
-
   user: User;
   setUser: (newSate: User) => void;
+  logout: () => void;
 };
 
 const initialValue = {
@@ -38,6 +37,7 @@ const initialValue = {
     token: "",
   },
   setUser: () => {},
+  logout: () => {},
 };
 
 const AuthContext = createContext<IAuthContext>(initialValue);
@@ -52,7 +52,6 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState(initialValue.user);
 
   useEffect(() => {
-    //looking for previous userdata
     const storedUser = window.localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -63,12 +62,27 @@ const AuthProvider = ({ children }: Props) => {
     }
   }, []);
 
+  const logout = () => {
+    setAuthenticated(false);
+    setUser({
+      id: "0",
+      name: "user_name",
+      age: 0,
+      email: "",
+      phone: "",
+      imageUrl: "/default.webp",
+      token: "",
+    });
+    window.localStorage.removeItem("user");
+  };
+
   return (
     <AuthContext.Provider
       value={{
         authenticated,
         loadingAuth,
         setAuthenticated,
+        logout,
         user,
         setUser,
       }}
