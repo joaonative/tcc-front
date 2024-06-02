@@ -101,19 +101,35 @@ const SearchComm = () => {
                 className="object-cover w-full lg:w-[512px]"
               />
               <p className="text-xl font-poppins font-medium">
-                Nenhuma comunidade encontrada.
+                Nenhuma comunidade encontrada para a categoria selecionada.
               </p>
             </>
           ) : (
-            <CommunityList
-              communities={
-                selectedCategory === "all"
-                  ? communities
-                  : communities.filter(
-                      (comm) => comm.category === selectedCategory
-                    )
-              }
-            />
+            <>
+              {communities.length === 0 ? (
+                <>
+                  <img
+                    src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
+                    width={768}
+                    height={512}
+                    className="object-cover w-full lg:w-[512px]"
+                  />
+                  <p className="text-xl font-poppins font-medium">
+                    Nenhuma comunidade encontrada.
+                  </p>
+                </>
+              ) : (
+                <CommunityList
+                  communities={
+                    selectedCategory === "all"
+                      ? communities
+                      : communities.filter(
+                          (comm) => comm.category === selectedCategory
+                        )
+                  }
+                />
+              )}
+            </>
           )}
         </div>
       )}

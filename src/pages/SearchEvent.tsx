@@ -99,19 +99,35 @@ const SearchEvent = () => {
                 className="object-cover w-full lg:w-[512px]"
               />
               <p className="text-xl font-poppins font-medium">
-                Nenhum evento encontrado.
+                Nenhum evento encontrado para a categoria selecionada.
               </p>
             </>
           ) : (
-            <EventList
-              events={
-                selectedCategory === "all"
-                  ? events
-                  : events.filter(
-                      (event) => event.category === selectedCategory
-                    )
-              }
-            />
+            <>
+              {events.length === 0 ? (
+                <>
+                  <img
+                    src={darkMode ? "/notfoundDark.svg" : "/notfound.svg"}
+                    width={768}
+                    height={512}
+                    className="object-cover w-full lg:w-[512px]"
+                  />
+                  <p className="text-xl font-poppins font-medium">
+                    Nenhum evento encontrado.
+                  </p>
+                </>
+              ) : (
+                <EventList
+                  events={
+                    selectedCategory === "all"
+                      ? events
+                      : events.filter(
+                          (event) => event.category === selectedCategory
+                        )
+                  }
+                />
+              )}
+            </>
           )}
         </div>
       )}
