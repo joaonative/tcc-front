@@ -63,4 +63,16 @@ export class CommunityService {
     });
     return response.data;
   }
+
+  static async searchCommunity(userToken: string, searchTerm: string) {
+    const response = await axios.get(`/communities/search`, {
+      headers: {
+        Authorization: `Bearer: ${userToken}`,
+      },
+      params: {
+        searchTerm,
+      },
+    });
+    return response.data;
+  }
 }

@@ -28,7 +28,7 @@ const SearchEvent = () => {
     searchParams.set("term", term);
     const res = await EventService.searchEvent(
       user.token,
-      searchParams.get("term") || ""
+      searchParams.get("term") || " "
     );
     setEvents(res.events);
     setIsLoading(false);
