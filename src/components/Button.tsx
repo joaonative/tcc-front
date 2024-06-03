@@ -32,7 +32,7 @@ const Button = ({
       break;
     case "danger":
       className =
-        "text-white bg-red-500 px-2 py-1 border lg:border-2 border-red-500";
+        "text-white bg-red-600  px-2 py-1 border lg:border-2 border-red-bg-red-600";
       break;
     case "google":
       className =

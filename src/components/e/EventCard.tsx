@@ -53,9 +53,9 @@ const EventCard = ({
             className="text-purple dark:text-green"
             aria-label={ariaLabel.calendarClock}
           />
-          <h3 className="text-base dark:text-white font-prompt">
+          <h2 className="text-base dark:text-white font-prompt">
             {day}/{month}
-          </h3>
+          </h2>
         </span>
         <span className="flex items-center gap-3">
           <Users
@@ -63,9 +63,9 @@ const EventCard = ({
             className="text-purple dark:text-green"
             aria-label={ariaLabel.users}
           />
-          <h3 className="text-base dark:text-white font-prompt">
+          <h2 className="text-base dark:text-white font-prompt">
             {participantCount}/{participantLimit}
-          </h3>
+          </h2>
         </span>
       </div>
     </Link>

@@ -37,6 +37,7 @@ export default function Home() {
         <img
           loading="lazy"
           src="hero.webp"
+          alt="fotografia de um homem sorrindo"
           className="shadow-2xl scale-x-[-1] lg:h-[512px] 3xl:h-[622px] hero bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green"
         />
       </section>
@@ -47,6 +48,7 @@ export default function Home() {
             loading="lazy"
             src={darkMode ? "demoDark.webp" : "demo.webp"}
             className="object-cover bg-black rounded-xl h-[420px]"
+            alt="exemplo interface do projeto iParque funcionando"
           />
         </div>
         <span className="lg:text-center lg:space-y-2">
@@ -71,6 +73,7 @@ export default function Home() {
             loading="lazy"
             src="comm.webp"
             className="lg:h-96 comm bg-gradient-to-r from-fuchsia-600 to-purple dark:from-emerald-500 dark:to-green shadow-2xl"
+            alt="fotografia de um grupo de pessoas que estao reunidas e felizes"
           />
           <div className="flex flex-col gap-5">
             <h1 className="font-prompt text-3xl lg:text-4xl ">

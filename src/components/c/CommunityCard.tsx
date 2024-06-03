@@ -22,9 +22,9 @@ const CommunityCard = ({ community }: Props) => {
         className="object-cover rounded-2xl w-full h-60 3xl:h-64"
       />
       <div className="flex flex-col gap-0">
-        <h2 className="font-prompt text-xl text-black dark:text-white line-clamp-1">
+        <h1 className="font-prompt text-xl text-black dark:text-white line-clamp-1">
           {community.name}
-        </h2>
+        </h1>
         <span>
           <p className="font-poppins font-medium text-sm text-black/80 dark:text-white/80 line-clamp-1">
             {community.description}
@@ -35,7 +35,7 @@ const CommunityCard = ({ community }: Props) => {
         {/* aqui */}
         <span className="flex items-center gap-2">
           {categoryIconMap[community.category]}
-          <h1 className="text-base font-prompt">{community.category}</h1>
+          <h2 className="text-base font-prompt">{community.category}</h2>
         </span>
         <span className="flex items-center gap-3">
           <Users
@@ -43,9 +43,9 @@ const CommunityCard = ({ community }: Props) => {
             className="text-purple dark:text-green"
             aria-label={ariaLabel.users}
           />
-          <h3 className="text-base dark:text-white font-prompt">
+          <h2 className="text-base dark:text-white font-prompt">
             {community.participantCount}/{community.participantLimit}
-          </h3>
+          </h2>
         </span>
       </div>
     </Link>

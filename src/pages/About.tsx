@@ -73,6 +73,7 @@ const About = () => {
         <img
           src="/fiec.webp"
           className="bg-purple dark:bg-green rounded-2xl w-full h-96 object-cover"
+          alt="FIEC (FUNDACAO INDAIATUBANA DE EDUCACAO E CULTURA)"
         />
 
         <section className="flex flex-col items-center justify-center gap-5">

@@ -52,6 +52,7 @@ const CommunityEvents = ({ events, community, isParticipating }: Props) => {
               width={768}
               height={512}
               className="object-cover w-full lg:w-[512px]"
+              alt="desenho grafico de um jovem procurando algo, simbolizando nao encontrado"
             />
           </div>
         )}
