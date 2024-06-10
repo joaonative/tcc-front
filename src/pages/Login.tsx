@@ -72,7 +72,6 @@ const Login = () => {
               />
             </div>
             <div className="flex lg:flex-row flex-col items-center lg:justify-between gap-1 font-prompt text-sm">
-              <a href="/">Esqueceu a senha?</a>
               <a href="/cadastro">Não tem uma conta?</a>
             </div>
             <Button variant="primary" full submit classes="mt-3">
